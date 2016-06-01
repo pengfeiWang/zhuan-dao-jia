@@ -26,9 +26,9 @@ export default {
   },
   ready () {
     var t = this;
-    t.$on('pageTab', function (num) {
-      t.pts = num;
-    });
+    // t.$on('pageTab', function (num) {
+    //   t.pts = num;
+    // });
   }
 }
 </script>
