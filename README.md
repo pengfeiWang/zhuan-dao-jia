@@ -7,3 +7,7 @@ npm install
 ```
 sudo npm install
 ```
+
+```
+gulp
+```
