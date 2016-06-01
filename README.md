@@ -3,7 +3,7 @@
 ```
 npm install
 ```
-* 
+* OR 
 ```
 sudo npm install
 ```
