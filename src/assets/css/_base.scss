@@ -1,0 +1,137 @@
+@charset "utf-8";
+@import '_class.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+[v-cloak]{
+  visibility: hidden;
+}
+html,body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 62.5%;
+}
+
+ul.notype-list,ol.notype-list,li.notype-list{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.ellipsis-2 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.tac{
+  text-align: center;
+}
+.tal{
+  text-align: left;
+}
+.tar{
+  text-align: right;
+}
+.text-indent20{
+  text-indent: 20px;
+}
+.text-indent24{
+  text-indent: 24px;
+}
+.text-indent36{
+  text-indent: 36px;
+}
+.active{
+  background-color: rgba(0,0,0,.2) !important;
+}
+.active[disabled],
+[disabled]{
+  border: none !important;
+  background-color: #eee !important;
+  color: #999 !important;
+}
+@each $i in $font-size {
+  .fz#{$i}{
+    font-size: $i*0.0625rem !important;
+  }
+}
+@each $i in $line-height {
+  .lh-#{$i}{
+    line-height: #{$i}px;
+  }
+}
+
+@each $i in $color-arr {
+  $name: map-get($i, name);
+  $val: map-get($i, val);
+  .txt-#{ $name },
+  a.txt-#{ $name },
+  .txt-#{ $name } a {
+    color: rgba($val,1) !important;
+  }
+}
+@each $i in $padding-size {
+  .padding-top-#{$i}{
+    padding-top: $i*0.0625rem !important;
+  }
+  .padding-right-#{$i}{
+    padding-right: $i*0.0625rem !important;
+  }
+  .padding-bottom-#{$i}{
+    padding-bottom: $i*0.0625rem !important;
+  }
+  .padding-left-#{$i}{
+    padding-left: $i*0.0625rem !important;
+  }
+  .padding-#{$i}{
+    padding: $i*0.0625rem !important;
+  }
+  .margin-top-#{$i}{
+    margin-top: $i*0.0625rem !important;
+  }
+  .margin-right-#{$i}{
+    margin-right: $i*0.0625rem !important;
+  }
+  .margin-bottom-#{$i}{
+    margin-bottom: $i*0.0625rem !important;
+  }
+  .margin-left-#{$i}{
+    margin-left: $i*0.0625rem !important;
+  }
+  .margin-#{$i}{
+    margin: $i*0.0625rem !important;
+  }
+  .padding-0{
+    padding: 0 !important;
+  }
+  .padding-tb0{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .margin-0{
+    margin: 0 !important;
+  }
+}

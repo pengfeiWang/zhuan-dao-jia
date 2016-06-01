@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+
+@function px2rem ( $pxSize ) {
+  @return $pxSize*0.0625rem;
+}
+@function pt2rem( $ptVal ) {
+  @return pxValue($ptVal*96/72);
+}
+@function pt2px( $ptVal ) {
+  @return $ptVal*96/72px;
+}
+@function px2pt ( $pxVal ) {
+  @return $pxVal*72/96px;
+}
+@mixin loading-spinner($size: 28px, $color: black, $bar-width: 2px, $bar-height: 8px) {
+  .loading-spinner {
+    /* font-size: 198%; */
+    height: $size;
+    width: $size;
+    position: relative;
+    transform-origin: $size/2 $size/2;
+    & > span,
+    & > span:before,
+    & > span:after {
+      display: block;
+      position: absolute;
+      width: $bar-width;
+      height: $bar-height;
+      top: 0;
+      transform-origin: $bar-width/2 $size/2;
+      content: " ";
+      border-radius:($bar-width/2);
+    }
+    & > span {
+      left: 50%;
+      margin-left:  -($bar-width/2);
+
+      &.loading-top           { background-color: rgba($color, 0.99); }
+      &.loading-top::after    { background-color: rgba($color, 0.90); }
+      &.loading-left::before  { background-color: rgba($color, 0.80); }
+      &.loading-left          { background-color: rgba($color, 0.70); }
+      &.loading-left::after   { background-color: rgba($color, 0.60); }
+      &.loading-bottom::before{ background-color: rgba($color, 0.50); }
+      &.loading-bottom        { background-color: rgba($color, 0.40); }
+      &.loading-bottom::after { background-color: rgba($color, 0.35); }
+      &.loading-right::before { background-color: rgba($color, 0.30); }
+      &.loading-right         { background-color: rgba($color, 0.25); }
+      &.loading-right::after  { background-color: rgba($color, 0.20); }
+      &.loading-top::before   { background-color: rgba($color, 0.15); }
+    }
+  }
+  .loading-spinner > span.loading-top { transform: rotate(0deg); }
+  .loading-spinner > span.loading-right { transform: rotate(90deg); }
+  .loading-spinner > span.loading-bottom { transform: rotate(180deg); }
+  .loading-spinner > span.loading-left { transform: rotate(270deg); }
+  .loading-spinner > span::before {transform: rotate(30deg); }
+  .loading-spinner > span::after { transform: rotate(-30deg); }
+  .loading-spinner {
+    animation-name: loading-spinner-rotate;
+    animation-duration: .8s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
+// 白色
+$color_fff: #fff;
+// 深灰接近黑
+$color_gray: #7f7f7f;
+// 绿, header footer 背景
+$color_green: #6eb92b; 
+// 浅绿
+$color_green_2: #c6ddb2;
+
+$color_red: #c30d23;
+
+$color-arr: 
+  (name: 'fff', val: $color_fff),
+  (name: 'red', val: $color_red),
+  (name: 'green', val: $color_green) !default;
+
+$font-size: 12,13,14,15,16,17,18,20,22,24,26,28,30,32,35,40;
+$padding-size: 5,8,10,12,14,16,18,20;
+$pages-size: 1,2,3,4,5,6;
+$line-height: 14, 16, 18, 20, 22, 24,28,30;

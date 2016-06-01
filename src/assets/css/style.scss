@@ -1,0 +1,375 @@
+@charset "utf-8";
+@import '_base.scss';
+@import '_class.scss';
+@import '_layout.scss';
+@import '_font.scss';
+@import '_animate.scss';
+
+@keyframes flipouttoleft {
+    0% { opacity: 1; transform: rotateY(0); }
+    100% { opacity: 0; transform: rotateY(-90deg) scale(.9); }
+}
+
+@keyframes flipouttoright {
+    0% { transform: rotateY(0); }
+    100% { transform: rotateY(90deg) scale(.9); }
+}
+
+@keyframes flipintoleft {
+    0% { transform: rotateY(-90deg) scale(.9); }
+    100% { transform: rotateY(0); }
+}
+
+@keyframes flipintoright {
+    0% { transform: rotateY(90deg) scale(.9); }
+    100% { transform: rotateY(0); }
+}
+
+
+.gol-header{
+  background-color: $color_green;
+}
+.gol-footer{
+  background-color: yellow;
+}
+.pages > img{
+  max-width: 100%;
+  max-height: 100%;
+}
+/* === page animate */
+.page-transition{
+  transition: all 1s cubic-bezier(0.18, 0.79, 0.43, 0.99);
+  transform: translateX(0%) !important;
+}
+.page-enter{
+  opacity: 1;
+  transform: translateX(0%) !important;;
+}
+.page-enter.back-enter {
+  transform: translateX(-100%);
+}
+.page-leave{
+  opacity: 0;
+  transform: translateX(-30%) !important;
+}
+.back-leave {
+  opacity: 0;
+  transform: translateX(100%) !important;
+}
+/* 任务列表 */
+.task-list{}
+.task-list li{
+  position: relative;
+  padding: 15px 0 0 95px;
+  min-height: 124px;
+}
+.task-list li .footer{
+  position: absolute;
+  bottom:1px;
+  left: 0;right: 0;
+  height: 22px;
+  line-height: 22px;
+  background-color: $color_green_2;
+  padding: 0 15px;
+}
+.task-list .text {
+  position: absolute;
+  bottom: 45px;
+  right: 15px;
+  left: 95px;
+  line-height: 16px;
+}
+.task-list li img{
+  width: 70px;
+  height: 70px;
+  float: left;
+  margin-left: -85px;
+}
+.task-list li .title{
+  color: $color_green;
+  font-size: px2rem(16);
+}
+.task-list .footer:after{
+  clear: both;
+  content: " ";
+  height: 1px;
+  position: absolute;
+  bottom:0;
+  left: 0;
+  right: 0;
+  background-color: $color_gray;
+  transform: scaleY(.5);
+}
+/* 任务详情 */
+.task-detail{}
+  .task-detail .img-box{
+    position: absolute;
+    top: 0; right: 0;bottom: 0;left: 0;
+    width: 100%; height: 60%;
+    background: url('../images/page-3.jpg') no-repeat 0 100%;
+    background-size: cover; 
+  }
+  .task-detail .bottom,
+  .task-detail .footer{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .task-detail .bottom{
+    bottom: 40px;
+  }
+  .task-detail .bottom .footer{
+    background:none;
+  }
+  .task-detail .bottom .footer:after{
+    display: none
+  }
+  .task-detail .footer{
+    height: 39px;
+  }
+  .task-detail .footer button{
+    width: 100%; height: 100%; text-align: center;
+    line-height: 39px;
+    color: $color_fff;
+    border: none;
+    background-color: $color_green;
+    font-size: px2rem(14);
+  }
+  .task-detail .task-list{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+  }
+  .share-box {
+    padding: 0 10px;
+  }
+/* 签到 */
+.signstar_wrapper{
+  overflow: hidden;
+  background: url('../images/page-3.jpg') no-repeat;
+  background-size: 100% 100%;
+}
+.signstar_wrapper .content{
+  margin: 100px auto;
+  padding: 0 15%;
+  line-height: 20px;
+}
+.signstar_wrapper .content button{
+  background-color: $color_green;
+  padding: 4px 15px;
+  font-size: px2rem(14);
+  color: $color_fff;
+  border: none;
+  border-radius:3px;
+}
+/* 摇一摇 */
+.shake{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.shake-b{
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+}
+/* 定时抢 */
+.timinggrab{ 
+  width: 100%;
+  overflow: hidden;
+}
+.timinggrab .list{
+  display: inline-block;
+  width: 40%;
+  margin-left: 6.66%;
+  position: relative;
+  padding-top: 50%;
+  margin-bottom: 4.66%;
+  -webkit-perspective: 1000px;
+}
+.timinggrab .list .icon{
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+.timinggrab .list .icon img{
+  position: absolute;
+  right: 0;bottom: 10px;left: 0;margin: auto;
+  width: 20%;
+  height: auto;
+}
+.timinggrab .list .desc{
+  width: 100%;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  margin: auto;
+  text-align: center;
+  padding: 0 10px;
+  line-height: 18px;
+  transform: translate(-50%, -50%);
+  color: #444;
+}
+
+.timinggrab .list .inner{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.timinggrab .list .flip{
+  background:#000;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  transform: translateX(0);
+  border-radius:10px;
+  background: #f8b62b url('../images/h-t0.jpg') 0 0 no-repeat;
+  background-size: contain;
+}
+.timinggrab .list .flip:first-child{
+  box-shadow: 0 5px 2px #b38419;
+}
+.timinggrab .list .flip:last-child{
+  box-shadow: 0 5px 2px #a50319;
+  background: #c30d23 url('../images/h-t1.jpg') 0 0 no-repeat;
+  background-size: contain;
+}
+.timinggrab .list .in {
+  animation-timing-function: ease-out;
+  animation-duration: 350ms;
+}
+.timinggrab .list .out {
+  animation-timing-function: ease-in;
+  animation-duration: 225ms;
+}
+
+.timinggrab .list .flip.out {
+  transform: rotateY(-90deg) scale(.9);
+  animation-name: flipouttoleft;
+  animation-duration: 175ms;
+}
+.timinggrab .list .flip.in {
+  animation-name: flipintoright;
+  animation-duration: 225ms;
+}
+.timinggrab .list.active{
+  background:none !important;
+}
+.timinggrab .list.active .desc{
+  color: #f1b13c;
+}
+// 猜大小
+.lotto {}
+.lotto{ color:#fff}
+.lotto p{padding: 5px 20px}
+.lotto .desc-box{
+  position:absolute; 
+  bottom:20px; 
+  left:0;
+  right:0;
+  // height: 280px;
+  width: 100%;
+}
+.lotto label{
+  padding-right: 3px;
+}
+.lotto .start{
+  padding: 5px 15px;
+  border-radius:10px;
+  border:none;
+  background-color: #f8f8f8;
+}
+.lotto label input{
+  margin-right: 5px;
+  transform: translateY(2px);
+}
+.lotto .bet{
+  display: block;
+}
+.lotto .tip{
+  // height: 100%;
+  // width:100%;
+  // position:-absolute; top:0;left: 0;right: 0;
+  // display: -none;
+}
+.lotto .tip img{ text-align: center;}
+.lotto .btn-box{
+  // width: 100%;
+  // position: absolute;
+  // top: 0;
+  // display: inline;
+  margin: 0 auto;
+  text-align: center;
+}
+.lotto .tip div{
+  // position: -absolute;bottom: 30px
+}
+.lotto .is-win{
+  margin: 0 auto;
+  // position: -absolute; top: 0;right: 0;left: 0;
+  width: 50%;
+  height: auto;
+}
+.lotto .win{
+  background: url('../images/lotto-btn-win.png') 0 0 no-repeat;
+}
+.lotto .no-win{
+  background: url('../images/lotto-btn-nowin.png') 0 0 no-repeat;
+}
+
+
+.scroll-pull {
+  width: 100%;
+  height:50px; 
+  line-height:50px;
+  text-align: center;
+  position: relative;
+  font-weight:bold; 
+  font-size:14px; 
+  color:#888;
+  overflow: hidden;
+}
+
+.scroll-pull .loading-spinner-outer {
+  display:flex;
+  box-orient:vertical;
+  flex-direction:column;
+  box-align:center;
+  align-items:center;
+  box-pack:center;
+  justify-content:center;
+
+  position: absolute;
+  top: 0;left: 0;right: 0;bottom: 0;
+  background: #eeeeee;
+  display: none;
+
+  @include loading-spinner();
+}
+.scroll-pull .loading-spinner-outer .loading-spinner{
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+margin: auto;
+}
