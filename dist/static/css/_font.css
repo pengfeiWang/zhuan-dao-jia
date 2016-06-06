@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'wf';
+    src:    url('fonts/wf.eot?nj0q8o');
+    src:    url('fonts/wf.eot?nj0q8o#iefix') format('embedded-opentype'),
+        url('fonts/wf.ttf?nj0q8o') format('truetype'),
+        url('fonts/wf.woff?nj0q8o') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'wf' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-help-with-circle:before {
+    content: "\e901";
+}
+.icon-arrow-left2:before {
+    content: "\e900";
+}
+
