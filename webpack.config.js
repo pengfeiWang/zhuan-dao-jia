@@ -21,7 +21,7 @@ function utilfy(){
   }) 
 }
 module.exports = {
-  watch: true,
+  watch: false,
   entry: {
     app: './src/main.js',
     // vue: ['vue'],

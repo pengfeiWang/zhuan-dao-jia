@@ -5,7 +5,7 @@
   <!-- <Task></Task> -->
   <Sign></Sign>
   <Arena></Arena>
-  <!-- <Money></Money> -->
+  <Money></Money>
   <audio src="./static/images/5018.mp3">您的浏览器不支持 audio 标签。</audio>
   <div id="mask" class="mask"></div>
   <div id="dialog" class="dialog"></div>  
@@ -21,7 +21,7 @@ import Sign from './components/sign/index'
 import Money from './components/money/index'
 export default {
   components: {
-    Index,/*Task,*/ Arena, Sign /*,Money*/ 
+    Index,/*Task,*/ Arena, Sign, Money
   }
 }
 </script>

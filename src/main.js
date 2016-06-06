@@ -111,6 +111,7 @@ var backHandle = (vm) => {
       }
       utils.setActive(vm, node);
       if( vm.show == 1 ) {
+        callClientFunction('returnBack')
         return;
       }
       vm.isBack = true;

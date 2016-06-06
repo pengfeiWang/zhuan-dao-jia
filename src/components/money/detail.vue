@@ -83,7 +83,7 @@ export default {
   },
   ready () {
     var t = this;
-    back(t, 'show', function (){});
+    back(t, 'show');
     btnTap(t);
     t.$on('moneyDetail', function (data) {
       t.timeNum = 5;

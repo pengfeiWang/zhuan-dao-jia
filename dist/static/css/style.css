@@ -600,7 +600,7 @@ a.txt-green,
   bottom: 0;
   left: 0;
   overflow: hidden;
-  background-color: #fff; }
+  background-color: #e3e3e3; }
 
 .page {
   width: 100%;
@@ -1165,12 +1165,13 @@ a.txt-green,
 .signstar_wrapper .content {
   margin: 100px auto;
   padding: 0 15%;
-  line-height: 20px; }
+  line-height: 20px;
+  font-size: 16px; }
 
 .signstar_wrapper .content button {
   background-color: #6eb92b;
   padding: 4px 15px;
-  font-size: 0.875rem;
+  font-size: 14px;
   color: #fff;
   border: none;
   border-radius: 3px; }
@@ -1631,10 +1632,10 @@ a.txt-green,
 .money-list .list-box button .cont div {
   color: #fff;
   text-align: center;
-  line-height: 22px; }
+  line-height: 20px; }
 
 .money-list .list-box button .b {
-  font-size: 18px; }
+  font-size: 16px; }
 
 .money-list .list-box button .s {
   font-size: 14px; }

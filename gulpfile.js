@@ -53,6 +53,8 @@ function wrapDefine(data) {
 const srcDft = [
   'src/*.js',
   'src/**/*.js',
+  'src/**/*.vue',
+
   'src/assets/lib*/utils.js',
   'src/assets/lib*/vue-plugin/*.js',
   '!src/assets/lib*/seajs/*',
@@ -98,13 +100,30 @@ gulp.task('buildjs', function () {
   console.log('         开始编译'.green.bold)
   console.log('**********************///'.bold)
   return gulp.src(srcDft)
-    .pipe(changed(dist, {extension: '.js'}))
+    .pipe(changed(dist))
     .pipe(webpack( cfg ))
+    .on('error', function(err) {
+      console.log('buildjs Error!', err.message);
+      this.end();
+    })
     .pipe(gulp.dest(dist))
 });
+gulp.task('scss', function (){
+    gulp.src('src/**/*.scss')
+    .pipe(changed(dist, {extension: '.scss'}))
+    .pipe(sass({outputStyle: 'expanded', sourceComments: true}).on('error', sass.logError))
+    .on('error', function(err) {
+      console.log('scss Error!', err.message);
+      this.end();
+    })
+    .pipe(autoprefixer({ browsers: ['> 1%'], cascade: false }))
+    .pipe(gulp.dest(dist));
+})
 // 监听任务 运行语句 gulp watch
 gulp.task('watchs',  function (){
   gulp.watch(srcDft, ['buildjs']);
+  gulp.watch('src/**/*.scss', ['scss'])
+  gulp.watch(copyDef,['copyfiles'])
 });
 // 删除
 gulp.task('delete', function (cb){

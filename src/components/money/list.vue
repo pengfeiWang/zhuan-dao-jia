@@ -18,7 +18,7 @@
             <div class="cont">
               <div class="b">LED电视</div>
               <div class="s">55英寸</div>
-              <div class="x">4K（3840*2160）</div>
+              <div class="x">4K(3840*2160)</div>
             </div>
           </div>
         </button>

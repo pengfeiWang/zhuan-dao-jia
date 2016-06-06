@@ -13,7 +13,7 @@
           <div class="timinggrab" id="timinggrab">
             <div class="list" v-for="it in timinggrabData"  data-idx="{{$index}}">
               <div class="inner">
-                <div class="flip" v-bind:class="{'in':it.overFlg,'out':!it.overFlg}">
+                <div class="flip out">
                   <div class="icon">
                     {{{$index | renderSrc }}}
                   </div>
@@ -21,7 +21,7 @@
                     <p v-for="sit in it.desc">{{sit}}</p>
                   </div> 
                 </div>
-                <div class="flip" v-bind:class="{'out':it.overFlg,'in':!it.overFlg}">
+                <div class="flip in">
                   <div class="icon">
                     {{{$index | renderSrc }}}
                   </div>
@@ -42,10 +42,12 @@
     </div>
   </div>
 </div>
+<Flopdetail></Flopdetail>
 </template>
 
 <script>
 import Vue from 'vue'
+import Flopdetail from './flop/flop-detail'
 import golMdule from '../../module/index';
 var { back, getUser } = golMdule;
 var arrTip = [
@@ -54,6 +56,7 @@ var arrTip = [
   '开始抢, 精神一下午',
   '开始抢, 健胃又消食'
 ]
+var timinggrabNode;
 // 测试数据
 var timinggrab =[
     {
@@ -103,38 +106,24 @@ Vue.filter('renderSrc', function ( idx ) {
   var s = '<img src="./static/images/h-t-' + idx + '.png" alt="">';
   return s;
 });
-var anm = (first, last) => {
+var anm = (first, last, cb) => {
   first.classList.add('out');
   first.classList.remove('in');
   setTimeout(function () {
     last.classList.add("in")
     last.classList.remove("out");
+    if(cb) {
+      setTimeout(cb,500)
+    };
     // first.parentNode.parentNode.classList.remove('active')
   }, 225);
 }
-var getALL = (vm) => {
-  // 获取用户信息
-  getUser(function (data){
-  // vm.$root.userInfo = data;
-  });
-  // 获取列表
-  ;(function () {
-    utils.ajax({
-      url: config.URL +'test.php',
-      type: 'post',
-      dataType: 'json',
-      data: {},
-      success (res) {
-        // vm.timinggrabData = list
-      },
-      error (xhr) {}
-    });
-  });
-}
+
 var start = (vm) => {
-  var timinggrab = document.querySelector('#timinggrab')
+  timinggrabNode = document.querySelector('#timinggrab');
+
   // 抢红包
-  Hammer(timinggrab).on('tap', function (ev) {
+  Hammer(timinggrabNode).on('tap', function (ev) {
     var target = ev.target;
     var flip, firstNode, lastNode, idx, row, reqData = config.reqParam;
     if( target.classList.contains('timinggrab') ) {
@@ -147,11 +136,13 @@ var start = (vm) => {
     flip = target.querySelectorAll('.flip');
     firstNode = flip[0];
     lastNode = flip[1];
+
+
+
     if(vm.timinggrabData[idx].overFlg){
       utils.dialog('已经抢过了');
       return;
     }
-  
     reqData.doKind = idx+1;
     utils.ajax({
       url: config.URL +'doTimeRedPaper.do',
@@ -160,11 +151,13 @@ var start = (vm) => {
       data: reqData,
       success (res) {
         if( res.rescode == 100 ) { //可以抢
-
+          document.body.classList.add('detail');
           vm.timinggrabData[idx].overFlg = true;
           firstNode = flip[1];
           lastNode = flip[0];
-          anm(firstNode,lastNode);
+          anm(firstNode,lastNode, function (){
+            vm.$broadcast('flopDetail', res.data)
+          });
         } else {
           utils.dialog(res.message)
         }
@@ -187,6 +180,17 @@ var init = (vm) => {
           vm.timinggrabData[i].overFlg = parseInt(res.data['overFlg'+(i+1)],10);
           vm.timinggrabData[i].desc[1] = res.data['doTime4'+(i+1)] + arrTip[i];
         }
+        
+        var l = timinggrabNode.querySelectorAll('.list');
+        for(var i = 0, len = l.length; i < len; i++ ) {
+          var flip = l[i].querySelectorAll('.flip');
+          if( vm.timinggrabData[i].overFlg ) {
+            anm(flip[1], flip[0]);
+          } else {
+            anm(flip[0], flip[1]);
+          }
+          
+        }        
       } else {
         utils.dialog(res.message);
       }
@@ -204,10 +208,10 @@ export default {
       timinggrabData: timinggrab
     }
   },
+  components:{Flopdetail},
   ready () {
     var t = this;
     back(t);
-    // getALL(t);
     start(t);
     t.$on('arenaTap', function (num) {
       var bol = (num == 3)
@@ -216,7 +220,9 @@ export default {
         t.pts = t.$parent.pts
         t.$parent.pts = false
       }
-      // getALL(t);
+
+  
+
       //0 骰子, 1 其他, 2 摇一摇, 3 翻牌 
       t.show = bol;
     });
