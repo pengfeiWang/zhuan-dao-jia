@@ -23,13 +23,16 @@ function utilfy(){
 module.exports = {
   watch: true,
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    // vue: ['vue'],
+    index: './src/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: './',
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js' 
+    filename: '[name].js'
+    // ,
+    // chunkFilename: '[name].chunk.js' 
   },
   // devtool: '#eval-source-map',
   resolve: {
@@ -40,7 +43,8 @@ module.exports = {
       'assets': path.resolve(__dirname, 'src/assets'),
       'utils': path.resolve(__dirname, 'src/assets/lib/utils'),
       'hammer': path.resolve(__dirname, 'src/assets/lib/hammer/hammer'),
-      'images': path.resolve(__dirname, 'src/assets/images'),
+      'mui': path.resolve(__dirname, 'src/assets/lib/mui/mui.2.7.0.js'),
+      // 'images': path.resolve(__dirname, 'src/assets/images'),
       'components': path.resolve(__dirname, 'src/components')
     }
   },
@@ -88,7 +92,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
-          limit: 10000,
+          // limit: 100000,
           name: utils.assetsPath('images/[name].[hash:7].[ext]')
         }
       },
@@ -96,7 +100,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
         query: {
-          limit: 10000,
+          // limit: 100000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       },
@@ -104,57 +108,57 @@ module.exports = {
         test: /\.scss$/,
         // include: projectRoot,
         loaders: ["style", "css", "sass"]
-      }
+      },
+      {test:/\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
     ]
   },
   vue: {
-    loaders: utils.cssLoaders()
+    loaders: utils.cssLoaders({
+      sourceMap: false,
+      extract: true
+    })
   },
   plugins: [
     config.dev ? function () {}: utilfy(),
     new webpack.DefinePlugin({
       'process.env': config.dev ? '"development"' : '"production"'
     }),
-    new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
+    new ExtractTextPlugin('./static/css/style.css'),
+    // new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   minChunks: function (module, count) {
-    //     return (
-    //       module.resource &&
-    //       module.resource.indexOf(
-    //         path.join(__dirname, './node_modules')
-    //       ) === 0
-    //     )
-    //   }
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vue',
-    //   name: 'vue',
-    //   chunks: ['app']
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'commons',
-    //   filename:'commons.js',
-    //   chunks: ['utils', 'hammer']
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vue',
+      filename: 'vue.js'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js'
+    }),
     new HtmlWebpackPlugin({
       filename: 'game.html',
       template: 'game.html',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      },
+      // minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeAttributeQuotes: true
+      // },
+      chunks:['vendor','vue','app'],
       chunksSortMode: 'dependency'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: false
+      inject: true,
+      // minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeAttributeQuotes: true
+      // },
+      chunks:['vendor','vue','index'],
+      chunksSortMode: 'dependency'
     })
   ]
 }

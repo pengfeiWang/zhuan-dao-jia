@@ -2,10 +2,10 @@
 <!-- 0 首页, 1 任务, 2 竞技场 , 3 签到, 5 暂定详情-->
 <div id="page-wrapper" class="page-wrapper">
   <Index></Index>
-  <Task></Task>
+  <!-- <Task></Task> -->
   <Sign></Sign>
   <Arena></Arena>
-  <Money></Money>
+  <!-- <Money></Money> -->
   <audio src="./static/images/5018.mp3">您的浏览器不支持 audio 标签。</audio>
   <div id="mask" class="mask"></div>
   <div id="dialog" class="dialog"></div>  
@@ -21,7 +21,7 @@ import Sign from './components/sign/index'
 import Money from './components/money/index'
 export default {
   components: {
-    Index,Task,Arena,Sign,Money
+    Index,/*Task,*/ Arena, Sign /*,Money*/ 
   }
 }
 </script>
@@ -38,7 +38,8 @@ export default {
   /* .expand-enter 定义进入的开始状态 */
   /* .expand-leave 定义离开的结束状态 */
   .expand-enter,
-  .art-enter{
+  .art-enter,
+  .detail .art-enter{
     transform: translateX(100%)
   }
   .shareShow-enter{
@@ -62,4 +63,19 @@ export default {
     opacity: 0;
     transform: translateX(100%)
   }
+  .detail .art-enter{
+    transform: translateX(100%)
+  }
+  .detail .art-leave{
+    opacity: 0;
+    transform: translateX(-30%)
+  }
+  .detail.art .art-enter{
+    transform: translateX(-30%)
+  }
+  .detail.art .art-leave{
+    opacity: 0;
+    transform: translateX(100%)
+  }
+
 </style>

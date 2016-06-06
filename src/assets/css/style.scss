@@ -30,7 +30,7 @@
   background-color: $color_green;
 }
 .gol-footer{
-  background-color: yellow;
+  background-color: $color_green;
 }
 .pages > img{
   max-width: 100%;
@@ -148,8 +148,12 @@
 /* 签到 */
 .signstar_wrapper{
   overflow: hidden;
-  background: url('../images/page-3.jpg') no-repeat;
-  background-size: 100% 100%;
+  // background: url('../images/page-3.jpg') no-repeat;
+  // background-size: 100% 100%;
+}
+.signstar_wrapper img:first-child{
+  position: absolute; top: 0;bottom: 0;left: 0;right: 0;
+  width: 100%; height:100%;z-index: -1;
 }
 .signstar_wrapper .content{
   margin: 100px auto;
@@ -274,8 +278,17 @@
 .timinggrab .list.active{
   background:none !important;
 }
-.timinggrab .list.active .desc{
+.timinggrab .flip.in .desc{
+  color: #444;
+}
+.timinggrab .flip:nth-child(2).in .desc{
   color: #f1b13c;
+}
+.timinggrab .flip.out .desc{
+  color: #f1b13c;
+}
+.timinggrab .flip:nth-child(1).out .desc{
+  color: #444;
 }
 // 猜大小
 .lotto {}
@@ -366,10 +379,195 @@
   @include loading-spinner();
 }
 .scroll-pull .loading-spinner-outer .loading-spinner{
-position: absolute;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
+
+.money-page{
+  background-color: #ececec;
+}
+  .money-page-box{
+    margin:px2rem(26);
+  }
+
+  .money-page-box ul{
+    // display: table;
+    width: 100%;
+    // columns:2
+  }
+  .money-page-box li{
+    width: 50%;
+    list-style-type: none;
+    float: left;
+    // display: table-cell;
+    padding-right: px2rem(13);
+    margin-bottom: px2rem(26);
+  }
+  .money-page-box li:nth-child(2n){
+    padding-left: px2rem(13);
+    padding-right:0;
+    // padding-right:0;
+    // padding-left:5%;
+    // float: right;
+  }
+  .money-page-box li .inner{
+    padding-top: 100%;
+    
+    position: relative;
+  }
+  .money-page-box li .content{
+    position: absolute; top: 0;right: 5%; bottom: 0;left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  .money-page-box li:nth-child(2n) .content{
+    // left: 5%;
+  }
+  .money-page-box li .content .bg{
+    position: absolute; top: 0;right: 0;bottom: 0;left: 0;margin: auto;
+  }
+  // .money-page-box li .content:before,
+  .money-page-box li .content .title{
+    // content: ' ';
+    // display: block;
+    position: absolute;
+    bottom: 16px; left: 0; right:0; margin: auto;
+    text-align: center;
+    font-size: 16px;
+  }
+  $money-list-bg: 
+    (name: 1, c: #a9d692, tc: #666, txt: '厨卫电器'), 
+    (name: 2, c: #6eb9bd, tc: #666, txt: '家具建材'),
+    (name: 3, c: #7869a4, tc: #fff, txt: '家用电器'), 
+    (name: 4, c: #904998, tc: #fff, txt: '生活服务'),
+    (name: 5, c: #cc7936, tc: #fff, txt: '汽车用品'),
+    (name: 6, c: #e3c572, tc: #666, txt: '生活家电'),
+    (name: 7, c: #c8a063, tc: #fff, txt: '随机');
+  //ad
+  // .money-page-box li:nth-child(1) {
+  //   background: url("../images/money-bg.png") no-repeat 0 0;
+  // }
+  // .money-page-box li:nth-child(1) .content .bg{
+  //   background-color:#a9d692;
+  //   background-position: 0 0;
+  //   background-size: 50% 50%;
+  // }
+ .money-page-box li:nth-child(1) {
+  // opacity: 0
+ }
+@each $i in $money-list-bg {
+  $name: map-get($i, name);
+  $c: map-get($i, c);
+  $tc: map-get($i, tc);
+  $txt: map-get($i, txt);
+  .money-page-box li:nth-child(#{$name}) .content{
+    background-color: $c;
+  }
+
+  .money-page-box li:nth-child(#{$name}) .bg{
+    background: url(../images/money-index/#{$name}.png) 50% 30% no-repeat;
+    background-size: 60% 60%;
+    // background-position: 50% 30%;
+  }
+  // .money-page-box li:nth-child(#{$name}) .content:before,
+  .money-page-box li:nth-child(#{$name}) .content .title{
+    // content: $txt;
+    color: $tc;
+  }
+} 
+
+.money-list{
+  width: 100%
+} 
+.money-list .list-box{
+  margin:px2rem(22) 1.6rem px2rem(22) 0;
+}
+.money-list .list-box button{
+  width: 33.33%;
+  list-style-type: none;
+  float: left;
+  // display: table-cell;
+  padding-left: 5%;
+  margin-bottom: 5%;
+  background:none;
+  border:none
+}
+
+.money-list .list-box button .inner{
+  padding-top: 120%;
+  position: relative;
+}
+.money-list .list-box button .cont{
+  background: url(../images/money-index/money-list.png) no-repeat 0 0;
+  position: absolute; top: 0;right: 0;bottom: 0;left: 0;
+  background-size: 100% 100%;
+  padding-top: 50%;
+}
+.money-list .list-box button .cont.active{
+  background-color: initial !important;
+  opacity: .9;
+}
+.money-list .list-box button .cont div{
+  color: #fff;
+  text-align: center;
+  line-height: 22px;
+}
+.money-list .list-box button .b{
+  font-size: 18px;
+}
+.money-list .list-box button .s{
+  font-size: 14px;
+}
+
+.money-detail .detail-box{
+  padding: 30px 30px 0
+}
+.money-detail .gol-wrapper.doc-footer{
+  bottom: 49px;
+}
+.money-detail .gol-footer{
+
+}
+.money-detail .gol-footer button{
+  width: 100%;
+  height: 100%;
+  border:none;
+  background:none;
+  position: relative;
+  color: #fff;
+}
+.money-detail .gol-footer button[disabled]{
+  color:#444
+}
+.money-detail .gol-footer button span{
+  position: absolute;
+  top: 10px;right: 10px;bottom: 10px;
+  line-height: 12px;
+  padding: 10px 20px;
+  background: #fff;
+  text-align: center;
+  color:#444
+}
+.money-detail .gol-footer button[disabled] span{
+  background: $color_green;
+  color:#fff;
+}
+.detail-box{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.detail-box img{
+  position: absolute;
+  top: 0;right: 0;bottom: 0;margin: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+

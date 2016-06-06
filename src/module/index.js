@@ -1,6 +1,6 @@
 'use strict';
 var obj = {
-  back (vm) {
+  back (vm, param, cb) {
     var hBack = vm.$els.back;
     var rootVm = vm.$root;
     Hammer(hBack).on('tap', function () {
@@ -8,15 +8,21 @@ var obj = {
         return;
       }
       if(hBack.disabled) return;
-      rootVm.$el.classList.add('art')
+
+      rootVm.$el.classList.add('art');
+      if(param){
+        rootVm.$el.classList.add('detail');
+      }
+      if(cb){
+        cb();
+      }
       vm.show = false;
-      vm.$parent.pts = vm.pts
+      vm.$parent[param?param:'pts'] = vm.pts
     })
   },
   isTranslate (vm) { return vm.$root.isTranslate; },
   getUser (cb) {
     var t = this;
-    console.log(config.UID)
     utils.ajax({
       url: config.URL +'test.php',
       type: 'post',

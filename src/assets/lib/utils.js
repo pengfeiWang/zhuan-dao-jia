@@ -383,8 +383,12 @@ var _ajaxClass = (function () {
     var xhr = settings.xhr(settings);
     var nativeSetHeader = xhr.setRequestHeader;
     var abortTimeout;
-
-    setHeader('X-Requested-With', 'XMLHttpRequest');
+    var locationHost = location.host;
+    var U = options.url.replace(/http\:\/\//,'').replace(/\/.+$/ig,'')
+    if(U==locationHost){
+      setHeader('X-Requested-With', 'XMLHttpRequest');
+    }
+    
     setHeader('Accept', mime || '*/*');
     if (!!(mime = settings.mimeType || mime)) {
       if (mime.indexOf(',') > -1) {

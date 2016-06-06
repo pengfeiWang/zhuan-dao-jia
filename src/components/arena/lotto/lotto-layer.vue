@@ -126,6 +126,17 @@ var lottoStart = (vm) => {
   })
   Hammer(btn).on('tap', function () {
     btn.disabled = true;
+    var betKind;
+    for(var i = 0, len = vm.bet.length; i < len; i++ ) {
+      if(vm.bet[i].checked) {
+        betKind = i+1;
+      }
+    }
+    var betData = utils.extend({}, config.reqParam, {
+        betKind: betKind ,
+        betValue: vm.betScore
+      });
+    // console.log(betData); return;
     sAnimate(vm, Math.floor(Math.random() * 6 + 1 ), Math.floor(Math.random() * 6 + 1 ), btn);
     var num = (cb) => {
       //用户压的大小, s 小, b 大
@@ -147,17 +158,24 @@ var lottoStart = (vm) => {
       sAnimate(vm, n[0], n[1], btn);
     }
     utils.ajax({
-      url: config.URL,
+      url: config.URL + 'doDice.do',
       dataType: 'JSON',
       type: 'post',
-      data: {},
-      success (req) {
-        setTimeout(function () {
-          stop = true;
-          // 由后台返回的是否命中
-          vm.isWin = true;
-          num();
-        },500);
+      data: betData,
+      success (res) {
+        stop = true;
+        vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
+        vm.score = res.data.availableDevoteValue;
+        if(res.rescode == 100) {
+          if( parseInt(res.data.winFlg) == 0 ) {
+            vm.isWin = true;
+            num();
+            return;
+          }
+        }
+        vm.isWin = false;
+        num();
+
       },
       error (xhr) {
         setTimeout(function () {
@@ -170,6 +188,41 @@ var lottoStart = (vm) => {
     })     
   });
 };
+var init = (vm) => {
+  var rootVM = vm.$root;
+  var arr = [];
+  
+  utils.ajax({
+    url: config.URL + 'initDice.do',
+    type: 'post',
+    dataType: 'json',
+    data: config.reqParam,
+    success (res) {
+      if( res.rescode == 100 ) {
+        vm.data = res.data;
+        rootVM.userInfo.availableDevoteValue = res.data.availableDevoteValue;
+        
+        arr[0] = {checked: true, score: res.data.betValue1};
+        arr[1] = {checked: false, score: res.data.betValue2};
+        arr[2] = {checked: false, score: res.data.betValue3};
+        vm.score = res.data.availableDevoteValue;
+        if( vm.$root.userInfo.availableDevoteValue >= vm.data.betValue1 ) {
+          vm.isStart = false
+        } else {
+          vm.isStart = true
+        } 
+
+        vm.bet = arr
+
+      } else {
+        utils.dialog(res.message);
+      }
+    },
+    erroe (xhr) {
+      utils.dialog('暂时无数据');
+    }
+  })
+}
 // 测试数据
 var bet = utils.extend([], [{score: 500, checked: true},{  score: 1000,  checked: false},{score: 10000, checked: false}])
 
@@ -188,21 +241,9 @@ var getALL = (vm) => {
 export default {
   data () {
     return {
-      score:5000,
-      bet:[
-        {
-          score: 500,
-          checked: true
-        },
-        {
-          score: 1000,
-          checked: false
-        },
-        {
-          score: 5000,
-          checked: false
-        }
-      ],
+      data: {},
+      score: 5000,
+      bet:[],
       isStart: true,
       // 投注数
       betScore: '',
@@ -215,7 +256,7 @@ export default {
   },
   watch: {
     betScore (v) {
-      if(v > this.score ) {
+      if(v > this.$root.userInfo.availableDevoteValue ) {
         this.isStart = true
       } else {
         this.isStart = false
@@ -223,7 +264,7 @@ export default {
     },
     score (v) {
       var n = parseFloat(v);
-      if( n >= 500) {
+      if( n >= this.data.betValue1) {
         this.isStart = false;
       } else {
         this.isStart = true
@@ -232,17 +273,15 @@ export default {
   },
   ready () {
     var t = this;
-    getALL(t);
+    // getALL(t);
     lottoStart(this);
-    if( this.score >= 500 ) {
-      this.isStart = false
-    } else {
-      this.isStart = true
-    }
+    window.lottoVM = t
     // 获取用户id
     // 获取用户积分
     this.$on('init', function () {
-      getALL(t);
+     
+      // getALL(t);
+      init(t);
       this.lottoStartEnd = false
       this.isWin = false;
       this.betScore = '';

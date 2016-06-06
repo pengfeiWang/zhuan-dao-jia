@@ -51,7 +51,7 @@ var pageViewTab = ( vm ) => {
       if( rootVm.isTranslate ) {
         return;
       }
-      
+    
       rootVm.olsShow = rootVm.show;
       vm.$dispatch('child-show', arr[key]+1)
     });

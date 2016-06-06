@@ -22,6 +22,7 @@ import Temp from './lotto/lotto-template'
 import Desc from './lotto/lotto-layer'
 var { back } = golMdule;
 
+
 export default {
   data () {
     return {

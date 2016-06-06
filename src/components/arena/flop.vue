@@ -11,9 +11,9 @@
     <div class="page" >
       <div class="article-inner" style="padding-top:20px;">
           <div class="timinggrab" id="timinggrab">
-            <div class="list" v-for="it in timinggrabData" v-bind:class="{'active':!it.isGrab}" data-idx="{{$index}}">
+            <div class="list" v-for="it in timinggrabData"  data-idx="{{$index}}">
               <div class="inner">
-                <div class="flip out">
+                <div class="flip" v-bind:class="{'in':it.overFlg,'out':!it.overFlg}">
                   <div class="icon">
                     {{{$index | renderSrc }}}
                   </div>
@@ -21,7 +21,14 @@
                     <p v-for="sit in it.desc">{{sit}}</p>
                   </div> 
                 </div>
-                <div class="flip in"></div>
+                <div class="flip" v-bind:class="{'out':it.overFlg,'in':!it.overFlg}">
+                  <div class="icon">
+                    {{{$index | renderSrc }}}
+                  </div>
+                  <div class="desc" >
+                    <p v-for="sit in it.desc">{{sit}}</p>
+                  </div> 
+                </div>
               </div>
             </div>
           </div>
@@ -41,32 +48,31 @@
 import Vue from 'vue'
 import golMdule from '../../module/index';
 var { back, getUser } = golMdule;
+var arrTip = [
+  '开始抢, 消除起床气',
+  '开始抢, 精神一下午',
+  '开始抢, 精神一下午',
+  '开始抢, 健胃又消食'
+]
 // 测试数据
 var timinggrab =[
     {
       ico: '',
       id: 1,
       status: 0,
-      isGrab: false,
+      overFlg: false,
       desc: [
         '起床红包',
         '01:17开始抢, 消除起床气'
-      ],
-      desc1: [
-        '起床红包',
-        '01:17开始抢, 消除起床气'
       ]
+
     },
     {
       ico: '',
       id: 2,
       status: 1,
-      isGrab: false,
+      overFlg: false,
       desc: [
-        '午休红包',
-        '12:17开始抢, 精神一下午'
-      ],
-      desc1: [
         '午休红包',
         '12:17开始抢, 精神一下午'
       ]
@@ -75,12 +81,8 @@ var timinggrab =[
       ico: '',
       id: 3,
       status: 1,
-      isGrab: false,
+      overFlg: false,
       desc: [
-        '晚餐红包',
-        '17:17开始抢, 健胃又消食'
-      ],
-      desc1: [
         '晚餐红包',
         '17:17开始抢, 健胃又消食'
       ]
@@ -89,12 +91,8 @@ var timinggrab =[
       ico: '',
       id: 4,
       status: 1,
-      isGrab: false,
+      overFlg: false,
       desc: [
-        '睡前红包',
-        '22:17开始抢, 一夜睡香香'
-      ],
-      desc1: [
         '睡前红包',
         '22:17开始抢, 一夜睡香香'
       ]
@@ -111,6 +109,7 @@ var anm = (first, last) => {
   setTimeout(function () {
     last.classList.add("in")
     last.classList.remove("out");
+    // first.parentNode.parentNode.classList.remove('active')
   }, 225);
 }
 var getALL = (vm) => {
@@ -137,38 +136,65 @@ var start = (vm) => {
   // 抢红包
   Hammer(timinggrab).on('tap', function (ev) {
     var target = ev.target;
-    var flip, firstNode, lastNode, idx, row;
+    var flip, firstNode, lastNode, idx, row, reqData = config.reqParam;
     if( target.classList.contains('timinggrab') ) {
       return
     };
     while( !target.classList.contains('list') ) {
       target = target.parentNode;
     }
-    idx = target.getAttribute('data-idx');
+    idx = +(target.getAttribute('data-idx'));
     flip = target.querySelectorAll('.flip');
     firstNode = flip[0];
     lastNode = flip[1];
-    if(vm.timinggrabData[idx].isGrab)return;
+    if(vm.timinggrabData[idx].overFlg){
+      utils.dialog('已经抢过了');
+      return;
+    }
+  
+    reqData.doKind = idx+1;
     utils.ajax({
-      url: config.URL +'test.php',
+      url: config.URL +'doTimeRedPaper.do',
       type: 'post',
       dataType: 'json',
-      data: {},
+      data: reqData,
       success (res) {
-        if( res ) { //可以抢
-          vm.timinggrabData[idx].isGrab = true;
+        if( res.rescode == 100 ) { //可以抢
+
+          vm.timinggrabData[idx].overFlg = true;
           firstNode = flip[1];
           lastNode = flip[0];
           anm(firstNode,lastNode);
         } else {
-          utils.dialog('还没到时间哦...')
+          utils.dialog(res.message)
         }
       },
       error (xhr) {
-        utils.dialog('数据出错')
+        utils.dialog('暂无红包数据')
       }
     }); 
    });  
+}
+var init = (vm) => {
+  utils.ajax({
+    url: config.URL + 'initTimeRedPaper.do',
+    type: 'post',
+    dataType: 'json',
+    data: config.reqParam,
+    success (res) {
+      if(res.rescode == 100){
+        for(var i = 0, len = vm.timinggrabData.length; i < len; i++ ) {
+          vm.timinggrabData[i].overFlg = parseInt(res.data['overFlg'+(i+1)],10);
+          vm.timinggrabData[i].desc[1] = res.data['doTime4'+(i+1)] + arrTip[i];
+        }
+      } else {
+        utils.dialog(res.message);
+      }
+    },
+    error () {
+      utils.dialog('暂无红包数据')
+    }
+  });
 }
 export default {
   data () {
@@ -181,15 +207,16 @@ export default {
   ready () {
     var t = this;
     back(t);
-    getALL(t);
+    // getALL(t);
     start(t);
     t.$on('arenaTap', function (num) {
       var bol = (num == 3)
       if( bol ) {
+        init(t);
         t.pts = t.$parent.pts
         t.$parent.pts = false
       }
-      getALL(t);
+      // getALL(t);
       //0 骰子, 1 其他, 2 摇一摇, 3 翻牌 
       t.show = bol;
     });

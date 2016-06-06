@@ -5,8 +5,12 @@ import Hammer from 'hammer'
 import template from './data/template'
 
 window.config = {
-  URL: 'http://192.168.1.105:8080/',
+  URL: 'http://42.62.90.56:8081/zdj_zly/zly/',
   UID: '123',
+  reqParam: {
+    appLoginMobile: '1',
+    loginPassword: '2',
+  },
   getUID () {
     console.log(this.UID)
   }
@@ -48,6 +52,8 @@ Vue.transition('expand', {
 Vue.transition('art', {
   afterEnter: function (el) {
     var rootVm = this.$root;
+    rootVm.$el.classList.remove('art')
+    rootVm.$el.classList.remove('detail')
     setTimeout(function(){rootVm.isTranslate = false},200)
   }
   ,beforeEnter: function (el) {
@@ -62,12 +68,16 @@ utils.dialog = dialog  = (num, cb) => {
   var str = parseInt(num, 10);
 
   clearTimeout(dialogTimer);
+  if( cb ) {
+    utils.dialogCb = cb;
+  }
   maskNode.style.display = 'block';
   dialogNode.style.display = 'block';
   dialogNode.classList.remove('bounce-out');
   dialogNode.classList.add('bounce-in');
   html =  isNaN(str) ? num : template[num].join('');
   dialogNode.innerHTML = html;
+
 }
 var dialogInit = (vm) => {
   Hammer(maskNode).on('tap', function () {
@@ -78,10 +88,14 @@ var dialogInit = (vm) => {
       maskNode.style.display = 'none';
       dialogNode.style.display = 'none';
       if( vm.show == 3 ) {
-        audio.muted = false;
+        audio.muted = true;
         audio.play();
         audio.pause();
-        audio.muted = true; 
+        audio.muted = false; 
+      }
+      if( utils.dialogCb ) {
+        utils.dialogCb();
+        utils.dialogCb = null
       }
     }, 400);
   })
@@ -101,7 +115,7 @@ var backHandle = (vm) => {
       }
       vm.isBack = true;
       vm.$el.classList.add('back')
-      var target = ev.target;
+      // var target = ev.target;
       
       vm.show = vm.oldShow;
     });
@@ -120,6 +134,11 @@ var info = (vm, target) => {
     dialog(1);
     return;
   }
+  if( vm.show == 5 ) {
+    dialog(5);
+    return;
+  }
+
 }
 // 头部右侧按钮点击处理函数
 var hInfoHandle = (vm) => {
