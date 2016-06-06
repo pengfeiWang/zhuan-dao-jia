@@ -4235,6 +4235,9 @@ webpackJsonp([1,0],[
 	var timeDown = function timeDown(vm) {
 	  var time = function time() {
 	    vm.timeNum -= 1;
+	    if (vm.timeNum == 0) {
+	      vm.isTap = false;
+	    }
 	    if (vm.timeNum > 0) {
 	      setTimeout(time, 1000);
 	    }
@@ -4246,7 +4249,7 @@ webpackJsonp([1,0],[
 	    return {
 	      show: false,
 	      timeNum: 5,
-	      isTap: false,
+	      isTap: true,
 	      listData: {},
 	      pts: this.$parent.pts
 	    };

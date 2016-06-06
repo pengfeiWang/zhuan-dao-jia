@@ -122,8 +122,8 @@ gulp.task('scss', function (){
 // 监听任务 运行语句 gulp watch
 gulp.task('watchs',  function (){
   gulp.watch(srcDft, ['buildjs']);
-  gulp.watch('src/**/*.scss', ['scss'])
-  gulp.watch(copyDef,['copyfiles'])
+  // gulp.watch('src/**/*.scss', ['scss'])
+  // gulp.watch(copyDef,['copyfiles'])
 });
 // 删除
 gulp.task('delete', function (cb){

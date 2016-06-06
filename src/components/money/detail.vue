@@ -60,6 +60,9 @@ var btnTap = (vm) => {
 var timeDown = (vm) => {
   var time = () => {
     vm.timeNum-=1;
+    if(vm.timeNum==0){
+      vm.isTap = false;
+    }
     if(vm.timeNum > 0) {
       setTimeout(time,1000);
     }
@@ -71,7 +74,7 @@ export default {
     return {
       show: false,
       timeNum: 5,
-      isTap: false,
+      isTap: true,
       listData: {},
       pts: this.$parent.pts,
     }
