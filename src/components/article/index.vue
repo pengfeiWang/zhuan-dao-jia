@@ -2,7 +2,7 @@
 <!-- 任务 -->
 <div class="pages-controller" v-show="pts==6" transition="expand">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" ><span class="icon-arrow-left2"></span>后退</div>
+    <div class="h-back" ><span class="icon-arrow-left2"></span>返回</div>
     <h1 class="h-title" >
       {{title}}
     </h1>

@@ -2,7 +2,7 @@
 <!-- 游戏入口 -->
 <div class="pages-controller" v-show="pts==1" transition="expand">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" ><span class="icon-arrow-left2"></span>后退</div>
+    <div class="h-back" ><span class="icon-arrow-left2"></span>返回</div>
     <h1 class="h-title image-title" >
       <img src="../../assets/images/title.png" alt="">
     </h1>
@@ -10,7 +10,7 @@
   </div>  
   <div class="gol-wrapper doc-header">
     <div class="page" style="overflow-y:-hidden">
-      <svg version="1.1" id="index" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 1294" style="enable-background:new 0 0 750 1294; opacity:1;position: absolute;top: 0;left: 0;bottom: 0;right: 0;margin: auto;" xml:space="preserve">
+      <svg version="1.1" id="index" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 1294" style="enable-background:new 0 0 750 1294; opacity:1;position: absolute;top: 0;left: 0;bottom: 0;right: 0;margin: auto; width:100%;" xml:space="preserve">
         <g>
           <image style="overflow:visible;opacity:1" width="750" height="1294" xlink:href="./static/images/page-1.png"></image>
         </g>

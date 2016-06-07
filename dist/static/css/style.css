@@ -539,10 +539,10 @@ a.txt-green,
   right: 0;
   bottom: 0;
   margin: auto;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   color: #fff;
-  padding: 11px 0;
+  padding: 14px 0;
   z-index: 1;
   font-weight: normal; }
 
@@ -550,7 +550,7 @@ a.txt-green,
   padding: 0; }
 
 .h-title.image-title img {
-  height: 50%;
+  height: 36%;
   width: auto;
   position: absolute;
   top: 0;
@@ -1608,7 +1608,7 @@ a.txt-green,
   float: left;
   padding-left: 5%;
   margin-bottom: 5%;
-  background: none;
+  background: none !important;
   border: none; }
 
 .money-list .list-box button .inner {

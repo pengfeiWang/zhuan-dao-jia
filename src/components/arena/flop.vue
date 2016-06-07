@@ -2,7 +2,7 @@
 <!-- 竞技场 -->
 <div class="pages-controller" v-show="show" transition="art">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" v-el:back data-article="article"><span class="icon-arrow-left2"></span>后退</div>
+    <div class="h-back" v-el:back data-article="article"><span class="icon-arrow-left2"></span>返回</div>
     <h1 class="h-title" >
       定时红包抢现金
     </h1>
@@ -156,7 +156,9 @@ var start = (vm) => {
           firstNode = flip[1];
           lastNode = flip[0];
           anm(firstNode,lastNode, function (){
-            vm.$broadcast('flopDetail', res.data)
+            utils.dialog((res.message||'暂无红包数据'), function() {
+              vm.$broadcast('flopDetail', res.data)
+            })
           });
         } else {
           utils.dialog(res.message)

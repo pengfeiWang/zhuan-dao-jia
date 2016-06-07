@@ -495,7 +495,7 @@
   // display: table-cell;
   padding-left: 5%;
   margin-bottom: 5%;
-  background:none;
+  background:none !important;
   border:none
 }
 
@@ -543,7 +543,7 @@
   color: #fff;
 }
 .money-detail .gol-footer button[disabled]{
-  color:#444
+  color:#444 
 }
 .money-detail .gol-footer button span{
   position: absolute;

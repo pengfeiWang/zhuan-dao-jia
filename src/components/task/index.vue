@@ -2,7 +2,7 @@
 <!-- 任务 -->
 <div class="pages-controller"  v-show="pts==2" transition="expand">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" ><span class="icon-arrow-left2"></span>后退</div>
+    <div class="h-back" ><span class="icon-arrow-left2"></span>返回</div>
     <h1 class="h-title" >
       任务
     </h1>
@@ -12,8 +12,8 @@
     <div class="page" >
       <ul class="task-list" v-el:task-box>
         <li v-for="it in taskData" data-idx="{{$index}}">
-          <img src="../../assets/images/Earth Horizon.jpg" alt="">
-          <span class="title">{{it.title}}</span>
+          <img v-bind:src="it.smallPicUrl" alt="">
+          <span class="title">{{it.missonTitle}}</span>
           <div class="text ellipsis-2">  
             {{it.desc}}
           </div>
@@ -21,7 +21,7 @@
             <span class="fr">
               结束时间: {{it.endTime}}
             </span>
-              昨天: {{it.time}}
+              <!-- 昨天: --> {{it.startTime}}
           </div>
         </li>
       </ul>
@@ -77,15 +77,17 @@ var listTap = ( vm ) => {
     }
   })  
 }
-var getTaskList = (vm) => {
+var init = (vm) => {
   // 获取任务列表
   utils.ajax({
-    url: config.URL +'test.php',
+    url: config.URL +'initShareMisson.do',
     type: 'post',
     dataType: 'json',
-    data: {},
+    data: config.reqParam,
     success (res) {
-      // t.taskData = res.list;
+      if( res.rescode == 100 ) {
+        vm.taskData = res.list;
+      }
     },
     error (xhr) {}
   }); 
@@ -100,34 +102,36 @@ var winScroll = (vm) => {
     var scrollHeight = page.scrollHeight;
     var top = page.scrollTop;
     var pageSize = 0;
+    var reqObj = utils.extend({}, config.reqParam)
     if( scrollHeight > rootHeight && !vm.pullUpLoadStatus && !isEnd ) {
-      console.log('rootHeight: ', rootHeight, 'scrollHeight: ', scrollHeight, 'top: ', top)
+ 
       if( (scrollHeight - top - 50) <= rootHeight ) {
         vm.pullUpLoadStatus = true;
+        reqObj.adId = vm.taskData[ vm.taskData.length-1 ].adId;
         // vm.pullUpLoadTxt = loadTxt[1]
         // 获取任务列表
         utils.ajax({
-          url: config.URL +'test.php',
+          url: config.URL +'addMoreShareMisson.do',
           type: 'post',
           dataType: 'json',
-          data: {},
+          data: reqObj,
           success (res) {
             vm.pullUpLoadStatus = false;
-            if( !res.data ) {
+            if( !res.list ) {
               isEnd = true;
               vm.pullUpLoadTxt = loadTxt[2]
             } else {
               for(var i = 0, len = res.list.length; i < len; i++) {
-                // vm.taskData.push(res.list[i])
+                vm.taskData.push(res.list[i])
               }
               
               isEnd = false;
               vm.pullUpLoadTxt = loadTxt[0]
             }
-            console.log(res)
-            // t.taskData = res.list;
           },
-          error (xhr) {}
+          error (xhr) {
+            vm.pullUpLoadTxt = loadTxt[2]
+          }
         }); 
       }
     }
@@ -140,89 +144,25 @@ export default {
     return {
       pullUpLoadTxt: '上拉加载更多',
       pullUpLoadStatus: false,
-      taskData: [
-        {
-          id: 0,
-          title: '任务标题1',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 1,
-          title: '任务标题2',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 0,
-          title: '任务标题1',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 1,
-          title: '任务标题2',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 0,
-          title: '任务标题1',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 1,
-          title: '任务标题2',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 0,
-          title: '任务标题1',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        },
-        {
-          id: 1,
-          title: '任务标题2',
-          desc: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
-          endTime: '2016-01-01',
-          time: '01-01',
-          isGrab: false
-        }
-      ],
+      taskData: [],
       pts: this.$root.show
     }
   }
   ,events: {
     'child-show': function (num) {
-      this.taskData[num].isGrab = true;
+      this.taskData[num].missonOverFlg = true;
     }
   }
   ,components: { Art }
   ,ready () {
     var t = this;
     listTap(t);
-    getTaskList(t);
     winScroll(t);
     t.$on('pageTab', function (num) {
+      if( num == 2 ) {
+        if(!t.taskData.length)init(t);  
+      }
       t.pts = num;
-      getTaskList(t);
     });
 
     window.taskVM = t;

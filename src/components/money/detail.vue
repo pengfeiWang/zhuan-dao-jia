@@ -4,7 +4,7 @@
 <div class="pages-controller money-detail" v-show="show" transition="art" style="background-color: -red;">
   <div class="gol-header" style="opacity:1">
     <button type="button" class="h-back" v-el:back data-article="article">
-        <span class="icon-arrow-left2"></span>后退
+        <span class="icon-arrow-left2"></span>返回
     </button>
     <h1 class="h-title" >
       商品详情
@@ -22,7 +22,7 @@
     <div class="page" >
       <div class="detail-box">
         
-        <img src="../../assets/images/money-index/slide3.jpg">
+        <img v-bind:src="listData.bigPicUrl">
 
 
       </div>
@@ -31,8 +31,13 @@
 </div>
 </template>
 <script>
+import Vue from 'vue'
+
 import golMdule from '../../module/index';
 var { back, getUser } = golMdule;
+Vue.filter('toBool', function (s){
+  return !!+(s);
+})
 var getList = (vm) => {
   // utils.ajax({
   //   url: '',
@@ -49,12 +54,30 @@ var btnTap = (vm) => {
   var rootVm = vm.$root;
   Hammer(btn).on('tap', function (ev) {
     var target = ev.target, pt, idx;
-
+    if(btn.disabled) return;
+    var reqObj = utils.extend({}, config.reaParam);
     if( rootVm.isTranslate) {
       return;
     }
     vm.isTap = true;
-  
+    reqObj.adId = vm.listData.adId
+    console.log(111)
+    utils.ajax({
+      url: config.URL + 'doCashRedPaper.do',
+      type: 'post',
+      dataType: 'json',
+      data: reqObj,
+      success (res) {
+        // if(res.rescode == 100){
+        //   if(+res.data.successFlg){
+        //     utils.dialog()
+        //   }
+        // } else {
+          utils.dialog(res.message)
+        // }
+      },
+      error () {}
+    });
   })
 }
 var timeDown = (vm) => {

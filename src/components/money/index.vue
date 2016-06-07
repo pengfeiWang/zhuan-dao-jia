@@ -2,7 +2,7 @@
 <!-- 现金专区 -->
 <div class="pages-controller money-page" v-show="pts==5" transition="expand">
   <div class="gol-header" style="opacity:1">
-    <button type="button" class="h-back" ><span class="icon-arrow-left2"></span>后退</button>
+    <button type="button" class="h-back" ><span class="icon-arrow-left2"></span>返回</button>
     <h1 class="h-title" >
       现金专区
     </h1>
@@ -49,21 +49,10 @@ var listTap = (vm) => {
     idx = pt.getAttribute('data-idx');
     utils.setActive(vm, pt.children[0].children[0]);
 
-    console.log(idx)
     vm.$broadcast('moneyList', vm.btn[idx])
   })
 }
-var getList = (vm) => {
-  // utils.ajax({
-  //   url: '',
-  //   type: '',
-  //   dataType: '',
-  //   success (res) {
-  //     // vm.btn = []
-  //   },
-  //   error () {}
-  // });
-}
+
 export default {
   data () {
     return {
@@ -82,10 +71,12 @@ export default {
   components: {List},
   ready () {
     var t = this;
-    getList(t);
     listTap(t);
     t.$on('pageTab', function (num) {
       t.pts = num;
+      // if(num ==5){
+      //   init(t)
+      // }
     });
   }
 }

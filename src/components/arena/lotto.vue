@@ -2,7 +2,7 @@
 <!-- 竞技场 -->
 <div class="pages-controller lotto" v-show="show" transition="art">
   <div class="gol-header" style="opacity:1">
-    <button type="button" class="h-back" v-el:back data-article="article"><span class="icon-arrow-left2"></span>后退</button>
+    <button type="button" class="h-back" v-el:back data-article="article"><span class="icon-arrow-left2"></span>返回</button>
     <h1 class="h-title" >
       猜大小
     </h1>
@@ -40,10 +40,11 @@ export default {
     t.$on('arenaTap', function (num) {
       var bol = (num == 0)
       if( bol ) {
-        t.pts = t.$parent.pts
-        t.$parent.pts = false
+        t.pts = t.$parent.pts;
+        t.$parent.pts = false;
+        this.$broadcast('init')
       }
-      this.$broadcast('init')
+      
       //0 骰子, 1 其他, 2 摇一摇, 3 翻牌 
       t.show = bol;
     });

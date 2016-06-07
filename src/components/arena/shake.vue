@@ -2,7 +2,7 @@
 <!-- 竞技场 -->
 <div class="pages-controller" v-show="show" transition="art">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" v-el:back data-article="article"><span class="icon-arrow-left2"></span>后退</div>
+    <div class="h-back" v-el:back data-article="article"><span class="icon-arrow-left2"></span>返回</div>
     <h1 class="h-title" >
       摇一摇
     </h1>
@@ -30,7 +30,7 @@
         </image>
         <image class="images-animate" id="shakeImg" style="overflow:visible;" x="200" y="620" width="287" height="255"  xlink:href="./static/images/y-phone.png" transform="matrix(1 0 0 1 231.5 599.7857)">
       </svg>
-      <div style="position:absolute; bottom:20px; left:0; right:0; text-align:center;">摇一摇, 要出好运气</div>
+      <div style="position:absolute; bottom:30px; left:0; right:0; text-align:center; color:#6eb92b; font-size:16px;">摇一摇, 摇出好运气</div>
     </div>
   </div>
 </div>
@@ -40,9 +40,13 @@
 import golMdule from '../../module/index';
 var { back } = golMdule;
 var isBind = false, isShake, numShake = 0, maxShake = 10;
+var deviceMotionHandler
 var startShake = (vm) => {
+  isShake = true
   if(!isBind){
-    utils.dialog('5-2');
+    utils.dialog('5-2', function (){
+      isShake = false;
+    });
   }
   
   var shakeImg = utils.getId('shakeImg');
@@ -52,15 +56,18 @@ var startShake = (vm) => {
   var x, y, z, lastX = 0, lastY = 0, lastZ = 0;
   var count = 0;
   var audio = document.getElementsByTagName('audio')[ 0 ];
-    function deviceMotionHandler(eventData) {
-      var acceleration =eventData.accelerationIncludingGravity;
+
+  var outFalse = function () {
+    // setTimeout(function (){
+      isShake = false;
+    // }, 500);
+  }
+    deviceMotionHandler = function deviceMotionHandler(eventData) {
+      var acceleration = eventData.accelerationIncludingGravity;
       var curTime = new Date().getTime();
-      // 摇一摇次数已满
-      if( numShake >= maxShake ) {
-        utils.dialog('超出限制')
-        return;
-      }
+      if( isShake ) return;
       if ((curTime-last_update) > 30) {
+
         var diffTime = curTime - last_update;
         last_update = curTime;
         x = acceleration.x;
@@ -68,6 +75,7 @@ var startShake = (vm) => {
         z = acceleration.z;
 
         if(Math.abs(x-lastX) > animSpe || Math.abs(y-lastY) > animSpe) { 
+          
           if( !shakeImg.classList.contains('y1y') ) {
             shakeImg.setAttribute('class', 'images-animate y1y');
             setTimeout(function (){
@@ -75,8 +83,15 @@ var startShake = (vm) => {
             },300);
           }
 
-          audio.play();
+          // 摇一摇次数已满
+          if( vm.numShake == 0 ) {
+            // window.removeEventListener('devicemotion',deviceMotionHandler);
+            isShake = true;
+            utils.dialog('超出限制')
+            return;
+          }
 
+          audio.play();
           // 是否请求数据中
           if( !isShake ) {
             // last_update = 0
@@ -84,17 +99,24 @@ var startShake = (vm) => {
             // 请求数据成功是才能递增 
             isShake = true
             utils.ajax({
-              url: config.URL + 'test.php',
+              url: config.URL + 'doShake.do',
               dataType: 'json',
               type: 'post',
-              data: {a:1},
-              success ( req ) {
-                isShake = false;
-                // numShake++;
+              data: config.reqParam,
+              success (res) {
+                vm.numShake = res.data.availableCount
+                if(res.rescode == 100) {
+
+                  utils.dialog(
+                    '恭喜本次赚取<span style="color:red; font-weight:bold;">' + 
+                    (res.data.earnDevoteValue || 0) + '</span>点贡献值', 
+                    outFalse)
+                } else {
+                  utils.dialog(res.message,outFalse)
+                }
               },
               error ( xhr ) {
-                isShake = false;
-                utils.dialog('没摇到')
+                utils.dialog('可惜~~~什么也没摇到',outFalse)
               }
             });
           }
@@ -114,24 +136,62 @@ var startShake = (vm) => {
     console.log('不支持?');
   }  
 }
+var init = (vm) => {
+  utils.ajax({
+    url: config.URL + 'initShake.do',
+    type: 'post',
+    dataType: 'json',
+    data: config.reqParam,
+    success (res) {
+      if( res.rescode == 100 ) {
+        vm.numShake = res.data.availableCount
+        if( res.data.availableCount > 0 ) {
+          setTimeout(function(){
+            startShake(vm)
+          },300);
+        }
+      } else {
+        utils.dialog(res.message);
+      }
+      
+    },
+    error (xhr) {
+      utils.dialog('暂无数据')
+    }
+  });
+}
 export default {
   data () {
     return {
       show: false,
+      numShake: 0,
       pts: this.$parent.pts
+    }
+  },
+  watch: {
+    numShake ( v ) {
+      if( +v && deviceMotionHandler ){
+        window.removeEventListener('devicemotion',deviceMotionHandler);
+        window.addEventListener('devicemotion',deviceMotionHandler,false);
+      } else if( !(+v) && deviceMotionHandler ) {
+        window.removeEventListener('devicemotion',deviceMotionHandler);
+      }
     }
   },
   ready () {
     var t = this;
-    back(t);
-    
+    back(t, null, function () {
+      window.removeEventListener('devicemotion',deviceMotionHandler);
+    });
     t.$on('arenaTap', function (num) {
       var bol = (num == 2)
       if( bol ) {
         t.pts = t.$parent.pts
-        t.$parent.pts = false
-        isShake, numShake = 0, maxShake = 10;
-        setTimeout(function(){startShake(t)},300);
+        t.$parent.pts = false;
+        t.numShake = 0;
+        maxShake = 10;
+        init(t);
+        
       }
       //0 骰子, 1 其他, 2 摇一摇, 3 翻牌 
       t.show = bol;

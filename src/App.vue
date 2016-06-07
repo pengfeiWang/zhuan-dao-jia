@@ -2,7 +2,7 @@
 <!-- 0 首页, 1 任务, 2 竞技场 , 3 签到, 5 暂定详情-->
 <div id="page-wrapper" class="page-wrapper">
   <Index></Index>
-  <!-- <Task></Task> -->
+  <Task></Task>
   <Sign></Sign>
   <Arena></Arena>
   <Money></Money>
@@ -21,7 +21,7 @@ import Sign from './components/sign/index'
 import Money from './components/money/index'
 export default {
   components: {
-    Index,/*Task,*/ Arena, Sign, Money
+    Index, Task, Arena, Sign, Money
   }
 }
 </script>

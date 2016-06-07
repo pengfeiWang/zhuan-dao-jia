@@ -2,7 +2,7 @@
 <!-- 竞技场 -->
 <div class="pages-controller" v-show="pts==4" transition="expand">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" id="h-back"><span class="icon-arrow-left2"></span>后退</div>
+    <div class="h-back" id="h-back"><span class="icon-arrow-left2"></span>返回</div>
     <h1 class="h-title" >
       签到
     </h1>
@@ -13,7 +13,7 @@
       <img v-bind:src="data.adPicUrl" alt="" style="pos">
       <div class="content" >
         <p>
-          给五星好评, 在送1000积分 <button type="button" v-el:signstar-go v-bind:disabled="data.flag">GO</button>
+          给五星好评, 在送1000积分 <button type="button" v-el:signstar-go v-bind:disabled="data.signOverFlg">GO</button>
         </p>
         <p v-el:signstar-info>
           签到规则 <span class="icon-help-with-circle txt-fff" style="padding:10px; display: inline-block;" ></span>
@@ -29,9 +29,14 @@ import template from '../../data/template';
 var backBtn;
 var go = (vm) => {
   var btn = vm.$els.signstarGo;
+
   Hammer(btn).on('tap', function (ev) {
     console.log('ajax 请求签到');
     if(!vm.data || !vm.data.adId) return;
+    if(vm.data.signOverFlg) {
+      utils.dialog('已经签到过');
+      return
+    }
     var d = utils.extend({}, config.reqParam, {adId: vm.data.adId})
     utils.ajax({
       url: config.URL +'doSign.do',
