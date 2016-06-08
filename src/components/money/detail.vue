@@ -61,7 +61,6 @@ var btnTap = (vm) => {
     }
     vm.isTap = true;
     reqObj.adId = vm.listData.adId
-    console.log(111)
     utils.ajax({
       url: config.URL + 'doCashRedPaper.do',
       type: 'post',

@@ -3826,6 +3826,7 @@ webpackJsonp([1,0],[
 	    });
 	    return;
 	  }
+	  console.log(stop);
 	  lop = 0;
 	  stop = false;
 	  setLop(vm, n1 - 1, n2 - 1, !0);
@@ -3897,17 +3898,18 @@ webpackJsonp([1,0],[
 	      type: 'post',
 	      data: betData,
 	      success: function success(res) {
-	        stop = true;
-	        vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
-	        vm.score = res.data.availableDevoteValue;
 	        if (res.rescode == 100) {
+	          vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
+	          vm.score = res.data.availableDevoteValue;
 	          if (parseInt(res.data.winFlg) == 0) {
 	            vm.isWin = true;
+	            stop = true;
 	            num();
 	            return;
 	          }
 	        }
 	        vm.isWin = false;
+	        stop = true;
 	        num();
 	      },
 	      error: function error(xhr) {
@@ -4287,7 +4289,6 @@ webpackJsonp([1,0],[
 	    }
 	    vm.isTap = true;
 	    reqObj.adId = vm.listData.adId;
-	    console.log(111);
 	    utils.ajax({
 	      url: config.URL + 'doCashRedPaper.do',
 	      type: 'post',
@@ -4678,7 +4679,6 @@ webpackJsonp([1,0],[
 	        }
 	      }
 	      t.taskDetail = data;
-	      console.log(t.taskDetail);
 	      t.parentIdx = idx;
 	      t.pts = t.$parent.pts;
 	      t.$parent.pts = false;

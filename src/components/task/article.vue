@@ -108,7 +108,6 @@ export default {
         }
       }
       t.taskDetail = data;
-      console.log(t.taskDetail)
       t.parentIdx = idx;
       t.pts = t.$parent.pts
       t.$parent.pts = false

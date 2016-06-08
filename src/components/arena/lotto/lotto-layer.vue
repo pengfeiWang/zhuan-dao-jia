@@ -86,6 +86,7 @@ var sAnimate = (vm, n1, n2, btn) => {
     });
     return;   
   }
+  console.log(stop)
   lop = 0;
   stop = false
   setLop(vm, n1-1, n2-1, !0);
@@ -163,19 +164,19 @@ var lottoStart = (vm) => {
       type: 'post',
       data: betData,
       success (res) {
-        stop = true;
-        vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
-        vm.score = res.data.availableDevoteValue;
         if(res.rescode == 100) {
+          vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
+          vm.score = res.data.availableDevoteValue;
           if( parseInt(res.data.winFlg) == 0 ) {
             vm.isWin = true;
+            stop = true;
             num();
             return;
           }
         }
         vm.isWin = false;
+        stop = true;
         num();
-
       },
       error (xhr) {
         setTimeout(function () {

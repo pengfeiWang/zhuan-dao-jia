@@ -27,7 +27,7 @@ export default {
 </script>
 <style src="./assets/css/style.scss" lang="scss"></style>
 <style>
-  .st0{fill:rgba(0,0,0,0.5);}
+  .st0{fill:rgba(0,0,0,0);}
   .active{fill:rgba(194,13,35,0.4);}
     /* 必需 */
   .expand-transition,
