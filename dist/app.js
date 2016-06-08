@@ -4624,17 +4624,34 @@ webpackJsonp([1,0],[
 	    });
 	  };
 	  for (var i = 0, len = rect.length; i < len; i++) {
-	    console.log(i);
 	    hd(i);
 	  }
 	};
 	var rush = function rush(vm) {
 	  var button = vm.$els.rush;
+	  var reqObj = utils.extend({}, config.reqParam);
 	  Hammer(button).on('tap', function (ev) {
 	    if (vm.$root.isTranslate) {
 	      return;
 	    }
-	    vm.taskDetail.missonOverFlg = true;
+
+	    reqObj.adId = vm.taskDetail.adId;
+	    utils.ajax({
+	      url: config.URL + 'doShareMisson.do',
+	      type: 'post',
+	      dataType: 'json',
+	      data: reqObj,
+	      success: function success(res) {
+	        if (res.rescode == 100) {
+	          vm.taskDetail.missonOverFlg = ! +res.data.successFlg;
+	        } else {
+	          utils.dialog(res.message);
+	        }
+	      },
+	      error: function error(xhr) {
+	        utils.dialog('没抢到');
+	      }
+	    });
 	  });
 	};
 	exports.default = {
@@ -5710,7 +5727,7 @@ webpackJsonp([1,0],[
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div  class=\"pages-controller\" v-show=\"show\" transition=\"art\">\n  <div class=\"gol-header\">\n    <div class=\"h-back\" v-el:back data-article=\"article\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      任务\n    </h1>\n  </div> \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page\">\n      <div class=\"article-inner\">\n        <div class=\"task-detail\">\n          <div class=\"img-box\"></div>\n          <div class=\"bottom\">\n            <ul class=\"task-list\" v-show=\"taskDetail.missonOverFlg==0\">\n              <li style=\"background:#F1F1F1\">\n                <img v-bind:src=\"taskDetail.smallPicUrl\" alt=\"\">\n                <span class=\"title\">{{taskDetail.missonTitle}}</span>\n                <div class=\"text ellipsis-2\">  \n                  {{taskDetail.desc}}\n                </div>\n                <div class=\"footer\">\n                  <span class=\"fr\">\n                    结束时间: {{taskDetail.endTime}}\n                  </span>\n                    <!-- 昨天: --> {{taskDetail.time}}\n                </div>\n              </li>\n            </ul>\n            <div class=\"share-box\" v-show=\"taskDetail.missonOverFlg==1\">\n              <p class=\"txt-green txt-green tac padding-20\">快快分享给小伙伴   大家一起赚到家</p>\n              <!-- <embed src=\"../../assets/images/share.svg\" alt=\"\" style=\"width:100%;\"  type=\"image/svg+xml\" > -->\n              <Share></Share>\n            </div>\n          </div>\n          <div class=\"footer\">\n            <button type=\"button\" v-el:rush v-bind:disabled=\"!!taskDetail.missonOverFlg\">立即抢贡献值</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "\n<div  class=\"pages-controller\" v-show=\"show\" transition=\"art\">\n  <div class=\"gol-header\">\n    <div class=\"h-back\" v-el:back data-article=\"article\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      任务\n    </h1>\n  </div> \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page\">\n      <div class=\"article-inner\">\n        <div class=\"task-detail\">\n          <div class=\"img-box\"></div>\n          <div class=\"bottom\">\n            <ul class=\"task-list\" v-show=\"taskDetail.missonOverFlg==0\">\n              <li style=\"background:#F1F1F1\">\n                <img v-bind:src=\"taskDetail.smallPicUrl\" alt=\"\">\n                <span class=\"title\">{{taskDetail.missonTitle}}</span>\n                <div class=\"text ellipsis-2\">  \n                  {{taskDetail.desc}}\n                </div>\n                <div class=\"footer\">\n                  <span class=\"fr\">\n                    结束时间: {{taskDetail.endTime}}\n                  </span>\n                    <!-- 昨天: --> {{taskDetail.time}}\n                </div>\n              </li>\n            </ul>\n            <div class=\"share-box\" v-show=\"taskDetail.missonOverFlg==1\">\n              <p class=\"txt-green txt-green tac padding-20\">快快分享给小伙伴   大家一起赚到家</p>\n              <!-- <embed src=\"../../assets/images/share.svg\" alt=\"\" style=\"width:100%;\"  type=\"image/svg+xml\" > -->\n              <Share></Share>\n            </div>\n          </div>\n          <div class=\"footer\">\n            <button type=\"button\" v-el:rush v-bind:disabled=\"taskDetail.missonOverFlg==1\">立即抢贡献值</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 116 */

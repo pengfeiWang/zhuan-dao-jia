@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="footer">
-            <button type="button" v-el:rush v-bind:disabled="!!taskDetail.missonOverFlg">立即抢贡献值</button>
+            <button type="button" v-el:rush v-bind:disabled="taskDetail.missonOverFlg==1">立即抢贡献值</button>
           </div>
         </div>
       </div>
@@ -70,39 +70,41 @@ var share = (vm) => {
     var node = rect[n];
     Hammer(node).on('tap', function (ev) {
       alert('原声处理 :' + 'id : ' + arr[n].id + '分享到: ' + arr[n].name)
+      // vm.$dispatch('child-show', vm.parentIdx);
     });
   }
   for( var i = 0, len = rect.length; i < len; i++ ) {
-    console.log(i)
     hd(i)
   }
 
-    // reqObj.adId = vm.taskDetail.adId
-    // utils.ajax({
-    //   url: config.URL + 'doShareMisson.do',
-    //   type: 'post',
-    //   dataType: 'json',
-    //   data: reqObj,
-    //   success (res) {
-    //     if(res.rescode == 100) {
-    //       vm.taskDetail.missonOverFlg = true;
-    //       vm.$dispatch('child-show', vm.parentIdx);
-
-    //     }
-        
-    //   },
-    //   error (xhr) {
-    //     utils.dialog('没抢到')
-    //   }
-    // });  
 }  
 var rush = (vm) => {
   var button = vm.$els.rush;
+  var reqObj = utils.extend({}, config.reqParam);
   Hammer(button).on('tap', function (ev) {
     if( vm.$root.isTranslate ) {
       return;
     }
-    vm.taskDetail.missonOverFlg = true;
+
+
+    reqObj.adId = vm.taskDetail.adId
+    utils.ajax({
+      url: config.URL + 'doShareMisson.do',
+      type: 'post',
+      dataType: 'json',
+      data: reqObj,
+      success (res) {
+        if(res.rescode == 100) {
+          vm.taskDetail.missonOverFlg = !+res.data.successFlg;
+        } else {
+          utils.dialog(res.message)
+        }
+      },
+      error (xhr) {
+        utils.dialog('没抢到')
+      }
+    });  
+    // vm.taskDetail.missonOverFlg = true;
   })
 } 
 export default {

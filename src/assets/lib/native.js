@@ -3,7 +3,7 @@ window.config = config = {
   URL: 'http://42.62.90.56:8081/zdj_zly/zly/',
   UID: '123',
   reqParam: {
-    appLoginMobile: '1',
+    appLoginMobile: '11',
     loginPassword: '2',
   }
 }
@@ -23,7 +23,8 @@ function callClientFunction(funName, args) {
     funStr = encodeURIComponent(funStr);
     URL = "nativeApi://function:" + funStr;
   }
-  window.location.href = URL;
+  document.getElementById('nat').src = URL
+  // window.location.href = URL;
 };
 function getUserInfo (appLoginMobile,password) {
   config.reqParam.appLoginMobile = appLoginMobile
