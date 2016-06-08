@@ -29,5 +29,5 @@ function getUserInfo (appLoginMobile,password) {
   config.reqParam.appLoginMobile = appLoginMobile
   config.reqParam.loginPassword = password;
 
-  console.log(config)
+  alert('mobile: ' +config.reqParam.appLoginMobile + 'pas: ' + config.reqParam.loginPassword)
 }
