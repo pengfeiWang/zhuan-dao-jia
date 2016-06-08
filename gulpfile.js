@@ -123,7 +123,7 @@ gulp.task('scss', function (){
 gulp.task('watchs',  function (){
   gulp.watch(srcDft, ['buildjs']);
   // gulp.watch('src/**/*.scss', ['scss'])
-  // gulp.watch(copyDef,['copyfiles'])
+  gulp.watch(copyDef,['copyfiles'])
 });
 // 删除
 gulp.task('delete', function (cb){

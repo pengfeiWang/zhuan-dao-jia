@@ -4,18 +4,8 @@ import utils from 'utils'
 import Hammer from 'hammer'
 import template from './data/template'
 
-window.config = {
-  URL: 'http://42.62.90.56:8081/zdj_zly/zly/',
-  UID: '123',
-  reqParam: {
-    appLoginMobile: '1',
-    loginPassword: '2',
-  },
-  getUID () {
-    console.log(this.UID)
-  }
-}
-config.getUID();
+
+// callClientFunction('getUserInfo')
 var 
   doc = document,
   dialog,
@@ -197,6 +187,7 @@ window.pageVM = new Vue({
   },
   components: { App },
   ready () {
+    callClientFunction('getUserInfo')
     // 头右侧按钮
     hInfo = doc.querySelectorAll('.h-info');
     // 遮罩

@@ -14,28 +14,30 @@
   </svg>
 </template>
 <script>
-var share = (vm) => {
-  var rectPt = vm.$els.shareBox;
-  var rect = rectPt.children;
-  var hd = (node) => {
-    Hammer(node).on('tap', function (ev) {
-      console.log('ajax处理')
-    });
-  }
-  for( var i = 0, len = rect.length; i < len; i++ ) {
-    hd(rect[ i ])
-  }
-} 
+// var share = (vm) => {
+//   var rectPt = vm.$els.shareBox;
+//   var rect = rectPt.children;
+//   var hd = (node) => {
+//     console.log(node)
+//     Hammer(node).on('tap', function (ev) {
+//       console.log('ajax处理')
+//     });
+//   }
+//   for( var i = 0, len = rect.length; i < len; i++ ) {
+//     console.log(i)
+//     hd(rect[ i ])
+//   }
+// } 
 export default {
   data () {
     return {
     }
   },
   ready () {
-    var t = this;
-    var rootVm = t.$root;
-    var rectPt = t.$els.shareBox;
-    share(t)
+    // var t = this;
+    // var rootVm = t.$root;
+    // var rectPt = t.$els.shareBox;
+    // share(t)
   }
 }
 </script>

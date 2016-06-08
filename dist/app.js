@@ -26,18 +26,6 @@ webpackJsonp([1,0],[
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	window.config = {
-	  URL: 'http://42.62.90.56:8081/zdj_zly/zly/',
-	  UID: '123',
-	  reqParam: {
-	    appLoginMobile: '1',
-	    loginPassword: '2'
-	  },
-	  getUID: function getUID() {
-	    console.log(this.UID);
-	  }
-	};
-	config.getUID();
 	var doc = document,
 	    dialog,
 	    dialogTimer,
@@ -210,6 +198,8 @@ webpackJsonp([1,0],[
 	  },
 	  components: { App: _App2.default },
 	  ready: function ready() {
+	    callClientFunction('getUserInfo');
+
 	    hInfo = doc.querySelectorAll('.h-info');
 
 	    maskNode = doc.querySelector('#mask');
@@ -3826,7 +3816,6 @@ webpackJsonp([1,0],[
 	    });
 	    return;
 	  }
-	  console.log(stop);
 	  lop = 0;
 	  stop = false;
 	  setLop(vm, n1 - 1, n2 - 1, !0);
@@ -4624,29 +4613,28 @@ webpackJsonp([1,0],[
 	var doc = document;
 	var back = _index2.default.back;
 
+	var share = function share(vm) {
+	  var rect = vm.$children[0].$els.shareBox.getElementsByTagName('rect');
+
+	  var arr = [{ id: 0, name: '微信' }, { id: 1, name: '朋友圈' }, { id: 2, name: 'qq' }, { id: 3, name: 'qq空间' }, { id: 4, name: '新浪微博' }];
+	  var hd = function hd(n) {
+	    var node = rect[n];
+	    Hammer(node).on('tap', function (ev) {
+	      alert('原声处理 :' + 'id : ' + arr[n].id + '分享到: ' + arr[n].name);
+	    });
+	  };
+	  for (var i = 0, len = rect.length; i < len; i++) {
+	    console.log(i);
+	    hd(i);
+	  }
+	};
 	var rush = function rush(vm) {
 	  var button = vm.$els.rush;
 	  Hammer(button).on('tap', function (ev) {
 	    if (vm.$root.isTranslate) {
 	      return;
 	    }
-	    var reqObj = utils.extend({}, config.reqParam);
-	    reqObj.adId = vm.taskDetail.adId;
-	    utils.ajax({
-	      url: config.URL + 'doShareMisson.do',
-	      type: 'post',
-	      dataType: 'json',
-	      data: reqObj,
-	      success: function success(res) {
-	        if (res.rescode == 100) {
-	          vm.taskDetail.missonOverFlg = true;
-	          vm.$dispatch('child-show', vm.parentIdx);
-	        }
-	      },
-	      error: function error(xhr) {
-	        utils.dialog('没抢到');
-	      }
-	    });
+	    vm.taskDetail.missonOverFlg = true;
 	  });
 	};
 	exports.default = {
@@ -4675,7 +4663,7 @@ webpackJsonp([1,0],[
 	    t.$on('setData', function (data, idx) {
 	      for (var i in data) {
 	        if (i == 'missonOverFlg') {
-	          data[i] = +data[i];
+	          t.taskDetail[i] = +data[i];
 	        }
 	      }
 	      t.taskDetail = data;
@@ -4683,6 +4671,7 @@ webpackJsonp([1,0],[
 	      t.pts = t.$parent.pts;
 	      t.$parent.pts = false;
 	      t.show = true;
+	      share(t);
 	    });
 	    window.articleVm = t;
 	  }
@@ -4826,34 +4815,16 @@ webpackJsonp([1,0],[
 /* 59 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var share = function share(vm) {
-	  var rectPt = vm.$els.shareBox;
-	  var rect = rectPt.children;
-	  var hd = function hd(node) {
-	    Hammer(node).on('tap', function (ev) {
-	      console.log('ajax处理');
-	    });
-	  };
-	  for (var i = 0, len = rect.length; i < len; i++) {
-	    hd(rect[i]);
-	  }
-	};
 	exports.default = {
 	  data: function data() {
 	    return {};
 	  },
-	  ready: function ready() {
-	    var t = this;
-	    var rootVm = t.$root;
-	    var rectPt = t.$els.shareBox;
-	    share(t);
-	  }
+	  ready: function ready() {}
 	};
 
 /***/ },
@@ -5739,7 +5710,7 @@ webpackJsonp([1,0],[
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div  class=\"pages-controller\" v-show=\"show\" transition=\"art\">\n  <div class=\"gol-header\">\n    <div class=\"h-back\" v-el:back data-article=\"article\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      任务\n    </h1>\n  </div> \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page\">\n      <div class=\"article-inner\">\n        <div class=\"task-detail\">\n          <div class=\"img-box\"></div>\n          <div class=\"bottom\">\n            <ul class=\"task-list\" v-show=\"!taskDetail.missonOverFlg\" transition=\"shareShow\">\n              <li style=\"background:#F1F1F1\">\n                <img v-bind:src=\"taskDetail.bigPicUrl\" alt=\"\">\n                <span class=\"title\">{{taskDetail.missonTitle}}</span>\n                <div class=\"text ellipsis-2\">  \n                  {{taskDetail.desc}}\n                </div>\n                <div class=\"footer\">\n                  <span class=\"fr\">\n                    结束时间: {{taskDetail.endTime}}\n                  </span>\n                    <!-- 昨天: --> {{taskDetail.time}}\n                </div>\n              </li>\n            </ul>\n            <div class=\"share-box\" v-show=\"!!taskDetail.missonOverFlg\" transition=\"shareShow\">\n              <p class=\"txt-green txt-green tac padding-20\">快快分享给小伙伴   大家一起赚到家</p>\n              <!-- <embed src=\"../../assets/images/share.svg\" alt=\"\" style=\"width:100%;\"  type=\"image/svg+xml\" > -->\n              <Share></Share>\n            </div>\n          </div>\n          <div class=\"footer\">\n            <button type=\"button\" v-el:rush v-bind:disabled=\"!!taskDetail.missonOverFlg\">立即抢贡献值</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "\n<div  class=\"pages-controller\" v-show=\"show\" transition=\"art\">\n  <div class=\"gol-header\">\n    <div class=\"h-back\" v-el:back data-article=\"article\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      任务\n    </h1>\n  </div> \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page\">\n      <div class=\"article-inner\">\n        <div class=\"task-detail\">\n          <div class=\"img-box\"></div>\n          <div class=\"bottom\">\n            <ul class=\"task-list\" v-show=\"taskDetail.missonOverFlg==0\">\n              <li style=\"background:#F1F1F1\">\n                <img v-bind:src=\"taskDetail.smallPicUrl\" alt=\"\">\n                <span class=\"title\">{{taskDetail.missonTitle}}</span>\n                <div class=\"text ellipsis-2\">  \n                  {{taskDetail.desc}}\n                </div>\n                <div class=\"footer\">\n                  <span class=\"fr\">\n                    结束时间: {{taskDetail.endTime}}\n                  </span>\n                    <!-- 昨天: --> {{taskDetail.time}}\n                </div>\n              </li>\n            </ul>\n            <div class=\"share-box\" v-show=\"taskDetail.missonOverFlg==1\">\n              <p class=\"txt-green txt-green tac padding-20\">快快分享给小伙伴   大家一起赚到家</p>\n              <!-- <embed src=\"../../assets/images/share.svg\" alt=\"\" style=\"width:100%;\"  type=\"image/svg+xml\" > -->\n              <Share></Share>\n            </div>\n          </div>\n          <div class=\"footer\">\n            <button type=\"button\" v-el:rush v-bind:disabled=\"!!taskDetail.missonOverFlg\">立即抢贡献值</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 116 */
