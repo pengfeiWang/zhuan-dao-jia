@@ -7,10 +7,555 @@
 <meta content="yes" name="apple-mobile-web-app-capable" />
 <meta content="black" name="apple-mobile-web-app-status-bar-style" />
 <meta content="telephone=no" name="format-detection" />
-<title>index</title>
+<title>Untitled Document</title>
 <meta name="Description" content="">
 <meta name="Keywords" content="">
+<style>
+  /*{margin: 0;padding: 0; box-sizing: border-box;}
+  
+  .slide{
+    width: 100%;
+    height: 562px;
+    position: absolute;
+    top: 0;left: 0;right: 0; overflow: hidden;
+  }
+  .big{
+    float: left;
+    height: 482px;
+    width: 100%;
+    background-color: red;
+    opacity: .6;
+    color: #fff; text-align: center;line-height: 482px;
+    font-size: 100px;
+  }
+  .big img{
+    width: 100%;
+    height: auto;
+  }
+
+  .content{
+    width: 100%;
+    height: 482px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 200ms linear;
+  }
+  .content .box{
+    width: 100%; height: 100%;
+    float: left;
+  }*/
+  html,body{
+    width: 100%; height: 100%; overflow: hidden;
+  }
+  .mui-slider{
+    width: 100%;
+    height: 562px;
+  }
+  
+  .nav{
+    height: 29%;
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+    right: 24px;
+  }
+  .nav .bg{
+    height: 40%;
+    width: 100%;
+    background-color: #000;
+    opacity: .8;
+    border-radius: 10px;
+    position: absolute;
+    top: 0; right: 0; bottom: 0;left: 0;margin: auto;
+  }
+  .nav .innerBox{
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0; 
+    left: 24px;
+    right: 24px;
+    margin: auto;
+  }
+  .nav .inner {
+    height: 40%;    
+    /*width: 100%;*/
+    /*position: absolute;
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;*/
+    padding: 0;
+    /*display: table;*/
+    float: left;
+    transform: translateY(20%);
+  }
+  .nav .inner li{
+    position: relative;
+    /*display: table-cell;;*/
+    text-align: center;
+    vertical-align: middle;
+    width: 20%;
+    display: inline-block;
+    /*overflow: hidden;*/
+    padding: 0;
+    margin: 0;
+    float: left;
+  }
+  .nav .inner li span{
+    width: 96px;
+    height: 96px;
+    line-height: 96px;
+    border-radius: 48px;
+    background: #ccc;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    transition: all .5s linear;
+    position: relative;
+    transform: scale(1);
+    background-color: #ff8400;
+  }
+  .nav .inner li.active span{
+    transform: scale(1.2);
+    
+    
+    color:#fff;
+  }
+  .nav .inner li.active span:before{
+    position: absolute;
+    top: -6px;    left: 14px;
+    /*content: ' ';*/
+    border-width: 10px;
+    border-color: red transparent transparent red;
+    border-style: solid;
+    transform: rotate(45deg);
+  }
+      /*.nav .inner li span:after{
+        content: '赚新房';
+        position: absolute;
+        bottom: 0;right: 0;left: 0;
+        font-size: 12px;
+        height: 14px;
+        line-height: 14px;
+      }*/
+      .nav .inner li span img{
+        max-height: 80%
+      }
+      .nav .inner li span svg{
+        max-height: 100%;
+        position: absolute;top: 0;right: 0;bottom: 0;left: 0;margin:auto;
+      }
+      .nav .inner li:nth-child(2) span{
+        background-color: #7e00ff;
+      }
+      .nav .inner li:nth-child(3) span{
+        background-color: #19b100;
+      }
+      .nav .inner li:nth-child(4) span{
+        background-color: #00a2e6;
+      }
+      .nav .inner li:nth-child(5) span{
+        background-color: #e00079;
+      }  
+  .move-box{
+    width: 100%;
+    height: 100%;
+    transition: all .3s linear;
+  }
+    @media screen and (max-width: 425px) {
+      .mui-slider{
+        height: 318px;
+      }
+      .nav .inner li span{
+        width: 54px;
+        height: 54px;
+        line-height: 54px;
+        border-radius: 27px;
+      }
+      .nav .inner li.active span:before{
+        left: 17px;
+      } 
+      .nav .innerBox{
+        left: 14px;
+        right: 14px;
+      }
+      .nav .inner{
+        width: 349px;
+        transform: translateY(10px);
+      }        
+      .nav .inner li{
+        width: 69.8px;
+        height: 54px;
+        transform: translateY(-7px);
+      }
+    }  
+
+    @media screen and (max-width: 414px) {
+      .mui-slider{
+        height: 310px;
+      }
+      .nav .inner li span{
+        width: 53px;
+        height: 53px;
+        line-height: 53px;
+        border-radius: 27px;
+      }
+     
+      .nav .inner li.active span:before{
+        left: 17px;
+      } 
+      .nav .innerBox{
+        left: 13px;
+        right: 13px;
+      }
+      .nav .inner{
+        width: 340px;
+        transform: translateY(10px);
+      }      
+      .nav .inner li{
+        width: 68px;
+        height: 53px;
+        transform: translateY(-7px);
+      }
+    }
+
+    @media screen and (max-width: 375px) {
+      .mui-slider{
+        height: 281px;
+      }
+      .nav .inner li span{
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        border-radius: 24px;
+      }
+      .nav .inner li.active span:before{
+        top: -5px;
+        left: 14px;
+      }       
+      .nav .innerBox{
+        left: 12px;
+        right: 12px;
+      }
+      .nav .inner{
+        width: 303px;
+        transform: translateY(7px);
+      }
+      .nav .inner li{
+        width: 60.59px;
+        height: 48px;
+      }
+    } 
+    @media screen and (max-width: 360px) {
+      .mui-slider{
+        height: 269.76px;
+      }
+      .nav .inner li span{
+        width: 46.06px;
+        height: 46.06px;
+        line-height: 46.06px;
+        border-radius: 23px;
+      }
+      .nav .inner li.active span:before{
+        top: -4px;
+        left: 13px;
+      }       
+      .nav .innerBox{
+        left: 11.52px;
+        right: 11.52px;
+      }
+      .nav .inner{
+        width: 288.97px;
+        transform: translateY(7px);
+      }
+      .nav .inner li{
+        width: 57.79px;
+        height: 48px;
+      }
+    }      
+    @media screen and (max-width: 320px) {
+      .mui-slider{
+        height: 236px;
+      }
+      .nav .inner li span{
+        width: 41px;
+        height: 41px;
+        line-height: 41px;
+        border-radius: 21px;
+      }
+      .nav .inner li.active span:before{
+        top:-3px;
+        left: 11px;
+      }  
+      .nav .innerBox{
+        left: 10px;
+        right: 10px;
+      }
+      .nav .inner{
+        width: 252px;
+        transform: translateY(3px);
+      }
+      .nav .inner li{
+        width: 50.39px;
+        height: 41px;
+      }
+
+     
+    } 
+</style>
+<link rel="stylesheet" href="./static/css/mui.min.css">
 </head>
 <body>
+<div id="slider" class="mui-slider" >
+      <div class="mui-slider-group mui-slider-loop">
+        <div class="mui-slider-item mui-slider-item-duplicate">
+          <a href="#">
+            <img src="./src/assets/images/5.jpg">
+          </a>
+        </div>
+        <div class="mui-slider-item">
+          <a href="#">
+            <img src="./src/assets/images/1.jpg">
+          </a>
+        </div>
+        <div class="mui-slider-item">
+          <a href="#">
+            <img src="./src/assets/images/2.jpg">
+          </a>
+        </div>
+        <div class="mui-slider-item">
+          <a href="#">
+            <img src="./src/assets/images/3.jpg">
+          </a>
+        </div>
+        <div class="mui-slider-item">
+          <a href="#">
+            <img src="./src/assets/images/4.jpg">
+          </a>
+        </div>
+        <div class="mui-slider-item">
+          <a href="#">
+            <img src="./src/assets/images/5.jpg">
+          </a>
+        </div>
+        <div class="mui-slider-item mui-slider-item-duplicate">
+          <a href="#">
+            <img src="./src/assets/images/1.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="nav" id="nav">
+        <div class="bg"></div>
+        <div class="innerBox">
+          <div class="move-box">
+           <ul class="inner" >
+             <li><span>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 100 140" style="enable-background:new 0 0 100 140;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:#FFFFFF;}
+  .st1{font-family:'STYuanti-SC-Light';}
+  .st2{font-size:24px;}
+</style>
+<image style="overflow:visible;" width="43" height="36" xlink:href="./static/images/banner/3.png"  transform="matrix(2.003 0 0 2.003 7.0809 9.6243)">
+</image>
+<text transform="matrix(1 0 0 1 14.5519 107.5736)" class="st0 st1 st2">赚新房</text>
+</svg>
+
+             </span></li>
+             <li><span>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 100 140" style="enable-background:new 0 0 100 140;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:#FFFFFF;}
+  .st1{font-family:'STYuanti-SC-Light';}
+  .st2{font-size:24px;}
+</style>
+<image style="overflow:visible;" width="43" height="36" xlink:href="./static/images/banner/2.png"  transform="matrix(2.003 0 0 2.003 7.0809 9.6243)">
+</image>
+<text transform="matrix(1 0 0 1 14.5519 107.5736)" class="st0 st1 st2">赚零用</text>
+</svg>              
+             </span></li>
+             <li><span>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 100 140" style="enable-background:new 0 0 100 140;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:#FFFFFF;}
+  .st1{font-family:'STYuanti-SC-Light';}
+  .st2{font-size:24px;}
+</style>
+<image style="overflow:visible;" width="43" height="36" xlink:href="./static/images/banner/5.png"  transform="matrix(2.003 0 0 2.003 7.0809 9.6243)">
+</image>
+<text transform="matrix(1 0 0 1 14.5519 107.5736)" class="st0 st1 st2">赚二手</text>
+</svg>                
+             </span></li>
+             <li><span>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 100 140" style="enable-background:new 0 0 100 140;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:#FFFFFF;}
+  .st1{font-family:'STYuanti-SC-Light';}
+  .st2{font-size:24px;}
+</style>
+<image style="overflow:visible;" width="43" height="36" xlink:href="./static/images/banner/4.png"  transform="matrix(2.003 0 0 2.003 7.0809 9.6243)">
+</image>
+<text transform="matrix(1 0 0 1 14.5519 107.5736)" class="st0 st1 st2">赚新车</text>
+</svg>                
+             </span></li>
+             <li><span>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 100 140" style="enable-background:new 0 0 100 140;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:#FFFFFF;}
+  .st1{font-family:'STYuanti-SC-Light';}
+  .st2{font-size:24px;}
+</style>
+<image style="overflow:visible;" width="43" height="36" xlink:href="./static/images/banner/1.png"  transform="matrix(2.003 0 0 2.003 7.0809 9.6243)">
+</image>
+<text transform="matrix(1 0 0 1 14.5519 107.5736)" class="st0 st1 st2">赚装修</text>
+</svg>                
+             </span></li>
+           </ul>
+          </div>
+        </div>
+      </div>
+    </div>  
+<script src="./static/lib/mui/mui.2.7.0.js"></script>
+<script>
+function getTranslateX ( obj ) {
+    var str = 'matrix(0, 0, 0, 0, 0, 0)';
+    var trs = getComputedStyle(obj, null)['webkitTransform'];
+    var matrix = trs == 'none' ? str.replace(/matrix\(|\)/g,'') : trs.replace(/matrix\(|\)/g,'')
+    var arr = matrix.split(',');
+    var x = Math.floor(arr[4]);
+
+    return x;
+}
+mui('#slider').slider({
+  customIndicator: true,
+  getElems: function () {
+    var nav = document.getElementById('nav');
+    var item = nav.querySelectorAll('li');
+    var inner = nav.querySelectorAll('.inner')[0];
+    var innerWidth = parseFloat(getComputedStyle(inner,null)['width']);
+    var itemWidth = parseFloat(getComputedStyle(item[0],null)['width']);
+    var innerBox = nav.querySelectorAll('.innerBox')[0];
+    var innerBoxWidth = parseFloat(getComputedStyle(innerBox,null)['width']);
+    var moveBox = nav.querySelectorAll('.move-box')[0];
+    this.options.customObj = {
+      nav: nav,
+      navItem : item,
+      itemWidth: itemWidth,
+      innerBox: innerBox,
+      innerBoxWidth: innerBoxWidth,
+      moveBox: moveBox
+    } 
+  },
+  setItem: function (e) {
+    var elems = this.options.customObj;
+    var 
+      bw = elems.innerBoxWidth,
+      sw = elems.itemWidth, 
+      idx = (this.lastSlideNumber||0),
+      len = 10,
+      s2 = idx+5;;
+    var dis = -(bw/2 + (sw*idx+sw/2));
+
+    var dir = this.direction;
+    if( (dir == 'right' && idx == 4) || (dir == 'left' && idx == 0) ) {
+      elems.moveBox.style.webkitTransitionDuration = '0ms';
+      elems.moveBox.style.webkitTransitionTimingFunction = 'none';
+    } else {
+      elems.moveBox.style.webkitTransitionTimingFunction = this.options.bounceEasing.style;
+      elems.moveBox.style.webkitTransitionDuration = '500ms';
+    }
+    
+    for( var i = 5; i < len; i++ ) {
+      elems.item[i].children[0].style.webkitTransform = 'scale(1)';
+      elems.item[i].children[0].style.webkitTransitionDuration = '500ms';
+      elems.item[i].classList[i===s2?'add':'remove']('active')
+    }
+
+    elems.item[s2].children[0].style.webkitTransform = 'scale(1.2)';
+    elems.moveBox.style.webkitTransform = 'translateX('+ dis +'px)';
+    this.oldSlideNumber = idx;
+    this.oldX = getTranslateX(elems.moveBox);
+  },
+  setScale: function (e, scale) {
+    var elems = this.options.customObj;
+    var idx = (this.lastSlideNumber||0);
+    var len = 10;
+    
+
+    var dir = this.direction;
+    var current = this.currentPage.pageX-1;
+
+    this.nextItem = 5 + current + 1;
+    
+    if( dir == 'right') {
+      this.nextItem = current - 1;
+      // if( this.nextItem < 0 ) {
+      //   this.nextItem = 4
+      // }
+      this.nextItem = 4+idx
+    }
+    elems.item[this.nextItem].children[0].style.webkitTransitionDuration = '0ms';
+    for( var i = 5; i < len; i++ ) {
+      if(elems.item[i].classList.contains('active')) continue;
+      elems.item[i].children[0].style.webkitTransform='scale(1)';
+    };
+    if( idx == 0 ) {
+      elems.item[9].children[0].style.webkitTransform='scale('+scale+')'
+    }
+    if( idx == 4 ) {
+      elems.item[5].children[0].style.webkitTransform='scale('+scale+')'
+    }
+    elems.item[this.nextItem].children[0].style.webkitTransform='scale('+scale+')'
+  },
+  initCallBack: function () {
+    this.options.getElems.apply(this);
+    this.oldSlideNumber = this.lastSlideNumber||0;
+    var elems = this.options.customObj;
+    elems.moveBox.style.width = elems.innerBoxWidth*3+'px';
+    elems.moveBox.style.webkitTransform = 'translateX(-33.333%)';
+    elems.moveBox.innerHTML += (elems.moveBox.innerHTML+elems.moveBox.innerHTML);
+    
+    this.options.customObj.item = nav.querySelectorAll('li');
+    this.options.setItem.apply(this, arguments);
+  },
+  customStartCallBack: function () {
+    var moveBox = this.options.customObj.moveBox;
+    this.oldWrapX = getTranslateX(this.scroller)
+    this.oldX = getTranslateX(moveBox);
+    this.oldSlideNumber = this.lastSlideNumber||0;
+  },
+
+  customMoveCallBack: function (e) {
+    var dis = e.detail.deltaX;
+    var oldWrapX = this.oldWrapX;
+    var curWrapX = getTranslateX(this.scroller);
+    var min = Math.min(oldWrapX,curWrapX);
+    var max = Math.max(oldWrapX,curWrapX);
+    var moveBox = this.options.customObj.moveBox;
+    var wx = this.oldX;
+    var ww = this.wrapperWidth
+    var iw = this.options.customObj.itemWidth
+    var ratio = (iw/ww);
+    var tg = wx+(dis*ratio);
+    this.options.setScale.call(this, e, Math.abs(dis*ratio)/iw/5+1);
+    moveBox.style.webkitTransitionTimingFunction = 'none';
+    moveBox.style.webkitTransitionDuration = '0ms'
+    moveBox.style.webkitTransform = 'translate3d('+tg+'px,0,0)'
+
+  },
+  customEndCallBack: function () {
+    this.options.setItem.apply(this, arguments)
+  }
+})
+</script>
 </body>
 </html>

@@ -96,6 +96,14 @@ module.exports = {
           name: utils.assetsPath('images/[name].[hash:7].[ext]')
         }
       },
+      // {
+      //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+      //     loader: 'href',
+      //     query: {
+      //     // limit: 100000,
+      //     name: utils.assetsPath('images/[name].[hash:7].[ext]')
+      //   }
+      // },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
@@ -140,25 +148,28 @@ module.exports = {
       filename: 'game.html',
       template: 'game.html',
       inject: true,
-      // minify: {
-      //   removeComments: true,
-      //   collapseWhitespace: true,
-      //   removeAttributeQuotes: true
-      // },
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
       chunks:['vendor','vue','app'],
       chunksSortMode: 'dependency'
-    }),
+    })
+    ,
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
-      inject: true,
-      // minify: {
-      //   removeComments: true,
-      //   collapseWhitespace: true,
-      //   removeAttributeQuotes: true
-      // },
-      chunks:['vendor','vue','index'],
-      chunksSortMode: 'dependency'
+      template: 'index.html'
+      ,
+      inject: false,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      }
+      // ,
+      // chunks:[],
+      // chunksSortMode: 'dependency'
     })
   ]
 }
