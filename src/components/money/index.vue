@@ -21,6 +21,7 @@
               </div>
             </li>
           </ul>
+          
         </div>
     </div>
   </div>
@@ -56,6 +57,7 @@ var listTap = (vm) => {
 export default {
   data () {
     return {
+      
       btn: [
         {id:1, title:'厨卫电器'},
         {id:2, title:'家具建材'},

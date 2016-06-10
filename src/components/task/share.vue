@@ -1,5 +1,5 @@
 <template>
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2354 523" style="enable-background:new 0 0 2354 523;" xml:space="preserve">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2354 523" style="enable-background:new 0 0 2354 523; width: 100%;" xml:space="preserve">
     <g>
         <image style="overflow:visible;" width="645" height="119" xlink:href="./static/images/share.png" transform="matrix(3.4382 0 0 3.4382 77 55.9264)">
         </image>

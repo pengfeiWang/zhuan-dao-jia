@@ -71,23 +71,6 @@ module.exports = {
         test: /\.html$/,
         loader: 'vue-html'
       },
-      // {
-      //   test: /\.mp3$/,
-      //   loader: 'url',
-      //   query: {
-      //     // limit: 10000,
-      //     name: utils.assetsPath('images/[name].[hash:7].[ext]')
-      //   }
-      // },
-      // { test: /\.svg(\?.*)?$/, loader: 'inline' },
-      // {
-      //   test: /\.svg$/,
-      //   loader: 'svg-inline',
-      //   query: {
-      //     limit: 10000,
-      //     name: utils.assetsPath('images/[name].[hash:7].[ext]')
-      //   }
-      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
@@ -96,14 +79,6 @@ module.exports = {
           name: utils.assetsPath('images/[name].[hash:7].[ext]')
         }
       },
-      // {
-      //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      //     loader: 'href',
-      //     query: {
-      //     // limit: 100000,
-      //     name: utils.assetsPath('images/[name].[hash:7].[ext]')
-      //   }
-      // },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
@@ -143,7 +118,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.js'
-    }),
+    })
+    ,
     new HtmlWebpackPlugin({
       filename: 'game.html',
       template: 'game.html',
@@ -161,15 +137,13 @@ module.exports = {
       filename: 'index.html',
       template: 'index.html'
       ,
-      inject: false,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      }
+      inject: false
       // ,
-      // chunks:[],
-      // chunksSortMode: 'dependency'
+      // minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeAttributeQuotes: true
+      // }
     })
   ]
 }

@@ -26,7 +26,7 @@
         </li>
       </ul>
 
-      <div class="scroll-pull">
+      <div class="scroll-pull" v-show="isPullUp">
         <span class="scroll-loadTxt" v-show="!pullUpLoadStatus">{{pullUpLoadTxt}}</span>
         <!-- 加载更多loading图标 -->
         <div class="loading-spinner-outer" v-show="pullUpLoadStatus">
@@ -87,6 +87,7 @@ var init = (vm) => {
     success (res) {
       if( res.rescode == 100 ) {
         vm.taskData = res.list;
+        setTimeout(function (){winScroll(vm);}, 300)
       }
     },
     error (xhr) {}
@@ -97,13 +98,26 @@ var winScroll = (vm) => {
   var page = rootNode.querySelectorAll('.page')[0];
   var loadTxt = ['上拉加载更多', '数据加载中...', '已经到最后一条'];
   var isEnd = false;
+
+  var taskBox = vm.$els.taskBox;
+  if( taskBox.offsetHeight > page.offsetHeight) {
+    vm.isPullUp = true
+  } else {
+    vm.isPullUp = false
+  }
   page.addEventListener('scroll', function (e) {
     var rootHeight = rootNode.offsetHeight;
     var scrollHeight = page.scrollHeight;
     var top = page.scrollTop;
     var pageSize = 0;
-    var reqObj = utils.extend({}, config.reqParam)
-    if( scrollHeight > rootHeight && !vm.pullUpLoadStatus && !isEnd ) {
+    var reqObj = utils.extend({}, config.reqParam);
+    var taskBox = vm.$els.taskBox;
+    if( taskBox.offsetHeight > page.offsetHeight) {
+      vm.isPullUp = true
+    } else {
+      vm.isPullUp = false
+    }
+    if( taskBox.offsetHeight > rootHeight && !vm.pullUpLoadStatus && !isEnd ) {
  
       if( (scrollHeight - top - 50) <= rootHeight ) {
         vm.pullUpLoadStatus = true;
@@ -144,6 +158,7 @@ export default {
     return {
       pullUpLoadTxt: '上拉加载更多',
       pullUpLoadStatus: false,
+      isPullUp: false,
       taskData: [],
       pts: this.$root.show
     }

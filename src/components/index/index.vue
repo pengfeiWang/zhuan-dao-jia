@@ -9,11 +9,11 @@
     <!-- <div class="h-info" >&nbsp;</div> -->
   </div>  
   <div class="gol-wrapper doc-header">
-    <div class="page" style="overflow-y:-hidden">
-      <svg version="1.1" id="index" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 1294" style="enable-background:new 0 0 750 1294; opacity:1;position: absolute;top: 0;left: 0;bottom: 0;right: 0;margin: auto; width:100%;" xml:space="preserve">
-        <g>
+    <div class="page" id="idx-page" style="overflow-y:-hidden;overflow-x:-hidden; background:red">
+      <svg version="1.1" id="index" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 1294" style="opacity:1;position: absolute;top: 0;left: 0;bottom: 0;right: 0;margin: auto; " xml:space="preserve">
+        <!-- <g> -->
           <image style="overflow:visible;opacity:1" width="750" height="1294" xlink:href="./static/images/page-1.png"></image>
-        </g>
+        <!-- </g> -->
         <g id="g">
           <rect x="129" y="217" width="156" height="120"  class="st0"/>
           <rect x="557" y="369" width="158" height="98.8" class="st0"/>
@@ -46,8 +46,10 @@ var pageViewTab = ( vm ) => {
       1,2,3,4,
       1,2,3,4
     ];
+
   var tapHd = ( key ) => {
     Hammer(rect[ key ]).on('tap', function (ev){
+      alert(2)
       if( rootVm.isTranslate ) {
         return;
       }
@@ -75,7 +77,16 @@ export default {
     t.$on('pageTab', function (num) {
       t.pts = num;
     });
-    pageViewTab(t);
+    setTimeout(function () {
+      var winW = window.innerWidth;
+var winH = window.innerHeight;
+var idxPage = document.getElementById('idx-page');
+var svg = idxPage.getElementsByTagName('svg')[0];
+var img = svg.getElementsByTagName('image')[0]
+console.log(img.offsetHeight)
+
+    });
+    setTimeout(function (){pageViewTab(t);},200)
     window.indexVm = t
   }
 }

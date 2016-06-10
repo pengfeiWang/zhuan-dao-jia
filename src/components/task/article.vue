@@ -12,7 +12,7 @@
         <div class="task-detail">
           <div class="img-box"></div>
           <div class="bottom">
-            <ul class="task-list" v-show="taskDetail.missonOverFlg==0">
+            <ul class="task-list" v-show="!missonOverFlg">
               <li style="background:#F1F1F1">
                 <img v-bind:src="taskDetail.smallPicUrl" alt="">
                 <span class="title">{{taskDetail.missonTitle}}</span>
@@ -27,14 +27,14 @@
                 </div>
               </li>
             </ul>
-            <div class="share-box" v-show="taskDetail.missonOverFlg==1">
+            <div class="share-box" v-show="missonOverFlg">
               <p class="txt-green txt-green tac padding-20">快快分享给小伙伴   大家一起赚到家</p>
               <!-- <embed src="../../assets/images/share.svg" alt="" style="width:100%;"  type="image/svg+xml" > -->
               <Share></Share>
             </div>
           </div>
           <div class="footer">
-            <button type="button" v-el:rush v-bind:disabled="taskDetail.missonOverFlg==1">立即抢贡献值</button>
+            <button type="button" v-el:rush v-bind:disabled="missonOverFlg">立即抢贡献值</button>
           </div>
         </div>
       </div>
@@ -69,7 +69,8 @@ var share = (vm) => {
   var hd = (n) => {
     var node = rect[n];
     Hammer(node).on('tap', function (ev) {
-      alert('原声处理 :' + 'id : ' + arr[n].id + '分享到: ' + arr[n].name)
+      // alert('原声处理 :' + 'id : ' + arr[n].id + '分享到: ' + arr[n].name);
+      callClientFunction('share', arr[n].id);
       // vm.$dispatch('child-show', vm.parentIdx);
     });
   }
@@ -95,6 +96,7 @@ var rush = (vm) => {
       data: reqObj,
       success (res) {
         if(res.rescode == 100) {
+          vm.missonOverFlg = true
           vm.taskDetail.missonOverFlg = !+res.data.successFlg;
         } else {
           utils.dialog(res.message)
@@ -113,7 +115,7 @@ export default {
       taskDetail: {
         missonOverFlg: 0
       },
-      missonOverFlg: 0,
+      missonOverFlg: false,
       parentIdx: '',
       show: false,
       pts: this.$parent.pts

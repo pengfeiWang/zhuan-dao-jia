@@ -187,7 +187,6 @@ window.pageVM = new Vue({
   },
   components: { App },
   ready () {
-    callClientFunction('getUserInfo')
     // 头右侧按钮
     hInfo = doc.querySelectorAll('.h-info');
     // 遮罩

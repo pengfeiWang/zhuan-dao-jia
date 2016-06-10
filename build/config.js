@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: './',
     productionSourceMap: true
   },
-  dev: true,
+  dev: false,
   //bold  
   //italic  
   //underline  

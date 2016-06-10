@@ -10,7 +10,7 @@
     </h1>
     <div class="h-info" ><span class="icon-help-with-circle"></span></div>
   </div>  
-  <div class="gol-wrapper doc-header">
+  <div class="gol-wrapper doc-header" id="money-controller">
     <div class="page" >
       <div class="list-box" id="box">
         <button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
@@ -21,8 +21,52 @@
               <div class="x">4K(3840*2160)</div> -->
             </div>
           </div>
+        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
+          <div class="inner">
+            <div class="cont">
+              <div class="b">{{item.adName}}</div>
+             <!--  <div class="s">55英寸</div>
+              <div class="x">4K(3840*2160)</div> -->
+            </div>
+          </div>
+        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
+          <div class="inner">
+            <div class="cont">
+              <div class="b">{{item.adName}}</div>
+             <!--  <div class="s">55英寸</div>
+              <div class="x">4K(3840*2160)</div> -->
+            </div>
+          </div>
+        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
+          <div class="inner">
+            <div class="cont">
+              <div class="b">{{item.adName}}</div>
+             <!--  <div class="s">55英寸</div>
+              <div class="x">4K(3840*2160)</div> -->
+            </div>
+          </div>
+        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
+          <div class="inner">
+            <div class="cont">
+              <div class="b">{{item.adName}}</div>
+             <!--  <div class="s">55英寸</div>
+              <div class="x">4K(3840*2160)</div> -->
+            </div>
+          </div>
         </button>
       </div>
+      <div class="scroll-pull" v-show="pullUpAll">
+            <span class="scroll-loadTxt" v-show="!pullUpLoadStatus">{{pullUpLoadTxt}}</span>
+            <!-- 加载更多loading图标 -->
+            <div class="loading-spinner-outer" v-show="pullUpLoadStatus">
+              <div class="loading-spinner">
+                <span class="loading-top"></span>
+                <span class="loading-right"></span>
+                <span class="loading-bottom"></span>
+                <span class="loading-left"></span>
+              </div>
+            </div>
+          </div>
     </div>
   </div>
 </div>
@@ -32,6 +76,7 @@
 import golMdule from '../../module/index';
 import Detail from './detail';
 import Vue from 'vue'
+
 
 Vue.filter('toBool', function (s){
   return !!+(s);
@@ -82,6 +127,7 @@ var init = (vm) => {
     success (res) {
       if(res.rescode ==100){
         vm.list = res.list
+        setTimeout(function (){winScroll(vm);},200)
       } else {
         utils.dialog(res.message)
       }
@@ -91,9 +137,72 @@ var init = (vm) => {
     }
   });
 }
+var winScroll = (vm) => {
+  var rootNode = document.getElementById('money-controller');
+  var page = rootNode.querySelectorAll('.page')[0];
+  var box = document.getElementById('box');
+  var loadTxt = ['上拉加载更多', '数据加载中...', '已经到最后一条'];
+  var isEnd = false;
+  var rootHeight = rootNode.offsetHeight;
+  var scrollHeight = page.scrollHeight;
+  if(box.offsetHeight > rootHeight ){
+    vm.pullUpAll = false
+  } else {
+    vm.pullUpAll = true
+  }
+  page.addEventListener('scroll', function (e) {
+    var rootHeight = rootNode.offsetHeight;
+    var scrollHeight = page.scrollHeight;
+    var top = page.scrollTop;
+    var box = document.getElementById('box');
+    var pageSize = 0;
+    var reqObj = utils.extend({}, config.reqParam)
+    if(box.offsetHeight > rootHeight ){
+      vm.pullUpAll = true
+    } else {
+      vm.pullUpAll = false
+    }
+    if( scrollHeight > rootHeight && !vm.pullUpLoadStatus && !isEnd ) {
+ 
+      if( (scrollHeight - top - 50) <= rootHeight ) {
+        vm.pullUpLoadStatus = true;
+        reqObj.adId = vm.list[ vm.list.length-1 ].adId;
+        // vm.pullUpLoadTxt = loadTxt[1]
+        // 获取任务列表
+        utils.ajax({
+          url: config.URL +'addMoreCashRedPaper.do',
+          type: 'post',
+          dataType: 'json',
+          data: reqObj,
+          success (res) {
+            vm.pullUpLoadStatus = false;
+            if( !res.list ) {
+              isEnd = true;
+              vm.pullUpLoadTxt = loadTxt[2]
+            } else {
+              for(var i = 0, len = res.list.length; i < len; i++) {
+                vm.list.push(res.list[i])
+              }
+              
+              isEnd = false;
+              vm.pullUpLoadTxt = loadTxt[0]
+            }
+          },
+          error (xhr) {
+            vm.pullUpLoadTxt = loadTxt[2]
+          }
+        }); 
+      }
+    }
+    // console.log(e);
+  })  
+}
 export default {
   data () {
     return {
+      pullUpLoadTxt: '上拉加载更多',
+      pullUpLoadStatus: false,
+      pullUpAll: false,
       title: '',
       list: [],
       show: false,
@@ -110,6 +219,7 @@ export default {
     var t = this;
     back(t);
     listTap(t);
+    setTimeout(function (){winScroll(t);},200)
     t.$on('moneyList', function (data) {
       t.pts = t.$parent.pts
       t.$parent.pts = false
@@ -117,6 +227,7 @@ export default {
       t.show = true;
       // if(!t.list.length){
         init(t);
+        
       // }
       
     });

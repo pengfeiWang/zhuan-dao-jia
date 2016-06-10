@@ -486,6 +486,13 @@
 .money-list{
   width: 100%
 } 
+.money-list .list-box:after{
+  content: ' ';
+      clear: both;
+      display: block;
+      height: 0;
+      overflow: hidden;
+}
 .money-list .list-box{
   margin:px2rem(22) 1.6rem px2rem(22) 0;
 }
