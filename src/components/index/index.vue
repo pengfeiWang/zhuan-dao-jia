@@ -9,7 +9,7 @@
     <!-- <div class="h-info" >&nbsp;</div> -->
   </div>  
   <div class="gol-wrapper doc-header">
-    <div class="page" id="idx-page" style="overflow-y:-hidden;overflow-x:-hidden; background:red">
+    <div class="page" id="idx-page" style="overflow-y:-hidden;overflow-x:-hidden;">
       <svg version="1.1" id="index" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 1294" style="opacity:1;position: absolute;top: 0;left: 0;bottom: 0;right: 0;margin: auto; " xml:space="preserve">
         <!-- <g> -->
           <image style="overflow:visible;opacity:1" width="750" height="1294" xlink:href="./static/images/page-1.png"></image>
@@ -49,7 +49,6 @@ var pageViewTab = ( vm ) => {
 
   var tapHd = ( key ) => {
     Hammer(rect[ key ]).on('tap', function (ev){
-      alert(2)
       if( rootVm.isTranslate ) {
         return;
       }
@@ -77,7 +76,6 @@ export default {
     t.$on('pageTab', function (num) {
       t.pts = num;
     });
-
     setTimeout(function (){pageViewTab(t);},200)
     window.indexVm = t
   }
