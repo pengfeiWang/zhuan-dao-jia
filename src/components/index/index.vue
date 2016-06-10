@@ -77,15 +77,7 @@ export default {
     t.$on('pageTab', function (num) {
       t.pts = num;
     });
-    setTimeout(function () {
-      var winW = window.innerWidth;
-var winH = window.innerHeight;
-var idxPage = document.getElementById('idx-page');
-var svg = idxPage.getElementsByTagName('svg')[0];
-var img = svg.getElementsByTagName('image')[0]
-console.log(img.offsetHeight)
 
-    });
     setTimeout(function (){pageViewTab(t);},200)
     window.indexVm = t
   }
