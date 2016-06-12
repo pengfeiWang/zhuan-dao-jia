@@ -119,11 +119,13 @@ var listTap = (vm) => {
   })
 }
 var init = (vm) => {
+  var reqObj = utils.extend({}, config.reqParam);
+  reqObj.adKind = vm.adKind;
   utils.ajax({
     url: config.URL + 'initCashRedPaper.do',
     type: 'post',
     dataType: 'json',
-    data: config.reqParam,
+    data: reqObj,
     success (res) {
       if(res.rescode ==100){
         vm.list = res.list
@@ -166,7 +168,7 @@ var winScroll = (vm) => {
  
       if( (scrollHeight - top - 50) <= rootHeight ) {
         vm.pullUpLoadStatus = true;
-        reqObj.adId = vm.list[ vm.list.length-1 ].adId;
+        reqObj.adKind = vm.adKind;
         // vm.pullUpLoadTxt = loadTxt[1]
         // 获取任务列表
         utils.ajax({
@@ -219,17 +221,19 @@ export default {
     var t = this;
     back(t);
     listTap(t);
+    window.sttt = t
     setTimeout(function (){winScroll(t);},200)
     t.$on('moneyList', function (data) {
       t.pts = t.$parent.pts
       t.$parent.pts = false
       t.title = data.title;
+      t.adKind = data.id
       t.show = true;
       // if(!t.list.length){
         init(t);
         
       // }
-      
+     
     });
   }
 }

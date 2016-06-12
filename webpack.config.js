@@ -138,6 +138,8 @@ module.exports = {
       template: 'index.html'
       ,
       inject: false
+      ,
+      chunk: ['vendor']
       // ,
       // minify: {
       //   removeComments: true,

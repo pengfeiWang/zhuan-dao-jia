@@ -52,16 +52,13 @@ var pageViewTab = ( vm ) => {
       if( rootVm.isTranslate ) {
         return;
       }
-    
       rootVm.olsShow = rootVm.show;
       vm.$dispatch('child-show', arr[key]+1)
     });
   }
-  svg.onload = function (){
     for( ; i < len; i++ ) {
       tapHd(i);
-    }
-  }       
+    }   
 }
 
 export default {

@@ -4,8 +4,25 @@ import utils from 'utils'
 import Hammer from 'hammer'
 import template from './data/template'
 
-
-// callClientFunction('getUserInfo')
+(function(){
+  var locationSearch = location.search
+  var s = location.search;
+  if(s&&s.indexOf('?')>-1){
+    var s2 = s.replace('?','');
+    var arr = s2.split('&');
+    for(var i = 0, len = arr.length; i < len; i++){
+      var idx = arr[i].indexOf('=');
+      if( idx >= 1 ) {
+        if(/appLoginMobile/.test(arr[i])){
+          window.config.reqParam.appLoginMobile = arr[i].substring(idx+1)
+        }
+        if(/loginPassword/.test(arr[i])){
+          window.config.reqParam.loginPassword = arr[i].substring(idx+1)
+        }
+      }
+    }
+  }  
+}());
 var 
   doc = document,
   dialog,
