@@ -141,6 +141,7 @@ var winScroll = (vm) => {
       if( (scrollHeight - top - 50) <= rootHeight ) {
         vm.pullUpLoadStatus = true;
         reqObj.adKind = vm.adKind;
+        reqObj.adId = vm.list[vm.list.length-1].adId;
         // vm.pullUpLoadTxt = loadTxt[1]
         // 获取任务列表
         utils.ajax({

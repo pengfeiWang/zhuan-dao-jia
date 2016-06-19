@@ -517,6 +517,11 @@
   background-size: 100% 100%;
   padding-top: 50%;
 }
+.money-list .list-box button.active .cont{
+  background: url(../images/money-index/money-list2.png) no-repeat 0 0;
+  background-size: 100% 100%;
+  padding-top: 50%;
+}
 .money-list .list-box button .cont.active{
   background-color: initial !important;
   opacity: .9;

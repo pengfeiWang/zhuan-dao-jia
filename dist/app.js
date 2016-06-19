@@ -13605,20 +13605,23 @@ webpackJsonp([1,0,3],[
 	    data: config.reqParam,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
-	        for (var i = 0, len = vm.timinggrabData.length; i < len; i++) {
-	          vm.timinggrabData[i].overFlg = parseInt(res.data['overFlg' + (i + 1)], 10);
-	          vm.timinggrabData[i].desc[1] = res.data['doTime4' + (i + 1)] + arrTip[i];
-	        }
 
-	        var l = timinggrabNode.querySelectorAll('.list');
-	        for (var i = 0, len = l.length; i < len; i++) {
-	          var flip = l[i].querySelectorAll('.flip');
-	          if (vm.timinggrabData[i].overFlg) {
-	            anm(flip[1], flip[0]);
-	          } else {
-	            anm(flip[0], flip[1]);
-	          }
+	        for (var i = 0, len = timinggrab.length; i < len; i++) {
+	          var o = utils.extend({}, timinggrab[i], { overFlg: parseInt(res.data['overFlg' + (i + 1)], 10) });
+	          o.desc[1] = res.data['doTime' + (i + 1)] + arrTip[i];
+	          vm.timinggrabData.$set(i, o);
 	        }
+	        setTimeout(function () {
+	          var l = timinggrabNode.querySelectorAll('.list');
+	          for (var i = 0, len = l.length; i < len; i++) {
+	            var flip = l[i].querySelectorAll('.flip');
+	            if (vm.timinggrabData[i].overFlg) {
+	              anm(flip[1], flip[0]);
+	            } else {
+	              anm(flip[0], flip[1]);
+	            }
+	          }
+	        }, 0);
 	      } else {
 	        utils.dialog(res.message);
 	      }
@@ -14557,6 +14560,7 @@ webpackJsonp([1,0,3],[
 	      if (scrollHeight - top - 50 <= rootHeight) {
 	        vm.pullUpLoadStatus = true;
 	        reqObj.adKind = vm.adKind;
+	        reqObj.adId = vm.list[vm.list.length - 1].adId;
 
 	        utils.ajax({
 	          url: config.URL + 'addMoreCashRedPaper.do',
