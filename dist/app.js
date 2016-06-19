@@ -13939,6 +13939,7 @@ webpackJsonp([1,0,3],[
 	      type: 'post',
 	      data: betData,
 	      success: function success(res) {
+	        res = typeof res == 'string' ? JSON.parse(res) : res;
 	        if (res.rescode == 100) {
 	          vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
 	          vm.score = res.data.availableDevoteValue;
@@ -13983,7 +13984,7 @@ webpackJsonp([1,0,3],[
 	        arr[0] = { checked: true, score: res.data.betValue1 };
 	        arr[1] = { checked: false, score: res.data.betValue2 };
 	        arr[2] = { checked: false, score: res.data.betValue3 };
-	        vm.score = res.data.availableDevoteValue;
+	        vm.score = +res.data.availableDevoteValue;
 
 
 	        vm.bet = arr;
@@ -14023,15 +14024,16 @@ webpackJsonp([1,0,3],[
 
 	  watch: {
 	    betScore: function betScore(v) {
+	      v = +v;
 	      if (v > this.score) {
-	        this.isStart = false;
-	      } else {
 	        this.isStart = true;
+	      } else {
+	        this.isStart = false;
 	      }
 	    },
 	    score: function score(v) {
-	      var n = parseFloat(v);
-	      if (n >= this.data.betValue1) {
+	      v = +v;
+	      if (v >= this.data.betValue1) {
 	        this.isStart = false;
 	      } else {
 	        this.isStart = true;
@@ -15832,7 +15834,7 @@ webpackJsonp([1,0,3],[
 /* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"desc-box\" >\n  <div v-show=\"!lottoStartEnd\">\n    <p>您的积分: {{score}}</p>\n    <p>轻选择参与游戏分数值: &nbsp;\n      <label for=\"\" v-for=\"it in bet\"><input type=\"radio\" name=\"bet\" v-model=\"betScore\" v-bind:checked=\"it.checked\" v-bind:value=\"it.score\">{{it.score}}</label>\n    </p>\n    <p>\n      请猜结果: &nbsp;\n      <label for=\"\"><input type=\"radio\" v-model=\"lotSts\" name=\"sts\" value=\"b\" checked>大</label>\n      <label for=\"\"><input type=\"radio\" v-model=\"lotSts\" name=\"sts\" value=\"s\">小</label>\n    </p>\n    <p>\n      <button type=\"button\" id=\"lotto-btn\" class=\"start\" v-bind:disabled=\"isStart\">开始</button>\n    </p>\n    <p>&nbsp;</p>\n    <p class=\"lh-14\">游戏说明： </p>\n    \n    <p class=\"lh-14 padding-tb0\">1.压500赢1000积分、压1000赢3000积分、压10000赢20000积分。</p>\n    <p class=\"lh-14 padding-tb0\">2.每个账号每天可以参与三次猜大小，贡献值额度不限。</p>\n    <p class=\"lh-14 padding-tb0\">3.猜大小的结果将影响当前相应的贡献值。</p>\n\n  </div>\n  <div class=\"tip\" v-show=\"lottoStartEnd\">\n    <div class=\"btn-box\" id=\"lotto-is-win-btn\">\n      <template v-if=\"isWin\">\n        <img src=\"" + __webpack_require__(100) + "\"  class=\"is-win\" alt=\"\" >\n      </template>\n      <template v-else>\n        <img src=\"" + __webpack_require__(99) + "\"  class=\"is-win\" alt=\"\" >\n      </template>\n    </div>\n    <p>&nbsp;</p>\n    <p class=\"lh-14\" style=\"padding-left:85px;\">游戏说明:</p>\n    <p class=\"lh-14 padding-tb0\" style=\"padding-left:85px;\">2,3,4,5,6 7小 &nbsp;&nbsp; 8,9,10,11,12大</p>\n  </div>\n</div>  \n";
+	module.exports = "\n<div class=\"desc-box\" >\n  <div v-show=\"!lottoStartEnd\">\n    <p>您的积分: {{score}}</p>\n    <p>轻选择参与游戏分数值: &nbsp;\n      <label for=\"\" v-for=\"it in bet\"><input type=\"radio\" name=\"bet\" v-model=\"betScore\" v-bind:checked=\"it.checked\" v-bind:value=\"it.score\">{{it.score}}</label>\n    </p>\n    <p>\n      请猜结果: &nbsp;\n      <label for=\"\"><input type=\"radio\" v-model=\"lotSts\" name=\"sts\" value=\"b\" checked>大</label>\n      <label for=\"\"><input type=\"radio\" v-model=\"lotSts\" name=\"sts\" value=\"s\">小</label>\n    </p>\n    <p>\n      <button type=\"button\" id=\"lotto-btn\" class=\"start\" v-bind:disabled=\"isStart\">开始</button>\n    </p>\n    <p>&nbsp;</p>\n    <p class=\"lh-14\">游戏说明： </p>\n    \n    <p class=\"lh-14 padding-tb0\">1.压500赢1000积分、压1000赢3000积分、压10000赢20000积分。</p>\n    <!-- <p class=\"lh-14 padding-tb0\">2.每个账号每天可以参与三次猜大小，贡献值额度不限。</p> -->\n    <p class=\"lh-14 padding-tb0\">2.猜大小的结果将影响当前相应的贡献值。</p>\n\n  </div>\n  <div class=\"tip\" v-show=\"lottoStartEnd\">\n    <div class=\"btn-box\" id=\"lotto-is-win-btn\">\n      <!-- <template v-show=\"isWin\"> -->\n        <img src=\"" + __webpack_require__(100) + "\"  class=\"is-win\" alt=\"\" v-show=\"isWin\">\n      <!-- </template> -->\n      <!-- <template v-show=\"!isWin\"> -->\n        <img src=\"" + __webpack_require__(99) + "\"  class=\"is-win\" alt=\"\" v-show=\"!isWin\">\n      <!-- </template> -->\n    </div>\n    <p>&nbsp;</p>\n    <p class=\"lh-14\" style=\"padding-left:85px;\">游戏说明:</p>\n    <p class=\"lh-14 padding-tb0\" style=\"padding-left:85px;\">2,3,4,5,6 7小 &nbsp;&nbsp; 8,9,10,11,12大</p>\n  </div>\n</div>  \n";
 
 /***/ },
 /* 108 */
@@ -15868,13 +15870,13 @@ webpackJsonp([1,0,3],[
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- 现金专区 -->\n<div class=\"pages-controller money-list\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      {{title}}\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\" id=\"money-controller\">\n    <div class=\"page\" >\n      <div class=\"list-box\" id=\"box\">\n        <button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button><button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button><button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button><button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button><button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button>\n      </div>\n      <div class=\"scroll-pull\" v-show=\"pullUpAll\">\n            <span class=\"scroll-loadTxt\" v-show=\"!pullUpLoadStatus\">{{pullUpLoadTxt}}</span>\n            <!-- 加载更多loading图标 -->\n            <div class=\"loading-spinner-outer\" v-show=\"pullUpLoadStatus\">\n              <div class=\"loading-spinner\">\n                <span class=\"loading-top\"></span>\n                <span class=\"loading-right\"></span>\n                <span class=\"loading-bottom\"></span>\n                <span class=\"loading-left\"></span>\n              </div>\n            </div>\n          </div>\n    </div>\n  </div>\n</div>\n<Detail></Detail>\n";
+	module.exports = "\n<!-- 现金专区 -->\n<div class=\"pages-controller money-list\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      {{title}}\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\" id=\"money-controller\">\n    <div class=\"page\" >\n      <div class=\"list-box\" id=\"box\">\n        <button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\" v-bind:class=\"{'active':toBol(item.cashOverFlg)}\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button>\n      </div>\n      <div class=\"scroll-pull\" v-show=\"pullUpAll\">\n            <span class=\"scroll-loadTxt\" v-show=\"!pullUpLoadStatus\">{{pullUpLoadTxt}}</span>\n            <!-- 加载更多loading图标 -->\n            <div class=\"loading-spinner-outer\" v-show=\"pullUpLoadStatus\">\n              <div class=\"loading-spinner\">\n                <span class=\"loading-top\"></span>\n                <span class=\"loading-right\"></span>\n                <span class=\"loading-bottom\"></span>\n                <span class=\"loading-left\"></span>\n              </div>\n            </div>\n          </div>\n    </div>\n  </div>\n</div>\n<Detail></Detail>\n";
 
 /***/ },
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- 竞技场 -->\n<div class=\"pages-controller\" v-show=\"pts==4\" transition=\"expand\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <div class=\"h-back\" id=\"h-back\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      签到\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\" style=\"font-size:12px\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page signstar_wrapper\">\n      <img v-bind:src=\"data.adPicUrl\" alt=\"\" style=\"pos\">\n      <div class=\"content\" >\n        <p>\n          给五星好评, 在送1000积分 <button type=\"button\" v-el:signstar-go v-bind:disabled=\"data.signOverFlg\">GO</button>\n        </p>\n        <p v-el:signstar-info>\n          签到规则 <span class=\"icon-help-with-circle txt-fff\" style=\"padding:10px; display: inline-block;\" ></span>\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "\n<!-- 竞技场 -->\n<div class=\"pages-controller\" v-show=\"pts==4\" transition=\"expand\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <div class=\"h-back\" id=\"h-back\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      签到\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\" style=\"font-size:12px\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page signstar_wrapper\">\n      <img v-bind:src=\"data.adPicUrl\" alt=\"\" style=\"pos\">\n      <div class=\"content\" >\n        <p>\n          给五星好评, 再送1000积分 <button type=\"button\" v-el:signstar-go v-bind:disabled=\"data.signOverFlg\">GO</button>\n        </p>\n        <p v-el:signstar-info>\n          签到规则 <span class=\"icon-help-with-circle txt-fff\" style=\"padding:10px; display: inline-block;\" ></span>\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 115 */

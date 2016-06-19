@@ -13,39 +13,7 @@
   <div class="gol-wrapper doc-header" id="money-controller">
     <div class="page" >
       <div class="list-box" id="box">
-        <button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
-          <div class="inner">
-            <div class="cont">
-              <div class="b">{{item.adName}}</div>
-             <!--  <div class="s">55英寸</div>
-              <div class="x">4K(3840*2160)</div> -->
-            </div>
-          </div>
-        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
-          <div class="inner">
-            <div class="cont">
-              <div class="b">{{item.adName}}</div>
-             <!--  <div class="s">55英寸</div>
-              <div class="x">4K(3840*2160)</div> -->
-            </div>
-          </div>
-        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
-          <div class="inner">
-            <div class="cont">
-              <div class="b">{{item.adName}}</div>
-             <!--  <div class="s">55英寸</div>
-              <div class="x">4K(3840*2160)</div> -->
-            </div>
-          </div>
-        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
-          <div class="inner">
-            <div class="cont">
-              <div class="b">{{item.adName}}</div>
-             <!--  <div class="s">55英寸</div>
-              <div class="x">4K(3840*2160)</div> -->
-            </div>
-          </div>
-        </button><button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)">
+        <button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)" v-bind:class="{'active':toBol(item.cashOverFlg)}">
           <div class="inner">
             <div class="cont">
               <div class="b">{{item.adName}}</div>
@@ -128,6 +96,10 @@ var init = (vm) => {
     data: reqObj,
     success (res) {
       if(res.rescode ==100){
+        // var list = res.list;
+        // for(var i = 0, len = list.length; i < len; i++){
+        //   list[i].cashOverFlg = +list[i].cashOverFlg
+        // }
         vm.list = res.list
         setTimeout(function (){winScroll(vm);},200)
       } else {
@@ -183,6 +155,7 @@ var winScroll = (vm) => {
               vm.pullUpLoadTxt = loadTxt[2]
             } else {
               for(var i = 0, len = res.list.length; i < len; i++) {
+                // res.list[i].cashOverFlg = +res.list[i].cashOverFlg
                 vm.list.push(res.list[i])
               }
               

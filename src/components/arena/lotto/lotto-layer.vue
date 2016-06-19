@@ -17,18 +17,18 @@
       <p class="lh-14">游戏说明： </p>
       
       <p class="lh-14 padding-tb0">1.压500赢1000积分、压1000赢3000积分、压10000赢20000积分。</p>
-      <p class="lh-14 padding-tb0">2.每个账号每天可以参与三次猜大小，贡献值额度不限。</p>
-      <p class="lh-14 padding-tb0">3.猜大小的结果将影响当前相应的贡献值。</p>
+      <!-- <p class="lh-14 padding-tb0">2.每个账号每天可以参与三次猜大小，贡献值额度不限。</p> -->
+      <p class="lh-14 padding-tb0">2.猜大小的结果将影响当前相应的贡献值。</p>
 
     </div>
     <div class="tip" v-show="lottoStartEnd">
       <div class="btn-box" id="lotto-is-win-btn">
-        <template v-if="isWin">
-          <img src="../../../assets/images/lotto-btn-win.png"  class="is-win" alt="" >
-        </template>
-        <template v-else>
-          <img src="../../../assets/images/lotto-btn-nowin.png"  class="is-win" alt="" >
-        </template>
+        <!-- <template v-show="isWin"> -->
+          <img src="../../../assets/images/lotto-btn-win.png"  class="is-win" alt="" v-show="isWin">
+        <!-- </template> -->
+        <!-- <template v-show="!isWin"> -->
+          <img src="../../../assets/images/lotto-btn-nowin.png"  class="is-win" alt="" v-show="!isWin">
+        <!-- </template> -->
       </div>
       <p>&nbsp;</p>
       <p class="lh-14" style="padding-left:85px;">游戏说明:</p>
@@ -163,6 +163,7 @@ var lottoStart = (vm) => {
       type: 'post',
       data: betData,
       success (res) {
+        res = typeof res == 'string' ?  JSON.parse(res) : res;
         if(res.rescode == 100) {
           vm.$root.userInfo.availableDevoteValue = res.data.availableDevoteValue;
           vm.score = res.data.availableDevoteValue;
@@ -171,8 +172,8 @@ var lottoStart = (vm) => {
             stop = true;
             num();
             init(vm)
-            return;
-          }
+            return
+          } 
         }
         init(vm)
         vm.isWin = false;
@@ -207,7 +208,7 @@ var init = (vm) => {
         arr[0] = {checked: true, score: res.data.betValue1};
         arr[1] = {checked: false, score: res.data.betValue2};
         arr[2] = {checked: false, score: res.data.betValue3};
-        vm.score = res.data.availableDevoteValue;
+        vm.score = +res.data.availableDevoteValue;
         // if( +res.data.availableDevoteValue >= +vm.data.betValue1 ) {
         //   vm.isStart = false
         // } else {
@@ -258,16 +259,17 @@ export default {
   },
   watch: {
     betScore (v) {
+      v = +v
       if(v > this.score) {
-        this.isStart = false
+        this.isStart = true
       } 
       else {
-        this.isStart = true
+        this.isStart = false
       }
     },
     score (v) {
-      var n = parseFloat(v);
-      if( n >= this.data.betValue1) {
+      v = +v
+      if( v >= this.data.betValue1) {
         this.isStart = false;
       } else {
         this.isStart = true
