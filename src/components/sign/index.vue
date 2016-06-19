@@ -32,10 +32,10 @@ var go = (vm) => {
 
   Hammer(btn).on('tap', function (ev) {
     if(!vm.data || !vm.data.adId) return;
-    if(vm.data.signOverFlg) {
-      utils.dialog('已经签到过');
-      return
-    }
+    // if(vm.data.signOverFlg) {
+    //   utils.dialog('已经签到过');
+    //   return
+    // }
     var d = utils.extend({}, config.reqParam, {adId: vm.data.adId})
     utils.ajax({
       url: config.URL +'doSign.do',

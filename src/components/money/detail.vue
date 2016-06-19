@@ -112,6 +112,7 @@ export default {
     btnTap(t);
     t.$on('moneyDetail', function (data) {
       t.timeNum = 5;
+      t.isTap = true;
       t.pts = t.$parent.show
       t.$parent.show = false;
       t.show = true;

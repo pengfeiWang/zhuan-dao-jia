@@ -14372,6 +14372,7 @@ webpackJsonp([1,0,3],[
 	    btnTap(t);
 	    t.$on('moneyDetail', function (data) {
 	      t.timeNum = 5;
+	      t.isTap = true;
 	      t.pts = t.$parent.show;
 	      t.$parent.show = false;
 	      t.show = true;
@@ -14643,10 +14644,7 @@ webpackJsonp([1,0,3],[
 
 	  Hammer(btn).on('tap', function (ev) {
 	    if (!vm.data || !vm.data.adId) return;
-	    if (vm.data.signOverFlg) {
-	      utils.dialog('已经签到过');
-	      return;
-	    }
+
 	    var d = utils.extend({}, config.reqParam, { adId: vm.data.adId });
 	    utils.ajax({
 	      url: config.URL + 'doSign.do',
