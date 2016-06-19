@@ -9,6 +9,7 @@ window.config = config = {
 }
 function callClientFunction(funName, args) {
   var jobj = {"function": funName, "args": args};
+  console.log(args)
   var uAgent = navigator.userAgent;
   var funStr = JSON.stringify(jobj);
   var URL;

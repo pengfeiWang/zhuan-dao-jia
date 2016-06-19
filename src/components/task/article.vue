@@ -10,7 +10,8 @@
     <div class="page">
       <div class="article-inner">
         <div class="task-detail">
-          <div class="img-box"></div>
+          <div class="img-box" v-bind:style="{background: 'url('+taskDetail.bigPicUrl+') no-repeat center center','background-size':'cover'}" style="background-size:cover">
+          </div>
           <div class="bottom">
             <ul class="task-list" v-show="!missonOverFlg">
               <li style="background:#F1F1F1">
@@ -34,7 +35,7 @@
             </div>
           </div>
           <div class="footer">
-            <button type="button" v-el:rush v-bind:disabled="missonOverFlg">立即抢贡献值</button>
+            <button type="button" v-el:rush >立即抢贡献值</button>
           </div>
         </div>
       </div>
@@ -51,6 +52,7 @@ import golMdule from '../../module/index';
 var 
   doc = document,
   {back} = golMdule;
+var button;  
 var share = (vm) => {
   var rect = vm.$children[0].$els.shareBox.getElementsByTagName('rect');
   // var reqObj = utils.extend({}, config.reqParam);
@@ -69,8 +71,35 @@ var share = (vm) => {
   var hd = (n) => {
     var node = rect[n];
     Hammer(node).on('tap', function (ev) {
+
+      var reqObj = utils.extend({}, config.reqParam);
+      reqObj.adId = vm.taskDetail.adId
+      utils.ajax({
+        url: config.URL + 'doShareMisson.do',
+        type: 'post',
+        dataType: 'json',
+        data: reqObj,
+        success (res) {
+          if(res.rescode == 100) {
+            vm.missonOverFlg = true;
+            button.removeAttribute('disabled')
+            callClientFunction('share', {
+              shareType: arr[n].id,  
+              missonTitle: res.data.missonTitle,
+              missonContent: res.data.missonContent,
+              missionShareUrl: res.data.missionShareUrl,
+              smallPicUrl: res.data.smallPicUrl
+            });
+          } else {
+            utils.dialog(res.message)
+          }
+        },
+        error (xhr) {
+          utils.dialog('没抢到')
+        }
+      });       
       // alert('原声处理 :' + 'id : ' + arr[n].id + '分享到: ' + arr[n].name);
-      callClientFunction('share', arr[n].id);
+      
       // vm.$dispatch('child-show', vm.parentIdx);
     });
   }
@@ -80,32 +109,15 @@ var share = (vm) => {
 
 }  
 var rush = (vm) => {
-  var button = vm.$els.rush;
-  var reqObj = utils.extend({}, config.reqParam);
+
   Hammer(button).on('tap', function (ev) {
     if( vm.$root.isTranslate ) {
       return;
     }
-
-
-    reqObj.adId = vm.taskDetail.adId
-    utils.ajax({
-      url: config.URL + 'doShareMisson.do',
-      type: 'post',
-      dataType: 'json',
-      data: reqObj,
-      success (res) {
-        if(res.rescode == 100) {
-          vm.missonOverFlg = true
-          vm.taskDetail.missonOverFlg = !+res.data.successFlg;
-        } else {
-          utils.dialog(res.message)
-        }
-      },
-      error (xhr) {
-        utils.dialog('没抢到')
-      }
-    });  
+    vm.missonOverFlg = true;
+    button.disabled = true;
+    
+ 
     // vm.taskDetail.missonOverFlg = true;
   })
 } 
@@ -129,9 +141,12 @@ export default {
   ,components: {Share}
   ,ready () {
     var t = this;
+    button = t.$els.rush;
+    button.removeAttribute('disabled')
     rush(t);
     back(t);
     t.$on('setData', function (data, idx) {
+      button.removeAttribute('disabled') 
       for(var i in data){
         if( i == 'missonOverFlg') {
           t.taskDetail[i] = +data[i]
@@ -143,6 +158,7 @@ export default {
       }
       t.taskDetail = data;
       t.parentIdx = idx;
+      t.missonOverFlg = false;
       t.pts = t.$parent.pts
       t.$parent.pts = false
       t.show = true;

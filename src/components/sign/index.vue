@@ -31,7 +31,6 @@ var go = (vm) => {
   var btn = vm.$els.signstarGo;
 
   Hammer(btn).on('tap', function (ev) {
-    console.log('ajax 请求签到');
     if(!vm.data || !vm.data.adId) return;
     if(vm.data.signOverFlg) {
       utils.dialog('已经签到过');
@@ -44,6 +43,7 @@ var go = (vm) => {
       dataType: 'json',
       data: d,
       success (res) {
+        btn.disabled = true
         // 判断
         // if(res.rescode == 100) {
 
@@ -74,6 +74,7 @@ var init = (vm) => {
     success (res) {
       if( res.rescode == 100 ) {
         vm.data = res.data;
+        vm.data.signOverFlg = !!(+(vm.data.signOverFlg))
       } else {
         utils.dialog(res.message)
       }

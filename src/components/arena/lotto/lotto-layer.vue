@@ -170,9 +170,11 @@ var lottoStart = (vm) => {
             vm.isWin = true;
             stop = true;
             num();
+            init(vm)
             return;
           }
         }
+        init(vm)
         vm.isWin = false;
         stop = true;
         num();
@@ -200,17 +202,17 @@ var init = (vm) => {
     success (res) {
       if( res.rescode == 100 ) {
         vm.data = res.data;
-        rootVM.userInfo.availableDevoteValue = res.data.availableDevoteValue;
+        rootVM.userInfo.availableDevoteValue = +res.data.availableDevoteValue;
         
         arr[0] = {checked: true, score: res.data.betValue1};
         arr[1] = {checked: false, score: res.data.betValue2};
         arr[2] = {checked: false, score: res.data.betValue3};
         vm.score = res.data.availableDevoteValue;
-        if( vm.$root.userInfo.availableDevoteValue >= vm.data.betValue1 ) {
-          vm.isStart = false
-        } else {
-          vm.isStart = true
-        } 
+        // if( +res.data.availableDevoteValue >= +vm.data.betValue1 ) {
+        //   vm.isStart = false
+        // } else {
+        //   vm.isStart = true
+        // } 
 
         vm.bet = arr
 
@@ -256,10 +258,11 @@ export default {
   },
   watch: {
     betScore (v) {
-      if(v > this.$root.userInfo.availableDevoteValue ) {
-        this.isStart = true
-      } else {
+      if(v > this.score) {
         this.isStart = false
+      } 
+      else {
+        this.isStart = true
       }
     },
     score (v) {
