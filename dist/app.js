@@ -14340,6 +14340,7 @@ webpackJsonp([1,0,3],[
 	      dataType: 'json',
 	      data: reqObj,
 	      success: function success(res) {
+	        vm.$parent.list[vm.idx].cashOverFlg = ! +res.data.successFlg;
 	        utils.dialog(res.message);
 	      },
 	      error: function error() {}
@@ -14365,6 +14366,7 @@ webpackJsonp([1,0,3],[
 	      timeNum: 5,
 	      isTap: true,
 	      listData: {},
+	      idx: 0,
 	      pts: this.$parent.pts
 	    };
 	  },
@@ -14382,11 +14384,13 @@ webpackJsonp([1,0,3],[
 	      t.pts = t.$parent.show;
 	      t.$parent.show = false;
 	      t.show = true;
-	      t.listData = data;
+	      t.listData = t.$parent.list[data];
+	      t.idx = data;
 	      setTimeout(function () {
 	        timeDown(t);
 	      }, 300);
 	    });
+	    window.ttt = t;
 	  }
 	};
 
@@ -14505,7 +14509,7 @@ webpackJsonp([1,0,3],[
 	    idx = pt.getAttribute('data-idx');
 	    utils.setActive(vm, pt.children[0].children[0]);
 
-	    vm.$broadcast('moneyDetail', vm.list[idx]);
+	    vm.$broadcast('moneyDetail', idx);
 	  });
 	};
 	var init = function init(vm) {
@@ -14518,7 +14522,11 @@ webpackJsonp([1,0,3],[
 	    data: reqObj,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
-	        vm.list = res.list;
+	        var list = res.list;
+	        for (var i = 0, len = list.length; i < len; i++) {
+	          list[i].cashOverFlg = !! +list[i].cashOverFlg;
+	        }
+	        vm.list = list;
 	        setTimeout(function () {
 	          winScroll(vm);
 	        }, 200);
@@ -14574,9 +14582,12 @@ webpackJsonp([1,0,3],[
 	              isEnd = true;
 	              vm.pullUpLoadTxt = loadTxt[2];
 	            } else {
-	              for (var i = 0, len = res.list.length; i < len; i++) {
-	                vm.list.push(res.list[i]);
+	              var list = res.list;
+	              for (var i = 0, len = list.length; i < len; i++) {
+	                list[i].cashOverFlg = +list[i].cashOverFlg;
+	                vm.list.push(list[i]);
 	              }
+
 
 	              isEnd = false;
 	              vm.pullUpLoadTxt = loadTxt[0];
@@ -15875,7 +15886,7 @@ webpackJsonp([1,0,3],[
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- 现金专区 -->\n<div class=\"pages-controller money-list\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      {{title}}\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\" id=\"money-controller\">\n    <div class=\"page\" >\n      <div class=\"list-box\" id=\"box\">\n        <button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\" v-bind:class=\"{'active':toBol(item.cashOverFlg)}\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button>\n      </div>\n      <div class=\"scroll-pull\" v-show=\"pullUpAll\">\n            <span class=\"scroll-loadTxt\" v-show=\"!pullUpLoadStatus\">{{pullUpLoadTxt}}</span>\n            <!-- 加载更多loading图标 -->\n            <div class=\"loading-spinner-outer\" v-show=\"pullUpLoadStatus\">\n              <div class=\"loading-spinner\">\n                <span class=\"loading-top\"></span>\n                <span class=\"loading-right\"></span>\n                <span class=\"loading-bottom\"></span>\n                <span class=\"loading-left\"></span>\n              </div>\n            </div>\n          </div>\n    </div>\n  </div>\n</div>\n<Detail></Detail>\n";
+	module.exports = "\n<!-- 现金专区 -->\n<div class=\"pages-controller money-list\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      {{title}}\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\" id=\"money-controller\">\n    <div class=\"page\" >\n      <div class=\"list-box\" id=\"box\">\n        <button type=\"button\" v-for=\"item in list\" data-idx=\"{{$index}}\" v-bind:disabled=\"toBol(item.cashOverFlg)\" v-bind:class=\"{'active':!item.cashOverFlg}\">\n          <div class=\"inner\">\n            <div class=\"cont\">\n              <div class=\"b\">{{item.adName}}</div>\n             <!--  <div class=\"s\">55英寸</div>\n              <div class=\"x\">4K(3840*2160)</div> -->\n            </div>\n          </div>\n        </button>\n      </div>\n      <div class=\"scroll-pull\" v-show=\"pullUpAll\">\n            <span class=\"scroll-loadTxt\" v-show=\"!pullUpLoadStatus\">{{pullUpLoadTxt}}</span>\n            <!-- 加载更多loading图标 -->\n            <div class=\"loading-spinner-outer\" v-show=\"pullUpLoadStatus\">\n              <div class=\"loading-spinner\">\n                <span class=\"loading-top\"></span>\n                <span class=\"loading-right\"></span>\n                <span class=\"loading-bottom\"></span>\n                <span class=\"loading-left\"></span>\n              </div>\n            </div>\n          </div>\n    </div>\n  </div>\n</div>\n<Detail></Detail>\n";
 
 /***/ },
 /* 114 */

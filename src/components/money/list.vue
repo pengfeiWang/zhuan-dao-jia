@@ -13,7 +13,7 @@
   <div class="gol-wrapper doc-header" id="money-controller">
     <div class="page" >
       <div class="list-box" id="box">
-        <button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)" v-bind:class="{'active':toBol(item.cashOverFlg)}">
+        <button type="button" v-for="item in list" data-idx="{{$index}}" v-bind:disabled="toBol(item.cashOverFlg)" v-bind:class="{'active':!item.cashOverFlg}">
           <div class="inner">
             <div class="cont">
               <div class="b">{{item.adName}}</div>
@@ -83,7 +83,7 @@ var listTap = (vm) => {
     idx = pt.getAttribute('data-idx');
     utils.setActive(vm, pt.children[0].children[0]);
 
-    vm.$broadcast('moneyDetail', vm.list[idx])
+    vm.$broadcast('moneyDetail', idx)
   })
 }
 var init = (vm) => {
@@ -96,11 +96,11 @@ var init = (vm) => {
     data: reqObj,
     success (res) {
       if(res.rescode ==100){
-        // var list = res.list;
-        // for(var i = 0, len = list.length; i < len; i++){
-        //   list[i].cashOverFlg = +list[i].cashOverFlg
-        // }
-        vm.list = res.list
+        var list = res.list;
+        for(var i = 0, len = list.length; i < len; i++){
+          list[i].cashOverFlg = !!(+list[i].cashOverFlg);
+        }
+        vm.list = list
         setTimeout(function (){winScroll(vm);},200)
       } else {
         utils.dialog(res.message)
@@ -155,10 +155,15 @@ var winScroll = (vm) => {
               isEnd = true;
               vm.pullUpLoadTxt = loadTxt[2]
             } else {
-              for(var i = 0, len = res.list.length; i < len; i++) {
-                // res.list[i].cashOverFlg = +res.list[i].cashOverFlg
-                vm.list.push(res.list[i])
+              var list = res.list;
+              for(var i = 0, len = list.length; i < len; i++){
+                list[i].cashOverFlg = +list[i].cashOverFlg;
+                vm.list.push(list[i])
               }
+              // for(var i = 0, len = list.length; i < len; i++) {
+              //   // res.list[i].cashOverFlg = +res.list[i].cashOverFlg
+              //   vm.list.push(res.list[i])
+              // }
               
               isEnd = false;
               vm.pullUpLoadTxt = loadTxt[0]

@@ -73,6 +73,7 @@ var btnTap = (vm) => {
         //     utils.dialog()
         //   }
         // } else {
+          vm.$parent.list[vm.idx].cashOverFlg = !(+res.data.successFlg)
           utils.dialog(res.message)
         // }
       },
@@ -99,6 +100,7 @@ export default {
       timeNum: 5,
       isTap: true,
       listData: {},
+      idx: 0,
       pts: this.$parent.pts,
     }
   },
@@ -117,9 +119,11 @@ export default {
       t.pts = t.$parent.show
       t.$parent.show = false;
       t.show = true;
-      t.listData = data;
+      t.listData = t.$parent.list[data];
+      t.idx = data;
       setTimeout(function (){timeDown(t)},300);
     });
+    window.ttt = t
   }
 }
 </script>
