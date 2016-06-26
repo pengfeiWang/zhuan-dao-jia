@@ -55,12 +55,13 @@ var btnTap = (vm) => {
   Hammer(btn).on('tap', function (ev) {
     var target = ev.target, pt, idx;
     if(btn.disabled) return;
-    var reqObj = utils.extend({}, config.reaParam);
+    var reqObj = utils.extend({}, window.config.reqParam);
     if( rootVm.isTranslate) {
       return;
     }
     vm.isTap = true;
-    reqObj.adId = vm.listData.adId
+    reqObj.adId = vm.listData.adId;
+    console.log(reqObj)
     utils.ajax({
       url: config.URL + 'doCashRedPaper.do',
       type: 'post',

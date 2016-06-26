@@ -132,7 +132,7 @@ var lottoStart = (vm) => {
         betKind = i+1;
       }
     }
-    var betData = utils.extend({}, config.reqParam, {
+    var betData = utils.extend({}, window.config.reqParam, {
         betKind: betKind ,
         betValue: vm.betScore
       });
@@ -199,7 +199,7 @@ var init = (vm) => {
     url: config.URL + 'initDice.do',
     type: 'post',
     dataType: 'json',
-    data: config.reqParam,
+    data: window.config.reqParam,
     success (res) {
       if( res.rescode == 100 ) {
         vm.data = res.data;

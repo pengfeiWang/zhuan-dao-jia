@@ -55,7 +55,7 @@ var
 var button;  
 var share = (vm) => {
   var rect = vm.$children[0].$els.shareBox.getElementsByTagName('rect');
-  // var reqObj = utils.extend({}, config.reqParam);
+  // var reqObj = utils.extend({}, window.config.reqParam);
   // 0 微信
   // 1 朋友圈
   // 2 qq
@@ -72,7 +72,7 @@ var share = (vm) => {
     var node = rect[n];
     Hammer(node).on('tap', function (ev) {
 
-      var reqObj = utils.extend({}, config.reqParam);
+      var reqObj = utils.extend({}, window.config.reqParam);
       reqObj.adId = vm.taskDetail.adId
       utils.ajax({
         url: config.URL + 'doShareMisson.do',

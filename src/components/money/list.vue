@@ -87,7 +87,7 @@ var listTap = (vm) => {
   })
 }
 var init = (vm) => {
-  var reqObj = utils.extend({}, config.reqParam);
+  var reqObj = utils.extend({}, window.config.reqParam);
   reqObj.adKind = vm.adKind;
   utils.ajax({
     url: config.URL + 'initCashRedPaper.do',
@@ -130,7 +130,7 @@ var winScroll = (vm) => {
     var top = page.scrollTop;
     var box = document.getElementById('box');
     var pageSize = 0;
-    var reqObj = utils.extend({}, config.reqParam)
+    var reqObj = utils.extend({}, window.config.reqParam)
     if(box.offsetHeight > rootHeight ){
       vm.pullUpAll = true
     } else {

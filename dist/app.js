@@ -13554,7 +13554,7 @@ webpackJsonp([1,0,3],[
 	        lastNode,
 	        idx,
 	        row,
-	        reqData = config.reqParam;
+	        reqData = window.config.reqParam;
 	    if (target.classList.contains('timinggrab')) {
 	      return;
 	    };
@@ -13602,7 +13602,7 @@ webpackJsonp([1,0,3],[
 	    url: config.URL + 'initTimeRedPaper.do',
 	    type: 'post',
 	    dataType: 'json',
-	    data: config.reqParam,
+	    data: window.config.reqParam,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
 
@@ -13914,7 +13914,7 @@ webpackJsonp([1,0,3],[
 	        betKind = i + 1;
 	      }
 	    }
-	    var betData = utils.extend({}, config.reqParam, {
+	    var betData = utils.extend({}, window.config.reqParam, {
 	      betKind: betKind,
 	      betValue: vm.betScore
 	    });
@@ -13978,7 +13978,7 @@ webpackJsonp([1,0,3],[
 	    url: config.URL + 'initDice.do',
 	    type: 'post',
 	    dataType: 'json',
-	    data: config.reqParam,
+	    data: window.config.reqParam,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
 	        vm.data = res.data;
@@ -14140,7 +14140,7 @@ webpackJsonp([1,0,3],[
 	            url: config.URL + 'doShake.do',
 	            dataType: 'json',
 	            type: 'post',
-	            data: config.reqParam,
+	            data: window.config.reqParam,
 	            success: function success(res) {
 	              vm.numShake = res.data.availableCount;
 	              if (res.rescode == 100) {
@@ -14174,7 +14174,7 @@ webpackJsonp([1,0,3],[
 	    url: config.URL + 'initShake.do',
 	    type: 'post',
 	    dataType: 'json',
-	    data: config.reqParam,
+	    data: window.config.reqParam,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
 	        vm.numShake = res.data.availableCount;
@@ -14327,12 +14327,13 @@ webpackJsonp([1,0,3],[
 	        pt,
 	        idx;
 	    if (btn.disabled) return;
-	    var reqObj = utils.extend({}, config.reaParam);
+	    var reqObj = utils.extend({}, window.config.reqParam);
 	    if (rootVm.isTranslate) {
 	      return;
 	    }
 	    vm.isTap = true;
 	    reqObj.adId = vm.listData.adId;
+	    console.log(reqObj);
 	    utils.ajax({
 	      url: config.URL + 'doCashRedPaper.do',
 	      type: 'post',
@@ -14508,7 +14509,7 @@ webpackJsonp([1,0,3],[
 	  });
 	};
 	var init = function init(vm) {
-	  var reqObj = utils.extend({}, config.reqParam);
+	  var reqObj = utils.extend({}, window.config.reqParam);
 	  reqObj.adKind = vm.adKind;
 	  utils.ajax({
 	    url: config.URL + 'initCashRedPaper.do',
@@ -14549,7 +14550,7 @@ webpackJsonp([1,0,3],[
 	    var top = page.scrollTop;
 	    var box = document.getElementById('box');
 	    var pageSize = 0;
-	    var reqObj = utils.extend({}, config.reqParam);
+	    var reqObj = utils.extend({}, window.config.reqParam);
 	    if (box.offsetHeight > rootHeight) {
 	      vm.pullUpAll = true;
 	    } else {
@@ -14651,7 +14652,7 @@ webpackJsonp([1,0,3],[
 	  Hammer(btn).on('tap', function (ev) {
 	    if (!vm.data || !vm.data.adId) return;
 
-	    var d = utils.extend({}, config.reqParam, { adId: vm.data.adId });
+	    var d = utils.extend({}, window.config.reqParam, { adId: vm.data.adId });
 	    utils.ajax({
 	      url: config.URL + 'doSign.do',
 	      type: 'post',
@@ -14681,7 +14682,7 @@ webpackJsonp([1,0,3],[
 	    url: config.URL + 'initSign.do',
 	    type: 'POST',
 	    dataType: 'json',
-	    data: config.reqParam,
+	    data: window.config.reqParam,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
 	        vm.data = res.data;
@@ -14750,7 +14751,7 @@ webpackJsonp([1,0,3],[
 	    var node = rect[n];
 	    Hammer(node).on('tap', function (ev) {
 
-	      var reqObj = utils.extend({}, config.reqParam);
+	      var reqObj = utils.extend({}, window.config.reqParam);
 	      reqObj.adId = vm.taskDetail.adId;
 	      utils.ajax({
 	        url: config.URL + 'doShareMisson.do',
@@ -14886,7 +14887,7 @@ webpackJsonp([1,0,3],[
 	    url: config.URL + 'initShareMisson.do',
 	    type: 'post',
 	    dataType: 'json',
-	    data: config.reqParam,
+	    data: window.config.reqParam,
 	    success: function success(res) {
 	      if (res.rescode == 100) {
 	        vm.taskData = res.list;
@@ -14915,7 +14916,7 @@ webpackJsonp([1,0,3],[
 	    var scrollHeight = page.scrollHeight;
 	    var top = page.scrollTop;
 	    var pageSize = 0;
-	    var reqObj = utils.extend({}, config.reqParam);
+	    var reqObj = utils.extend({}, window.config.reqParam);
 	    var taskBox = vm.$els.taskBox;
 	    if (taskBox.offsetHeight > page.offsetHeight) {
 	      vm.isPullUp = true;

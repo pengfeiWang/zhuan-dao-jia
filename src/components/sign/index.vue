@@ -36,7 +36,7 @@ var go = (vm) => {
     //   utils.dialog('已经签到过');
     //   return
     // }
-    var d = utils.extend({}, config.reqParam, {adId: vm.data.adId})
+    var d = utils.extend({}, window.config.reqParam, {adId: vm.data.adId})
     utils.ajax({
       url: config.URL +'doSign.do',
       type: 'post',
@@ -70,7 +70,7 @@ var init = (vm) => {
     url: config.URL + 'initSign.do',
     type: 'POST',
     dataType: 'json',
-    data: config.reqParam,
+    data: window.config.reqParam,
     success (res) {
       if( res.rescode == 100 ) {
         vm.data = res.data;

@@ -125,7 +125,7 @@ var start = (vm) => {
   // 抢红包
   Hammer(timinggrabNode).on('tap', function (ev) {
     var target = ev.target;
-    var flip, firstNode, lastNode, idx, row, reqData = config.reqParam;
+    var flip, firstNode, lastNode, idx, row, reqData = window.config.reqParam;
     if( target.classList.contains('timinggrab') ) {
       return
     };
@@ -175,7 +175,7 @@ var init = (vm) => {
     url: config.URL + 'initTimeRedPaper.do',
     type: 'post',
     dataType: 'json',
-    data: config.reqParam,
+    data: window.config.reqParam,
     success (res) {
       if(res.rescode == 100){
         // for(var i = 0, len = vm.timinggrabData.length; i < len; i++ ) {

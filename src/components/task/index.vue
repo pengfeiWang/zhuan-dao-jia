@@ -83,7 +83,7 @@ var init = (vm) => {
     url: config.URL +'initShareMisson.do',
     type: 'post',
     dataType: 'json',
-    data: config.reqParam,
+    data: window.config.reqParam,
     success (res) {
       if( res.rescode == 100 ) {
         vm.taskData = res.list;
@@ -110,7 +110,7 @@ var winScroll = (vm) => {
     var scrollHeight = page.scrollHeight;
     var top = page.scrollTop;
     var pageSize = 0;
-    var reqObj = utils.extend({}, config.reqParam);
+    var reqObj = utils.extend({}, window.config.reqParam);
     var taskBox = vm.$els.taskBox;
     if( taskBox.offsetHeight > page.offsetHeight) {
       vm.isPullUp = true

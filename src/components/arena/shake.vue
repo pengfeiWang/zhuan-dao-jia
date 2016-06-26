@@ -102,7 +102,7 @@ var startShake = (vm) => {
               url: config.URL + 'doShake.do',
               dataType: 'json',
               type: 'post',
-              data: config.reqParam,
+              data: window.config.reqParam,
               success (res) {
                 vm.numShake = res.data.availableCount
                 if(res.rescode == 100) {
@@ -141,7 +141,7 @@ var init = (vm) => {
     url: config.URL + 'initShake.do',
     type: 'post',
     dataType: 'json',
-    data: config.reqParam,
+    data: window.config.reqParam,
     success (res) {
       if( res.rescode == 100 ) {
         vm.numShake = res.data.availableCount
