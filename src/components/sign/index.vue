@@ -13,7 +13,7 @@
       <img v-bind:src="data.adPicUrl" alt="" style="pos">
       <div class="content" >
         <p>
-          给五星好评, 再送1000积分 <button type="button" v-el:signstar-go v-bind:disabled="data.signOverFlg">GO</button>
+          给五星好评, 再送1000贡献值 <button type="button" v-el:signstar-go v-bind:disabled="data.signOverFlg">GO</button>
         </p>
         <p v-el:signstar-info>
           签到规则 <span class="icon-help-with-circle txt-fff" style="padding:10px; display: inline-block;" ></span>

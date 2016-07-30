@@ -10,7 +10,7 @@
     <div class="page">
       <div class="article-inner">
         <div class="task-detail">
-          <div class="img-box" v-bind:style="{background: 'url('+taskDetail.bigPicUrl+') no-repeat center center','background-size':'cover'}" style="background-size:cover">
+          <div class="img-box" v-bind:style="{background: 'url('+taskDetail.bigPicUrl+') no-repeat center center'}" style="background-size:cover">
           </div>
           <div class="bottom">
             <ul class="task-list" v-show="!missonOverFlg">
@@ -29,7 +29,7 @@
               </li>
             </ul>
             <div class="share-box" v-show="missonOverFlg">
-              <p class="txt-green txt-green tac padding-20">快快分享给小伙伴   大家一起赚到家</p>
+              <p class="txt-green txt-green tac padding-20" style="font-size:16px;">快快分享给小伙伴   大家一起赚到家</p>
               <!-- <embed src="../../assets/images/share.svg" alt="" style="width:100%;"  type="image/svg+xml" > -->
               <Share></Share>
             </div>

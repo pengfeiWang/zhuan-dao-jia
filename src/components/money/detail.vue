@@ -83,12 +83,19 @@ var btnTap = (vm) => {
 }
 var timeDown = (vm) => {
   var time = () => {
+    alert(vm.timeNum)
     vm.timeNum-=1;
     if(vm.timeNum==0){
       vm.isTap = false;
+      alert(vm.timeNum);
+      alert(vm.isTap)
+      document.getElementById('btn').removeAttribute('disabled')
+      return;
     }
     if(vm.timeNum > 0) {
-      setTimeout(time,1000);
+      setTimeout(function(){
+        time()
+      },1000);
     }
   }
   time();

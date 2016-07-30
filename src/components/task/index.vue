@@ -16,6 +16,7 @@
           <span class="title">{{it.missonTitle}}</span>
           <div class="text ellipsis-2">  
             {{it.desc}}
+            VIP {{it.vipDevoteValue}} 贡献值 普通会员 {{it.nonVipDevoteValue}} 贡献值 投放次数 {{it.missionCount}} 剩余次数 {{it.missionRestCount}}
           </div>
           <div class="footer">
             <span class="fr">

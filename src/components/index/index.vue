@@ -2,7 +2,7 @@
 <!-- 游戏入口 -->
 <div class="pages-controller" v-show="pts==1" transition="expand">
   <div class="gol-header" style="opacity:1">
-    <div class="h-back" ><span class="icon-arrow-left2"></span>返回</div>
+    <div class="h-back" style=""><span class="icon-arrow-left2" style="position: relative;top: 2px;"></span>返回</div>
     <h1 class="h-title image-title" >
       <img src="../../assets/images/title.png" alt="">
     </h1>

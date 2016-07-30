@@ -1,7 +1,7 @@
 <template>
   <div class="desc-box" >
     <div v-show="!lottoStartEnd">
-      <p>您的积分: {{score}}</p>
+      <p>您的贡献值: {{score}}</p>
       <p>轻选择参与游戏分数值: &nbsp;
         <label for="" v-for="it in bet"><input type="radio" name="bet" v-model="betScore" v-bind:checked="it.checked" v-bind:value="it.score">{{it.score}}</label>
       </p>
@@ -16,7 +16,7 @@
       <p>&nbsp;</p>
       <p class="lh-14">游戏说明： </p>
       
-      <p class="lh-14 padding-tb0">1.压500赢1000积分、压1000赢3000积分、压10000赢20000积分。</p>
+      <p class="lh-14 padding-tb0">1.压500赢1000贡献值、压1000赢3000贡献值、压10000赢20000贡献值。</p>
       <!-- <p class="lh-14 padding-tb0">2.每个账号每天可以参与三次猜大小，贡献值额度不限。</p> -->
       <p class="lh-14 padding-tb0">2.猜大小的结果将影响当前相应的贡献值。</p>
 
@@ -282,7 +282,7 @@ export default {
     lottoStart(this);
     window.lottoVM = t
     // 获取用户id
-    // 获取用户积分
+    // 获取用户贡献值
     this.$on('init', function () {
      
       // getALL(t);

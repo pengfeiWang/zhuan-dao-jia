@@ -65,18 +65,22 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
   color: $color_fff;
   padding: 14px 0;
   z-index: 1;
   font-weight: normal;
+  line-height: 1;
+}
+.android .h-title{
+  line-height: 1.4;
 }
 .h-title.image-title{
   padding: 0;
 }
 .h-title.image-title img{
-  height: 36%;
+  height: 48%;
   width: auto;
   position: absolute;
   top: 0;
@@ -91,14 +95,21 @@
   left: 0;
   top: 0;
   bottom: 0;
-  padding: 15px;
+  // padding: 15px;
   z-index: 2;
   color: $color_fff;
-  font-size: 12px;
+  font-size: 16px;
   text-align: center;
   border:none;
   background:none;
+  padding-left: 15px;
+padding-right: 15px;
+line-height: 44px;
+margin: auto;
+
 }
+// .h-back{padding-top: 12px;}
+.h-back span{position: relative;top: 2px;}
 .h-info{
   left: auto;
   right: 0;
@@ -175,7 +186,7 @@
   z-index: 99999;
 }
 .dialog .title{
-  font-size: px2rem(16);
+  font-size: 16px;
 }
 .dialog table{
   border-collapse: collapse;
@@ -187,16 +198,16 @@
 }
 .dialog th{
   padding-left: 10px;
-  font-size: px2rem(14);line-height: 20px;
+  font-size: 16px;line-height: 20px;
   vertical-align: top; padding-top: 3px;
 } 
 .dialog td{
   padding: 2px 3px;
-  font-size: px2rem(14);line-height: 20px;
+  font-size: 16px;line-height: 20px;
 }
 .dialog .inner-info{
   line-height: 20px;
-  font-size: px2rem(14);
+  font-size: 16px;
 }
 
 
