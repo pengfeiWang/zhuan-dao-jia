@@ -14356,19 +14356,12 @@ webpackJsonp([1,0,3],[
 	};
 	var timeDown = function timeDown(vm) {
 	  var time = function time() {
-	    alert(vm.timeNum);
 	    vm.timeNum -= 1;
 	    if (vm.timeNum == 0) {
 	      vm.isTap = false;
-	      alert(vm.timeNum);
-	      alert(vm.isTap);
-	      document.getElementById('btn').removeAttribute('disabled');
-	      return;
 	    }
 	    if (vm.timeNum > 0) {
-	      setTimeout(function () {
-	        time();
-	      }, 1000);
+	      setTimeout(time, 1000);
 	    }
 	  };
 	  time();
@@ -15888,7 +15881,7 @@ webpackJsonp([1,0,3],[
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- <link rel=\"stylesheet\" href=\"../dist/static/css/mui.min.css\"> -->\n<!-- 现金专区 -->\n<div class=\"pages-controller money-detail\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      商品详情\n    </h1>\n    <!-- <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div> -->\n  </div> \n  <div class=\"gol-footer\">\n  <button type=\"button\" v-bind:disabled=\"isTap\" id=\"btn\">\n    <span>{{timeNum}}</span>\n    轻轻一点就赚钱\n  </button>\n    \n  </div> \n  <div class=\"gol-wrapper doc-header doc-footer\">\n    <div class=\"page\" >\n      <div class=\"detail-box\">\n        \n        <img v-bind:src=\"listData.bigPicUrl\">\n\n\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "\n<!-- <link rel=\"stylesheet\" href=\"../dist/static/css/mui.min.css\"> -->\n<!-- 现金专区 -->\n<div class=\"pages-controller money-detail\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      商品详情\n    </h1>\n    <!-- <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div> -->\n  </div> \n  <div class=\"gol-footer\">\n  <button type=\"button\" v-bind:disabled=\"isTap\" id=\"btn\">\n    <!-- <span>{{timeNum}}</span> -->\n    轻轻一点就赚钱\n  </button>\n    \n  </div> \n  <div class=\"gol-wrapper doc-header doc-footer\">\n    <div class=\"page\" >\n      <div class=\"detail-box\">\n        \n        <img v-bind:src=\"listData.bigPicUrl\">\n\n\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 112 */

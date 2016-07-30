@@ -13,7 +13,7 @@
   </div> 
   <div class="gol-footer">
   <button type="button" v-bind:disabled="isTap" id="btn">
-    <span>{{timeNum}}</span>
+    <!-- <span>{{timeNum}}</span> -->
     轻轻一点就赚钱
   </button>
     
@@ -73,7 +73,7 @@ var btnTap = (vm) => {
         //     utils.dialog()
         //   }
         // } else {
-          vm.$parent.list[vm.idx].cashOverFlg = !(+res.data.successFlg);
+          vm.$parent.list[vm.idx].cashOverFlg = !(+res.data.successFlg)
           utils.dialog(res.message)
         // }
       },
@@ -83,19 +83,12 @@ var btnTap = (vm) => {
 }
 var timeDown = (vm) => {
   var time = () => {
-    alert(vm.timeNum)
     vm.timeNum-=1;
     if(vm.timeNum==0){
       vm.isTap = false;
-      alert(vm.timeNum);
-      alert(vm.isTap)
-      document.getElementById('btn').removeAttribute('disabled')
-      return;
     }
     if(vm.timeNum > 0) {
-      setTimeout(function(){
-        time()
-      },1000);
+      setTimeout(time,1000);
     }
   }
   time();
