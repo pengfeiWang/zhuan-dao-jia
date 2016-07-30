@@ -83,7 +83,7 @@ var listTap = (vm) => {
     idx = pt.getAttribute('data-idx');
     utils.setActive(vm, pt.children[0].children[0]);
 
-    vm.$broadcast('moneyDetail', idx)
+    vm.$broadcast('moneyDetail', idx, vm)
   })
 }
 var init = (vm) => {

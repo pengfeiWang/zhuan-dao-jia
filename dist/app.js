@@ -14516,7 +14516,7 @@ webpackJsonp([1,0,3],[
 	    idx = pt.getAttribute('data-idx');
 	    utils.setActive(vm, pt.children[0].children[0]);
 
-	    vm.$broadcast('moneyDetail', idx);
+	    vm.$broadcast('moneyDetail', idx, vm);
 	  });
 	};
 	var init = function init(vm) {

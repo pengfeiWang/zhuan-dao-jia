@@ -73,7 +73,7 @@ var btnTap = (vm) => {
         //     utils.dialog()
         //   }
         // } else {
-          vm.$parent.list[vm.idx].cashOverFlg = !(+res.data.successFlg)
+          vm.$parent.list[vm.idx].cashOverFlg = !(+res.data.successFlg);
           utils.dialog(res.message)
         // }
       },
