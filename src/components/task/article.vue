@@ -10,7 +10,8 @@
     <div class="page">
       <div class="article-inner">
         <div class="task-detail">
-          <div class="img-box" v-bind:style="{background: 'url('+taskDetail.bigPicUrl+') no-repeat center center'}" style="background-size:cover">
+          <div class="img-box" >
+            <img v-bind:src="taskDetail.bigPicUrl" alt="" style="width:100%;">
           </div>
           <div class="bottom">
             <ul class="task-list" v-show="!missonOverFlg">

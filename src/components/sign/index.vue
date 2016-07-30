@@ -11,12 +11,10 @@
   <div class="gol-wrapper doc-header">
     <div class="page signstar_wrapper">
       <img v-bind:src="data.adPicUrl" alt="" style="pos">
-      <div class="content" >
+      <div class="content" style="height:40px;width:100%;padding:0;margin:0;position:absolute; bottom:0; left:0; right:0;">
         <p>
-          给五星好评, 再送1000贡献值 <button type="button" v-el:signstar-go v-bind:disabled="data.signOverFlg">GO</button>
-        </p>
-        <p v-el:signstar-info>
-          签到规则 <span class="icon-help-with-circle txt-fff" style="padding:10px; display: inline-block;" ></span>
+          <!-- 给五星好评, 再送1000贡献值  -->
+          <button type="button" style="height:40px;width:100%;" v-el:signstar-go v-bind:disabled="data.signOverFlg">签到</button>
         </p>
       </div>
     </div>
@@ -59,9 +57,9 @@ var go = (vm) => {
 }
 var infoTip = (vm) => {
   var btn = vm.$els.signstarInfo;
-  Hammer(btn).on('tap', function (ev) {
-    utils.dialog(template[1].join(''))
-  });
+  // Hammer(btn).on('tap', function (ev) {
+  //   utils.dialog(template[1].join(''))
+  // });
 }
 var init = (vm) => {
   var rootVm = vm.$root;

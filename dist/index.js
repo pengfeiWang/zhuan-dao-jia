@@ -15,7 +15,8 @@ webpackJsonp([2,0,3],[
 	}
 	function itemTap(box) {
 	  var item = box.querySelectorAll('li');
-	  var arr = ['gotoNewHouse', 'gotoMoney', '', '', ''];
+	  var arr = ['gotoNewHouse', 'gotoNewCar', '赚二手', 'gotoMoney', '赚装修'];
+
 	  for (var i = 0, len = item.length; i < len; i++) {
 	    (function (k) {
 	      Hammer(item[k]).on('tap', function (e) {

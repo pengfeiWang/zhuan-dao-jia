@@ -9,7 +9,7 @@
   </div>  
   <div class="gol-wrapper doc-header">
     <div class="page" >
-      <img v-bind:src="data.adPicUrl" alt="">  
+      <img v-bind:src="data.adPicUrl" alt="" style="width:100%;">  
     </div>
   </div>
 </div>
