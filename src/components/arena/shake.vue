@@ -42,7 +42,7 @@ var { back } = golMdule;
 var isBind = false, isShake, numShake = 0, maxShake = 10;
 var deviceMotionHandler
 var startShake = (vm) => {
-  isShake = true
+  isShake = true;
   if(!isBind){
     utils.dialog('5-2', function (){
       isShake = false;
@@ -85,9 +85,10 @@ var startShake = (vm) => {
 
           // 摇一摇次数已满
           if( vm.numShake == 0 ) {
+
             // window.removeEventListener('devicemotion',deviceMotionHandler);
             isShake = true;
-            utils.dialog('超出限制')
+            utils.dialog('每天最多只能摇5次')
             return;
           }
 
@@ -143,12 +144,15 @@ var init = (vm) => {
     dataType: 'json',
     data: window.config.reqParam,
     success (res) {
+      
       if( res.rescode == 100 ) {
         vm.numShake = res.data.availableCount
         if( res.data.availableCount > 0 ) {
           setTimeout(function(){
             startShake(vm)
           },300);
+        } else {
+          utils.dialog('每天最多只能摇5次')
         }
       } else {
         utils.dialog(res.message);

@@ -36,8 +36,12 @@ var
   dialogNode;
 
 var isAndroid = /Android/g.test(navigator.userAgent);
+var isIos = /iPhone/g.test(navigator.userAgent);
 if(isAndroid){
   document.documentElement.classList.add('android')
+}
+if(isIos){
+  document.documentElement.classList.add('ios')
 }
 Vue.transition('expand', {
   afterEnter: function (el) {

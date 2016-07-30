@@ -492,6 +492,9 @@ a.txt-green,
 .android .gol-wrapper.doc-header {
   top: 49px; }
 
+.ios .gol-wrapper.doc-header {
+  top: 64px; }
+
 /* 留出脚 */
 .gol-wrapper.doc-footer {
   bottom: 49px; }
@@ -499,6 +502,10 @@ a.txt-green,
 .gol-wrapper.doc-header-footer {
   bottom: 49px;
   top: 44px; }
+
+.ios .gol-wrapper.doc-header-footer {
+  bottom: 49px;
+  top: 64px; }
 
 .android .gol-wrapper.doc-header-footer {
   top: 49px; }
@@ -511,6 +518,10 @@ a.txt-green,
   left: 0;
   right: 0;
   z-index: 2; }
+
+.ios .gol-header {
+  height: 64px;
+  padding-top: 20px; }
 
 .android .gol-header {
   height: 49px; }
@@ -547,6 +558,9 @@ a.txt-green,
   font-weight: normal;
   line-height: 1; }
 
+.ios .h-title {
+  top: 20px; }
+
 .android .h-title {
   line-height: 1.4; }
 
@@ -579,6 +593,10 @@ a.txt-green,
   padding-right: 15px;
   line-height: 44px;
   margin: auto; }
+
+.ios .h-back,
+.ios .h-info {
+  top: 20px; }
 
 .h-back span {
   position: relative;

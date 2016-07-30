@@ -54,8 +54,12 @@ webpackJsonp([1,0,3],[
 	    dialogNode;
 
 	var isAndroid = /Android/g.test(navigator.userAgent);
+	var isIos = /iPhone/g.test(navigator.userAgent);
 	if (isAndroid) {
 	  document.documentElement.classList.add('android');
+	}
+	if (isIos) {
+	  document.documentElement.classList.add('ios');
 	}
 	_vue2.default.transition('expand', {
 	  afterEnter: function afterEnter(el) {
@@ -14128,7 +14132,7 @@ webpackJsonp([1,0,3],[
 
 	        if (vm.numShake == 0) {
 	          isShake = true;
-	          utils.dialog('超出限制');
+	          utils.dialog('每天最多只能摇5次');
 	          return;
 	        }
 
@@ -14176,12 +14180,15 @@ webpackJsonp([1,0,3],[
 	    dataType: 'json',
 	    data: window.config.reqParam,
 	    success: function success(res) {
+
 	      if (res.rescode == 100) {
 	        vm.numShake = res.data.availableCount;
 	        if (res.data.availableCount > 0) {
 	          setTimeout(function () {
 	            startShake(vm);
 	          }, 300);
+	        } else {
+	          utils.dialog('每天最多只能摇5次');
 	        }
 	      } else {
 	        utils.dialog(res.message);
