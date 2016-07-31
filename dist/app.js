@@ -14107,12 +14107,15 @@ webpackJsonp([1,0,3],[
 	  var audio = document.getElementsByTagName('audio')[0];
 
 	  var outFalse = function outFalse() {
-	    isShake = false;
+	    setTimeout(function () {
+
+	      isShake = false;
+	    }, 500);
 	  };
 	  deviceMotionHandler = function deviceMotionHandler(eventData) {
 	    var acceleration = eventData.accelerationIncludingGravity;
 	    var curTime = new Date().getTime();
-	    if (isShake) return;
+
 	    if (curTime - last_update > 30) {
 
 	      var diffTime = curTime - last_update;
@@ -14130,12 +14133,6 @@ webpackJsonp([1,0,3],[
 	          }, 300);
 	        }
 
-	        if (vm.numShake == 0) {
-	          isShake = true;
-	          utils.dialog('每天最多只能摇5次');
-	          return;
-	        }
-
 	        audio.play();
 
 	        if (!isShake) {
@@ -14151,10 +14148,12 @@ webpackJsonp([1,0,3],[
 
 	                utils.dialog('恭喜本次赚取<span style="color:red; font-weight:bold;">' + (res.data.earnDevoteValue || 0) + '</span>点贡献值', outFalse);
 	              } else {
+
 	                utils.dialog(res.message, outFalse);
 	              }
 	            },
 	            error: function error(xhr) {
+
 	              utils.dialog('可惜~~~什么也没摇到', outFalse);
 	            }
 	          });
@@ -14209,14 +14208,7 @@ webpackJsonp([1,0,3],[
 	  },
 
 	  watch: {
-	    numShake: function numShake(v) {
-	      if (+v && deviceMotionHandler) {
-	        window.removeEventListener('devicemotion', deviceMotionHandler);
-	        window.addEventListener('devicemotion', deviceMotionHandler, false);
-	      } else if (! +v && deviceMotionHandler) {
-	        window.removeEventListener('devicemotion', deviceMotionHandler);
-	      }
-	    }
+	    numShake: function numShake(v) {}
 	  },
 	  ready: function ready() {
 	    var t = this;
@@ -15878,7 +15870,7 @@ webpackJsonp([1,0,3],[
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- <link rel=\"stylesheet\" href=\"../dist/static/css/mui.min.css\"> -->\n<!-- 现金专区 -->\n<div class=\"pages-controller money-detail\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      商品详情\n    </h1>\n    <!-- <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div> -->\n  </div> \n  <div class=\"gol-footer\">\n  <button type=\"button\" v-bind:disabled=\"isTap\" id=\"btn\">\n    <!-- <span>{{timeNum}}</span> -->\n    轻轻一点就赚钱\n  </button>\n    \n  </div> \n  <div class=\"gol-wrapper doc-header doc-footer\">\n    <div class=\"page\" >\n      <div class=\"detail-box\">\n        \n        <img v-bind:src=\"listData.bigPicUrl\">\n\n\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "\n<!-- <link rel=\"stylesheet\" href=\"../dist/static/css/mui.min.css\"> -->\n<!-- 现金专区 -->\n<div class=\"pages-controller money-detail\" v-show=\"show\" transition=\"art\" style=\"background-color: -red;\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <button type=\"button\" class=\"h-back\" v-el:back data-article=\"article\">\n        <span class=\"icon-arrow-left2\"></span>返回\n    </button>\n    <h1 class=\"h-title\" >\n      商品详情\n    </h1>\n    <!-- <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div> -->\n  </div> \n  <div class=\"gol-footer\">\n  <button type=\"button\" v-bind:disabled=\"isTap\" id=\"btn\">\n    <!-- <span>{{timeNum}}</span> -->\n    轻轻一点就赚钱 (5秒后可点击)\n  </button>\n    \n  </div> \n  <div class=\"gol-wrapper doc-header doc-footer\">\n    <div class=\"page\" >\n      <div class=\"detail-box\">\n        \n        <img v-bind:src=\"listData.bigPicUrl\">\n\n\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 112 */
@@ -15896,7 +15888,7 @@ webpackJsonp([1,0,3],[
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- 竞技场 -->\n<div class=\"pages-controller\" v-show=\"pts==4\" transition=\"expand\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <div class=\"h-back\" id=\"h-back\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      签到\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\" style=\"font-size:12px\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page signstar_wrapper\">\n      <img v-bind:src=\"data.adPicUrl\" alt=\"\" style=\"pos\">\n      <div class=\"content\" style=\"height:40px;width:100%;padding:0;margin:0;position:absolute; bottom:0; left:0; right:0;\">\n        <p>\n          <!-- 给五星好评, 再送1000贡献值  -->\n          <button type=\"button\" style=\"height:40px;width:100%;\" v-el:signstar-go v-bind:disabled=\"data.signOverFlg\">签到</button>\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "\n<!-- 竞技场 -->\n<div class=\"pages-controller\" v-show=\"pts==4\" transition=\"expand\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <div class=\"h-back\" id=\"h-back\"><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      签到\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\" style=\"font-size:14px\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\">\n    <div class=\"page signstar_wrapper\">\n      <img v-bind:src=\"data.adPicUrl\" alt=\"\" style=\"pos\">\n      <div class=\"content\" style=\"height:40px;width:100%;padding:0;margin:0;position:absolute; bottom:0; left:0; right:0;\">\n        <p>\n          <!-- 给五星好评, 再送1000贡献值  -->\n          <button type=\"button\" style=\"height:40px;width:100%;\" v-el:signstar-go v-bind:disabled=\"data.signOverFlg\">签到</button>\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 115 */
@@ -15908,7 +15900,7 @@ webpackJsonp([1,0,3],[
 /* 116 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- 任务 -->\n<div class=\"pages-controller\"  v-show=\"pts==2\" transition=\"expand\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <div class=\"h-back\" ><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      任务\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\" id=\"task-controller\">\n    <div class=\"page\" >\n      <ul class=\"task-list\" v-el:task-box>\n        <li v-for=\"it in taskData\" data-idx=\"{{$index}}\">\n          <img v-bind:src=\"it.smallPicUrl\" alt=\"\">\n          <span class=\"title\">{{it.missonTitle}}</span>\n          <div class=\"text ellipsis-2\">  \n            {{it.desc}}\n            VIP {{it.vipDevoteValue}} 贡献值 普通会员 {{it.nonVipDevoteValue}} 贡献值 投放次数 {{it.missionCount}} 剩余次数 {{it.missionRestCount}}\n          </div>\n          <div class=\"footer\">\n            <span class=\"fr\">\n              结束时间: {{it.endTime}}\n            </span>\n              <!-- 昨天: --> {{it.startTime}}\n          </div>\n        </li>\n      </ul>\n\n      <div class=\"scroll-pull\" v-show=\"isPullUp\">\n        <span class=\"scroll-loadTxt\" v-show=\"!pullUpLoadStatus\">{{pullUpLoadTxt}}</span>\n        <!-- 加载更多loading图标 -->\n        <div class=\"loading-spinner-outer\" v-show=\"pullUpLoadStatus\">\n          <div class=\"loading-spinner\">\n            <span class=\"loading-top\"></span>\n            <span class=\"loading-right\"></span>\n            <span class=\"loading-bottom\"></span>\n            <span class=\"loading-left\"></span>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n<Art></Art>\n";
+	module.exports = "\n<!-- 任务 -->\n<div class=\"pages-controller\"  v-show=\"pts==2\" transition=\"expand\">\n  <div class=\"gol-header\" style=\"opacity:1\">\n    <div class=\"h-back\" ><span class=\"icon-arrow-left2\"></span>返回</div>\n    <h1 class=\"h-title\" >\n      任务\n    </h1>\n    <div class=\"h-info\" ><span class=\"icon-help-with-circle\"></span></div>\n  </div>  \n  <div class=\"gol-wrapper doc-header\" id=\"task-controller\">\n    <div class=\"page\" >\n      <ul class=\"task-list\" v-el:task-box>\n        <li v-for=\"it in taskData\" data-idx=\"{{$index}}\">\n          <img v-bind:src=\"it.smallPicUrl\" alt=\"\">\n          <span class=\"title\">{{it.missonTitle}}</span>\n          <div class=\"text ellipsis-2\">  \n            <!-- {{it.desc}} -->\n           <p> VIP {{it.vipDevoteValue}} 贡献值 普通会员 {{it.nonVipDevoteValue}} </p>贡献值 投放次数 {{it.missionCount}} 剩余次数 {{it.missionRestCount}}\n          </div>\n          <div class=\"footer\">\n            <span class=\"fr\">\n              结束时间: {{it.endTime}}\n            </span>\n              <!-- 昨天: --> {{it.startTime}}\n          </div>\n        </li>\n      </ul>\n\n      <div class=\"scroll-pull\" v-show=\"isPullUp\">\n        <span class=\"scroll-loadTxt\" v-show=\"!pullUpLoadStatus\">{{pullUpLoadTxt}}</span>\n        <!-- 加载更多loading图标 -->\n        <div class=\"loading-spinner-outer\" v-show=\"pullUpLoadStatus\">\n          <div class=\"loading-spinner\">\n            <span class=\"loading-top\"></span>\n            <span class=\"loading-right\"></span>\n            <span class=\"loading-bottom\"></span>\n            <span class=\"loading-left\"></span>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n<Art></Art>\n";
 
 /***/ },
 /* 117 */

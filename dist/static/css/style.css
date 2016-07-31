@@ -1208,7 +1208,7 @@ a.txt-green,
   font-size: 16px; }
 
 .signstar_wrapper .content button {
-  background-color: #6eb92b !important;
+  background-color: #6eb92b;
   padding: 4px 15px;
   font-size: 14px;
   color: #fff !important;
@@ -1706,7 +1706,6 @@ a.txt-green,
   color: #fff; }
 
 .money-detail .gol-footer button[disabled] {
-  background-color: #6eb92b !important;
   color: #fff !important; }
 
 .money-detail .gol-footer button span {

@@ -6,7 +6,7 @@
     <h1 class="h-title" >
       签到
     </h1>
-    <div class="h-info" ><span class="icon-help-with-circle" style="font-size:12px"></span></div>
+    <div class="h-info" ><span class="icon-help-with-circle" style="font-size:14px"></span></div>
   </div>  
   <div class="gol-wrapper doc-header">
     <div class="page signstar_wrapper">

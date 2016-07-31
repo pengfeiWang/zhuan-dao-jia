@@ -14,7 +14,7 @@
   <div class="gol-footer">
   <button type="button" v-bind:disabled="isTap" id="btn">
     <!-- <span>{{timeNum}}</span> -->
-    轻轻一点就赚钱
+    轻轻一点就赚钱 (5秒后可点击)
   </button>
     
   </div> 

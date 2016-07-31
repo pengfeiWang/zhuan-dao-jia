@@ -58,14 +58,15 @@ var startShake = (vm) => {
   var audio = document.getElementsByTagName('audio')[ 0 ];
 
   var outFalse = function () {
-    // setTimeout(function (){
+    setTimeout(function (){
+
       isShake = false;
-    // }, 500);
+    }, 500);
   }
     deviceMotionHandler = function deviceMotionHandler(eventData) {
       var acceleration = eventData.accelerationIncludingGravity;
       var curTime = new Date().getTime();
-      if( isShake ) return;
+      // if( isShake ) return;
       if ((curTime-last_update) > 30) {
 
         var diffTime = curTime - last_update;
@@ -84,14 +85,13 @@ var startShake = (vm) => {
           }
 
           // 摇一摇次数已满
-          if( vm.numShake == 0 ) {
+          // if( vm.numShake == 0 ) {
 
-            // window.removeEventListener('devicemotion',deviceMotionHandler);
-            isShake = true;
-            utils.dialog('每天最多只能摇5次')
-            return;
-          }
-
+          //   // window.removeEventListener('devicemotion',deviceMotionHandler);
+          //   isShake = true;
+          //   utils.dialog('每天最多只能摇5次')
+          //   return;
+          // }
           audio.play();
           // 是否请求数据中
           if( !isShake ) {
@@ -113,11 +113,15 @@ var startShake = (vm) => {
                     (res.data.earnDevoteValue || 0) + '</span>点贡献值', 
                     outFalse)
                 } else {
-                  utils.dialog(res.message,outFalse)
+                  
+                  utils.dialog(res.message, outFalse)
+                  // outFalse();
                 }
               },
               error ( xhr ) {
-                utils.dialog('可惜~~~什么也没摇到',outFalse)
+
+                utils.dialog('可惜~~~什么也没摇到', outFalse)
+                // outFalse()
               }
             });
           }
@@ -174,12 +178,12 @@ export default {
   },
   watch: {
     numShake ( v ) {
-      if( +v && deviceMotionHandler ){
-        window.removeEventListener('devicemotion',deviceMotionHandler);
-        window.addEventListener('devicemotion',deviceMotionHandler,false);
-      } else if( !(+v) && deviceMotionHandler ) {
-        window.removeEventListener('devicemotion',deviceMotionHandler);
-      }
+      // if( +v && deviceMotionHandler ){
+      //   window.removeEventListener('devicemotion',deviceMotionHandler);
+      //   window.addEventListener('devicemotion',deviceMotionHandler,false);
+      // } else if( !(+v) && deviceMotionHandler ) {
+      //   window.removeEventListener('devicemotion',deviceMotionHandler);
+      // }
     }
   },
   ready () {
