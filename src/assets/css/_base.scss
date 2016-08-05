@@ -70,8 +70,8 @@ ul.notype-list,ol.notype-list,li.notype-list{
 .active[disabled],
 [disabled]{
   border: none !important;
-  background-color: #eee !important;
-  color: #999 !important;
+  background-color: #808080 !important;
+  color: #fff !important;
 }
 @each $i in $font-size {
   .fz#{$i}{
